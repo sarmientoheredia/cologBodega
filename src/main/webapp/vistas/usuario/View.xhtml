@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
+            <h:form id="UsuarioViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaId}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaId}" title="#{bundle.ViewUsuarioTitle_usuaId}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaGrado}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaGrado}" title="#{bundle.ViewUsuarioTitle_usuaGrado}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaiArma}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaiArma}" title="#{bundle.ViewUsuarioTitle_usuaiArma}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaCedula}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaCedula}" title="#{bundle.ViewUsuarioTitle_usuaCedula}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaNombre}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaNombre}" title="#{bundle.ViewUsuarioTitle_usuaNombre}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaApellido}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaApellido}" title="#{bundle.ViewUsuarioTitle_usuaApellido}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaUsuario}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaUsuario}" title="#{bundle.ViewUsuarioTitle_usuaUsuario}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaPassword}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaPassword}" title="#{bundle.ViewUsuarioTitle_usuaPassword}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaBorrLogi}"/>
+                        <p:selectBooleanCheckbox value="#{usuarioController.selected.usuaBorrLogi}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaRolId}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaRolId}" title="#{bundle.ViewUsuarioTitle_usuaRolId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

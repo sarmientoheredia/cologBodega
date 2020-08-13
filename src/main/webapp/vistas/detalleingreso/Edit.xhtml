@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleingresoEditDlg" widgetVar="DetalleingresoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDetalleingresoTitle}">
+            <h:form id="DetalleingresoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleingresoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDetalleingresoLabel_detaIngrId}" for="detaIngrId" />
+                        <p:inputText id="detaIngrId" value="#{detalleingresoController.selected.detaIngrId}" title="#{bundle.EditDetalleingresoTitle_detaIngrId}" required="true" requiredMessage="#{bundle.EditDetalleingresoRequiredMessage_detaIngrId}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleingresoLabel_detaIngrunidMedida}" for="detaIngrunidMedida" />
+                        <p:inputText id="detaIngrunidMedida" value="#{detalleingresoController.selected.detaIngrunidMedida}" title="#{bundle.EditDetalleingresoTitle_detaIngrunidMedida}" />
+                        <p:outputLabel value="#{bundle.EditDetalleingresoLabel_detaIngrCantIngresa}" for="detaIngrCantIngresa" />
+                        <p:inputText id="detaIngrCantIngresa" value="#{detalleingresoController.selected.detaIngrCantIngresa}" title="#{bundle.EditDetalleingresoTitle_detaIngrCantIngresa}" />
+                        <p:outputLabel value="#{bundle.EditDetalleingresoLabel_deraIngrPreciIngresa}" for="deraIngrPreciIngresa" />
+                        <p:inputText id="deraIngrPreciIngresa" value="#{detalleingresoController.selected.deraIngrPreciIngresa}" title="#{bundle.EditDetalleingresoTitle_deraIngrPreciIngresa}" />
+                        <p:outputLabel value="#{bundle.EditDetalleingresoLabel_detaIngrTotal}" for="detaIngrTotal" />
+                        <p:inputText id="detaIngrTotal" value="#{detalleingresoController.selected.detaIngrTotal}" title="#{bundle.EditDetalleingresoTitle_detaIngrTotal}" />
+                        <p:outputLabel value="#{bundle.EditDetalleingresoLabel_detaIngrBorrLogi}" for="detaIngrBorrLogi" />
+                        <p:selectBooleanCheckbox id="detaIngrBorrLogi" value="#{detalleingresoController.selected.detaIngrBorrLogi}" />
+                        <p:outputLabel value="#{bundle.EditDetalleingresoLabel_detaIngrIngrId}" for="detaIngrIngrId" />
+                        <p:selectOneMenu id="detaIngrIngrId" value="#{detalleingresoController.selected.detaIngrIngrId}" required="true" requiredMessage="#{bundle.EditDetalleingresoRequiredMessage_detaIngrIngrId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{ingresoController.itemsAvailableSelectOne}"
+                                           var="detaIngrIngrIdItem"
+                                           itemValue="#{detaIngrIngrIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDetalleingresoLabel_detaIngrProdId}" for="detaIngrProdId" />
+                        <p:selectOneMenu id="detaIngrProdId" value="#{detalleingresoController.selected.detaIngrProdId}" required="true" requiredMessage="#{bundle.EditDetalleingresoRequiredMessage_detaIngrProdId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="detaIngrProdIdItem"
+                                           itemValue="#{detaIngrProdIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleingresoController.update}" value="#{bundle.Save}" update="display,:DetalleingresoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleingresoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleingresoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

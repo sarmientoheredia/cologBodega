@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HistoricoproductoCreateDlg" widgetVar="HistoricoproductoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateHistoricoproductoTitle}">
+            <h:form id="HistoricoproductoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{historicoproductoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateHistoricoproductoLabel_HPId}" for="HPId" />
+                        <p:inputText id="HPId" value="#{historicoproductoController.selected.HPId}" title="#{bundle.CreateHistoricoproductoTitle_HPId}" required="true" requiredMessage="#{bundle.CreateHistoricoproductoRequiredMessage_HPId}"/>
+                        <p:outputLabel value="#{bundle.CreateHistoricoproductoLabel_HPFecha}" for="HPFecha" />
+                        <p:calendar id="HPFecha" pattern="MM/dd/yyyy" value="#{historicoproductoController.selected.HPFecha}" title="#{bundle.EditHistoricoproductoTitle_HPFecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.CreateHistoricoproductoLabel_HPStocAnterior}" for="HPStocAnterior" />
+                        <p:inputText id="HPStocAnterior" value="#{historicoproductoController.selected.HPStocAnterior}" title="#{bundle.CreateHistoricoproductoTitle_HPStocAnterior}" />
+                        <p:outputLabel value="#{bundle.CreateHistoricoproductoLabel_HPCostAnterior}" for="HPCostAnterior" />
+                        <p:inputText id="HPCostAnterior" value="#{historicoproductoController.selected.HPCostAnterior}" title="#{bundle.CreateHistoricoproductoTitle_HPCostAnterior}" />
+                        <p:outputLabel value="#{bundle.CreateHistoricoproductoLabel_HPTotal}" for="HPTotal" />
+                        <p:inputText id="HPTotal" value="#{historicoproductoController.selected.HPTotal}" title="#{bundle.CreateHistoricoproductoTitle_HPTotal}" />
+                        <p:outputLabel value="#{bundle.CreateHistoricoproductoLabel_HPBorrLogi}" for="HPBorrLogi" />
+                        <p:selectBooleanCheckbox id="HPBorrLogi" value="#{historicoproductoController.selected.HPBorrLogi}" />
+                        <p:outputLabel value="#{bundle.CreateHistoricoproductoLabel_HPProdId}" for="HPProdId" />
+                        <p:selectOneMenu id="HPProdId" value="#{historicoproductoController.selected.HPProdId}" required="true" requiredMessage="#{bundle.EditHistoricoproductoRequiredMessage_HPProdId}">
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="HPProdIdItem"
+                                           itemValue="#{HPProdIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{historicoproductoController.create}" value="#{bundle.Save}" update="display,:HistoricoproductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'HistoricoproductoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="HistoricoproductoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EgresoEditDlg" widgetVar="EgresoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditEgresoTitle}">
+            <h:form id="EgresoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{egresoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditEgresoLabel_egreId}" for="egreId" />
+                        <p:inputText id="egreId" value="#{egresoController.selected.egreId}" title="#{bundle.EditEgresoTitle_egreId}" required="true" requiredMessage="#{bundle.EditEgresoRequiredMessage_egreId}"/>
+                        <p:outputLabel value="#{bundle.EditEgresoLabel_egreFecha}" for="egreFecha" />
+                        <p:calendar id="egreFecha" pattern="MM/dd/yyyy" value="#{egresoController.selected.egreFecha}" title="#{bundle.EditEgresoTitle_egreFecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditEgresoLabel_egreDepenUsar}" for="egreDepenUsar" />
+                        <p:inputText id="egreDepenUsar" value="#{egresoController.selected.egreDepenUsar}" title="#{bundle.EditEgresoTitle_egreDepenUsar}" />
+                        <p:outputLabel value="#{bundle.EditEgresoLabel_egreTotal}" for="egreTotal" />
+                        <p:inputText id="egreTotal" value="#{egresoController.selected.egreTotal}" title="#{bundle.EditEgresoTitle_egreTotal}" />
+                        <p:outputLabel value="#{bundle.EditEgresoLabel_egreBorrLogi}" for="egreBorrLogi" />
+                        <p:selectBooleanCheckbox id="egreBorrLogi" value="#{egresoController.selected.egreBorrLogi}" />
+                        <p:outputLabel value="#{bundle.EditEgresoLabel_egreUsuaBodeguero}" for="egreUsuaBodeguero" />
+                        <p:selectOneMenu id="egreUsuaBodeguero" value="#{egresoController.selected.egreUsuaBodeguero}" required="true" requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaBodeguero}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="egreUsuaBodegueroItem"
+                                           itemValue="#{egreUsuaBodegueroItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEgresoLabel_egreUsuaLogistico}" for="egreUsuaLogistico" />
+                        <p:selectOneMenu id="egreUsuaLogistico" value="#{egresoController.selected.egreUsuaLogistico}" required="true" requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaLogistico}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="egreUsuaLogisticoItem"
+                                           itemValue="#{egreUsuaLogisticoItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditEgresoLabel_egreUsuaSolicita}" for="egreUsuaSolicita" />
+                        <p:selectOneMenu id="egreUsuaSolicita" value="#{egresoController.selected.egreUsuaSolicita}" required="true" requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaSolicita}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="egreUsuaSolicitaItem"
+                                           itemValue="#{egreUsuaSolicitaItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{egresoController.update}" value="#{bundle.Save}" update="display,:EgresoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'EgresoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EgresoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

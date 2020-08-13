@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="HistoricoproductoViewDlg" widgetVar="HistoricoproductoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewHistoricoproductoTitle}">
+            <h:form id="HistoricoproductoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{historicoproductoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPId}"/>
+                        <h:outputText value="#{historicoproductoController.selected.HPId}" title="#{bundle.ViewHistoricoproductoTitle_HPId}"/>
+                        <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPFecha}"/>
+                        <h:outputText value="#{historicoproductoController.selected.HPFecha}" title="#{bundle.ViewHistoricoproductoTitle_HPFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPStocAnterior}"/>
+                        <h:outputText value="#{historicoproductoController.selected.HPStocAnterior}" title="#{bundle.ViewHistoricoproductoTitle_HPStocAnterior}"/>
+                        <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPCostAnterior}"/>
+                        <h:outputText value="#{historicoproductoController.selected.HPCostAnterior}" title="#{bundle.ViewHistoricoproductoTitle_HPCostAnterior}"/>
+                        <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPTotal}"/>
+                        <h:outputText value="#{historicoproductoController.selected.HPTotal}" title="#{bundle.ViewHistoricoproductoTitle_HPTotal}"/>
+                        <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPBorrLogi}"/>
+                        <p:selectBooleanCheckbox value="#{historicoproductoController.selected.HPBorrLogi}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPProdId}"/>
+                        <h:outputText value="#{historicoproductoController.selected.HPProdId}" title="#{bundle.ViewHistoricoproductoTitle_HPProdId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="HistoricoproductoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

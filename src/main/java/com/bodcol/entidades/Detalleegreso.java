@@ -1,0 +1,168 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.bodcol.entidades;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author Cbos- Com. Sarmiento H. Luis A.
+ */
+@Entity
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Detalleegreso.findAll", query = "SELECT d FROM Detalleegreso d"),
+    @NamedQuery(name = "Detalleegreso.findByDetaEgreId", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreId = :detaEgreId"),
+    @NamedQuery(name = "Detalleegreso.findByDetaEgreUnidMedida", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreUnidMedida = :detaEgreUnidMedida"),
+    @NamedQuery(name = "Detalleegreso.findByDetaEgreCantEgresa", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreCantEgresa = :detaEgreCantEgresa"),
+    @NamedQuery(name = "Detalleegreso.findByDetaEgrePreciEgresa", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgrePreciEgresa = :detaEgrePreciEgresa"),
+    @NamedQuery(name = "Detalleegreso.findByDetaTotal", query = "SELECT d FROM Detalleegreso d WHERE d.detaTotal = :detaTotal"),
+    @NamedQuery(name = "Detalleegreso.findByDetaEgreBorrLogi", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreBorrLogi = :detaEgreBorrLogi")})
+public class Detalleegreso implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "detaEgre_Id")
+    private Integer detaEgreId;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 45)
+    @Column(name = "detaEgre_UnidMedida")
+    private String detaEgreUnidMedida;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "detaEgre_CantEgresa")
+    private BigDecimal detaEgreCantEgresa;
+    @Column(name = "detaEgre_PreciEgresa")
+    private BigDecimal detaEgrePreciEgresa;
+    @Column(name = "deta_Total")
+    private BigDecimal detaTotal;
+    @Column(name = "detaEgre_BorrLogi")
+    private Boolean detaEgreBorrLogi;
+    @JoinColumn(name = "detaEgre_Egre_Id", referencedColumnName = "egre_Id")
+    @ManyToOne(optional = false)
+    private Egreso detaEgreEgreId;
+    @JoinColumn(name = "detaEgre_Prod_Id", referencedColumnName = "prod_Id")
+    @ManyToOne(optional = false)
+    private Producto detaEgreProdId;
+
+    public Detalleegreso() {
+    }
+
+    public Detalleegreso(Integer detaEgreId) {
+        this.detaEgreId = detaEgreId;
+    }
+
+    public Detalleegreso(Integer detaEgreId, String detaEgreUnidMedida) {
+        this.detaEgreId = detaEgreId;
+        this.detaEgreUnidMedida = detaEgreUnidMedida;
+    }
+
+    public Integer getDetaEgreId() {
+        return detaEgreId;
+    }
+
+    public void setDetaEgreId(Integer detaEgreId) {
+        this.detaEgreId = detaEgreId;
+    }
+
+    public String getDetaEgreUnidMedida() {
+        return detaEgreUnidMedida;
+    }
+
+    public void setDetaEgreUnidMedida(String detaEgreUnidMedida) {
+        this.detaEgreUnidMedida = detaEgreUnidMedida;
+    }
+
+    public BigDecimal getDetaEgreCantEgresa() {
+        return detaEgreCantEgresa;
+    }
+
+    public void setDetaEgreCantEgresa(BigDecimal detaEgreCantEgresa) {
+        this.detaEgreCantEgresa = detaEgreCantEgresa;
+    }
+
+    public BigDecimal getDetaEgrePreciEgresa() {
+        return detaEgrePreciEgresa;
+    }
+
+    public void setDetaEgrePreciEgresa(BigDecimal detaEgrePreciEgresa) {
+        this.detaEgrePreciEgresa = detaEgrePreciEgresa;
+    }
+
+    public BigDecimal getDetaTotal() {
+        return detaTotal;
+    }
+
+    public void setDetaTotal(BigDecimal detaTotal) {
+        this.detaTotal = detaTotal;
+    }
+
+    public Boolean getDetaEgreBorrLogi() {
+        return detaEgreBorrLogi;
+    }
+
+    public void setDetaEgreBorrLogi(Boolean detaEgreBorrLogi) {
+        this.detaEgreBorrLogi = detaEgreBorrLogi;
+    }
+
+    public Egreso getDetaEgreEgreId() {
+        return detaEgreEgreId;
+    }
+
+    public void setDetaEgreEgreId(Egreso detaEgreEgreId) {
+        this.detaEgreEgreId = detaEgreEgreId;
+    }
+
+    public Producto getDetaEgreProdId() {
+        return detaEgreProdId;
+    }
+
+    public void setDetaEgreProdId(Producto detaEgreProdId) {
+        this.detaEgreProdId = detaEgreProdId;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (detaEgreId != null ? detaEgreId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Detalleegreso)) {
+            return false;
+        }
+        Detalleegreso other = (Detalleegreso) object;
+        if ((this.detaEgreId == null && other.detaEgreId != null) || (this.detaEgreId != null && !this.detaEgreId.equals(other.detaEgreId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "com.bodcol.entidades.Detalleegreso[ detaEgreId=" + detaEgreId + " ]";
+    }
+    
+}

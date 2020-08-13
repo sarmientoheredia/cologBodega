@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProductoCreateDlg" widgetVar="ProductoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductoTitle}">
+            <h:form id="ProductoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodId}" for="prodId" />
+                        <p:inputText id="prodId" value="#{productoController.selected.prodId}" title="#{bundle.CreateProductoTitle_prodId}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodId}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackFila}" for="prodRackFila" />
+                        <p:inputText id="prodRackFila" value="#{productoController.selected.prodRackFila}" title="#{bundle.CreateProductoTitle_prodRackFila}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodRackFila}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackColumna}" for="prodRackColumna" />
+                        <p:inputText id="prodRackColumna" value="#{productoController.selected.prodRackColumna}" title="#{bundle.CreateProductoTitle_prodRackColumna}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodRackColumna}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodCodigo}" for="prodCodigo" />
+                        <p:inputText id="prodCodigo" value="#{productoController.selected.prodCodigo}" title="#{bundle.CreateProductoTitle_prodCodigo}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodCodigo}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodNombre}" for="prodNombre" />
+                        <p:inputText id="prodNombre" value="#{productoController.selected.prodNombre}" title="#{bundle.CreateProductoTitle_prodNombre}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodUnidMedida}" for="prodUnidMedida" />
+                        <p:inputText id="prodUnidMedida" value="#{productoController.selected.prodUnidMedida}" title="#{bundle.CreateProductoTitle_prodUnidMedida}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodUnidMedida}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodStocActual}" for="prodStocActual" />
+                        <p:inputText id="prodStocActual" value="#{productoController.selected.prodStocActual}" title="#{bundle.CreateProductoTitle_prodStocActual}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodCostActual}" for="prodCostActual" />
+                        <p:inputText id="prodCostActual" value="#{productoController.selected.prodCostActual}" title="#{bundle.CreateProductoTitle_prodCostActual}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodStatus}" for="prodStatus" />
+                        <p:inputText id="prodStatus" value="#{productoController.selected.prodStatus}" title="#{bundle.CreateProductoTitle_prodStatus}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodBorrLogi}" for="prodBorrLogi" />
+                        <p:selectBooleanCheckbox id="prodBorrLogi" value="#{productoController.selected.prodBorrLogi}" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackId}" for="prodRackId" />
+                        <p:selectOneMenu id="prodRackId" value="#{productoController.selected.prodRackId}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackId}">
+                            <f:selectItems value="#{rackController.itemsAvailableSelectOne}"
+                                           var="prodRackIdItem"
+                                           itemValue="#{prodRackIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

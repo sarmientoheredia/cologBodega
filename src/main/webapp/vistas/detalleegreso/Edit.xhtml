@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleegresoEditDlg" widgetVar="DetalleegresoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditDetalleegresoTitle}">
+            <h:form id="DetalleegresoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleegresoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditDetalleegresoLabel_detaEgreId}" for="detaEgreId" />
+                        <p:inputText id="detaEgreId" value="#{detalleegresoController.selected.detaEgreId}" title="#{bundle.EditDetalleegresoTitle_detaEgreId}" required="true" requiredMessage="#{bundle.EditDetalleegresoRequiredMessage_detaEgreId}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleegresoLabel_detaEgreUnidMedida}" for="detaEgreUnidMedida" />
+                        <p:inputText id="detaEgreUnidMedida" value="#{detalleegresoController.selected.detaEgreUnidMedida}" title="#{bundle.EditDetalleegresoTitle_detaEgreUnidMedida}" required="true" requiredMessage="#{bundle.EditDetalleegresoRequiredMessage_detaEgreUnidMedida}"/>
+                        <p:outputLabel value="#{bundle.EditDetalleegresoLabel_detaEgreCantEgresa}" for="detaEgreCantEgresa" />
+                        <p:inputText id="detaEgreCantEgresa" value="#{detalleegresoController.selected.detaEgreCantEgresa}" title="#{bundle.EditDetalleegresoTitle_detaEgreCantEgresa}" />
+                        <p:outputLabel value="#{bundle.EditDetalleegresoLabel_detaEgrePreciEgresa}" for="detaEgrePreciEgresa" />
+                        <p:inputText id="detaEgrePreciEgresa" value="#{detalleegresoController.selected.detaEgrePreciEgresa}" title="#{bundle.EditDetalleegresoTitle_detaEgrePreciEgresa}" />
+                        <p:outputLabel value="#{bundle.EditDetalleegresoLabel_detaTotal}" for="detaTotal" />
+                        <p:inputText id="detaTotal" value="#{detalleegresoController.selected.detaTotal}" title="#{bundle.EditDetalleegresoTitle_detaTotal}" />
+                        <p:outputLabel value="#{bundle.EditDetalleegresoLabel_detaEgreBorrLogi}" for="detaEgreBorrLogi" />
+                        <p:selectBooleanCheckbox id="detaEgreBorrLogi" value="#{detalleegresoController.selected.detaEgreBorrLogi}" />
+                        <p:outputLabel value="#{bundle.EditDetalleegresoLabel_detaEgreEgreId}" for="detaEgreEgreId" />
+                        <p:selectOneMenu id="detaEgreEgreId" value="#{detalleegresoController.selected.detaEgreEgreId}" required="true" requiredMessage="#{bundle.EditDetalleegresoRequiredMessage_detaEgreEgreId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{egresoController.itemsAvailableSelectOne}"
+                                           var="detaEgreEgreIdItem"
+                                           itemValue="#{detaEgreEgreIdItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditDetalleegresoLabel_detaEgreProdId}" for="detaEgreProdId" />
+                        <p:selectOneMenu id="detaEgreProdId" value="#{detalleegresoController.selected.detaEgreProdId}" required="true" requiredMessage="#{bundle.EditDetalleegresoRequiredMessage_detaEgreProdId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="detaEgreProdIdItem"
+                                           itemValue="#{detaEgreProdIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{detalleegresoController.update}" value="#{bundle.Save}" update="display,:DetalleegresoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DetalleegresoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleegresoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

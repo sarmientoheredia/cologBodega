@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RackCreateDlg" widgetVar="RackCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRackTitle}">
+            <h:form id="RackCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{rackController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRackLabel_rackId}" for="rackId" />
+                        <p:inputText id="rackId" value="#{rackController.selected.rackId}" title="#{bundle.CreateRackTitle_rackId}" required="true" requiredMessage="#{bundle.CreateRackRequiredMessage_rackId}"/>
+                        <p:outputLabel value="#{bundle.CreateRackLabel_rackNombre}" for="rackNombre" />
+                        <p:inputText id="rackNombre" value="#{rackController.selected.rackNombre}" title="#{bundle.CreateRackTitle_rackNombre}" />
+                        <p:outputLabel value="#{bundle.CreateRackLabel_rackBorrLogi}" for="rackBorrLogi" />
+                        <p:selectBooleanCheckbox id="rackBorrLogi" value="#{rackController.selected.rackBorrLogi}" />
+                        <p:outputLabel value="#{bundle.CreateRackLabel_rackSeccId}" for="rackSeccId" />
+                        <p:selectOneMenu id="rackSeccId" value="#{rackController.selected.rackSeccId}" required="true" requiredMessage="#{bundle.EditRackRequiredMessage_rackSeccId}">
+                            <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"
+                                           var="rackSeccIdItem"
+                                           itemValue="#{rackSeccIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{rackController.create}" value="#{bundle.Save}" update="display,:RackListForm:datalist,:growl" oncomplete="handleSubmit(args,'RackCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="RackCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

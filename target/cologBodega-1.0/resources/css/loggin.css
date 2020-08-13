@@ -1,0 +1,24 @@
+body {
+    background: url("#{resource['imagenes:colog.jpg']}"); 
+    font-size: 12px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 0px;
+}
+
+#formulario{
+    text-align: center;
+    justify-content: center;
+    
+}
+
+#panel{
+    border-radius:20px; 
+}
+
+#cabecera{
+    height: 100px;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 130px;
+}

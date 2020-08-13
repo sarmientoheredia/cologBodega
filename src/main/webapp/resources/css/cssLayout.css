@@ -1,0 +1,34 @@
+#top {
+    margin: 0 auto;
+    padding: 5px;
+}
+#form{
+    /*background-image: url("#{resource['imagenes:inicio.jpg']}");*/
+    background-color:#303834;
+    margin-bottom: 10px;
+}
+
+#bottom {
+    height: 25px;
+    justify-content: center;
+    margin-top: 100%;
+}
+
+.center_content {
+    padding: 5px;
+    text-align: center;
+}
+
+#boton{
+    font-size: 36px;
+}
+
+#inicio{
+    margin: 0 auto;
+    padding: 0 auto;
+}
+
+
+#imgBuscar{
+    margin-right: 30px;
+}

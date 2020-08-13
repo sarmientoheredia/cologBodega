@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="SeccionCreateDlg" widgetVar="SeccionCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateSeccionTitle}">
+            <h:form id="SeccionCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{seccionController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateSeccionLabel_seccId}" for="seccId" />
+                        <p:inputText id="seccId" value="#{seccionController.selected.seccId}" title="#{bundle.CreateSeccionTitle_seccId}" required="true" requiredMessage="#{bundle.CreateSeccionRequiredMessage_seccId}"/>
+                        <p:outputLabel value="#{bundle.CreateSeccionLabel_seccNombre}" for="seccNombre" />
+                        <p:inputText id="seccNombre" value="#{seccionController.selected.seccNombre}" title="#{bundle.CreateSeccionTitle_seccNombre}" required="true" requiredMessage="#{bundle.CreateSeccionRequiredMessage_seccNombre}"/>
+                        <p:outputLabel value="#{bundle.CreateSeccionLabel_seccBorrLogi}" for="seccBorrLogi" />
+                        <p:selectBooleanCheckbox id="seccBorrLogi" value="#{seccionController.selected.seccBorrLogi}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{seccionController.create}" value="#{bundle.Save}" update="display,:SeccionListForm:datalist,:growl" oncomplete="handleSubmit(args,'SeccionCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="SeccionCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

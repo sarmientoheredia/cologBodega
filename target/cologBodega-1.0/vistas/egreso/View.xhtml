@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EgresoViewDlg" widgetVar="EgresoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEgresoTitle}">
+            <h:form id="EgresoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{egresoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewEgresoLabel_egreId}"/>
+                        <h:outputText value="#{egresoController.selected.egreId}" title="#{bundle.ViewEgresoTitle_egreId}"/>
+                        <h:outputText value="#{bundle.ViewEgresoLabel_egreFecha}"/>
+                        <h:outputText value="#{egresoController.selected.egreFecha}" title="#{bundle.ViewEgresoTitle_egreFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewEgresoLabel_egreDepenUsar}"/>
+                        <h:outputText value="#{egresoController.selected.egreDepenUsar}" title="#{bundle.ViewEgresoTitle_egreDepenUsar}"/>
+                        <h:outputText value="#{bundle.ViewEgresoLabel_egreTotal}"/>
+                        <h:outputText value="#{egresoController.selected.egreTotal}" title="#{bundle.ViewEgresoTitle_egreTotal}"/>
+                        <h:outputText value="#{bundle.ViewEgresoLabel_egreBorrLogi}"/>
+                        <p:selectBooleanCheckbox value="#{egresoController.selected.egreBorrLogi}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewEgresoLabel_egreUsuaBodeguero}"/>
+                        <h:outputText value="#{egresoController.selected.egreUsuaBodeguero}" title="#{bundle.ViewEgresoTitle_egreUsuaBodeguero}"/>
+                        <h:outputText value="#{bundle.ViewEgresoLabel_egreUsuaLogistico}"/>
+                        <h:outputText value="#{egresoController.selected.egreUsuaLogistico}" title="#{bundle.ViewEgresoTitle_egreUsuaLogistico}"/>
+                        <h:outputText value="#{bundle.ViewEgresoLabel_egreUsuaSolicita}"/>
+                        <h:outputText value="#{egresoController.selected.egreUsuaSolicita}" title="#{bundle.ViewEgresoTitle_egreUsuaSolicita}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="EgresoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

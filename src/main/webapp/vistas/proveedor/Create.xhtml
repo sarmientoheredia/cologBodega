@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProveedorCreateDlg" widgetVar="ProveedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProveedorTitle}">
+            <h:form id="ProveedorCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provId}" for="provId" />
+                        <p:inputText id="provId" value="#{proveedorController.selected.provId}" title="#{bundle.CreateProveedorTitle_provId}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provId}"/>
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provRuc}" for="provRuc" />
+                        <p:inputText id="provRuc" value="#{proveedorController.selected.provRuc}" title="#{bundle.CreateProveedorTitle_provRuc}" />
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provNombre}" for="provNombre" />
+                        <p:inputText id="provNombre" value="#{proveedorController.selected.provNombre}" title="#{bundle.CreateProveedorTitle_provNombre}" />
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provTelefono}" for="provTelefono" />
+                        <p:inputText id="provTelefono" value="#{proveedorController.selected.provTelefono}" title="#{bundle.CreateProveedorTitle_provTelefono}" />
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provEmail}" for="provEmail" />
+                        <p:inputText id="provEmail" value="#{proveedorController.selected.provEmail}" title="#{bundle.CreateProveedorTitle_provEmail}" />
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provBorrLogi}" for="provBorrLogi" />
+                        <p:selectBooleanCheckbox id="provBorrLogi" value="#{proveedorController.selected.provBorrLogi}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{proveedorController.create}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

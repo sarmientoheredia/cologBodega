@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="IngresoViewDlg" widgetVar="IngresoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIngresoTitle}">
+            <h:form id="IngresoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{ingresoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrId}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrId}" title="#{bundle.ViewIngresoTitle_ingrId}"/>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrFecha}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrFecha}" title="#{bundle.ViewIngresoTitle_ingrFecha}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrNumeFactura}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrNumeFactura}" title="#{bundle.ViewIngresoTitle_ingrNumeFactura}"/>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrUnidMilitar}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrUnidMilitar}" title="#{bundle.ViewIngresoTitle_ingrUnidMilitar}"/>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrTotal}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrTotal}" title="#{bundle.ViewIngresoTitle_ingrTotal}"/>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrBorrLogi}"/>
+                        <p:selectBooleanCheckbox value="#{ingresoController.selected.ingrBorrLogi}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrUsuaBodeguero}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrUsuaBodeguero}" title="#{bundle.ViewIngresoTitle_ingrUsuaBodeguero}"/>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrUsuaCompPublicas}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrUsuaCompPublicas}" title="#{bundle.ViewIngresoTitle_ingrUsuaCompPublicas}"/>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrUsuaLogistica}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrUsuaLogistica}" title="#{bundle.ViewIngresoTitle_ingrUsuaLogistica}"/>
+                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrProveId}"/>
+                        <h:outputText value="#{ingresoController.selected.ingrProveId}" title="#{bundle.ViewIngresoTitle_ingrProveId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="IngresoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

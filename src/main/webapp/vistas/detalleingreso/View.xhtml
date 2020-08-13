@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DetalleingresoViewDlg" widgetVar="DetalleingresoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewDetalleingresoTitle}">
+            <h:form id="DetalleingresoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{detalleingresoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewDetalleingresoLabel_detaIngrId}"/>
+                        <h:outputText value="#{detalleingresoController.selected.detaIngrId}" title="#{bundle.ViewDetalleingresoTitle_detaIngrId}"/>
+                        <h:outputText value="#{bundle.ViewDetalleingresoLabel_detaIngrunidMedida}"/>
+                        <h:outputText value="#{detalleingresoController.selected.detaIngrunidMedida}" title="#{bundle.ViewDetalleingresoTitle_detaIngrunidMedida}"/>
+                        <h:outputText value="#{bundle.ViewDetalleingresoLabel_detaIngrCantIngresa}"/>
+                        <h:outputText value="#{detalleingresoController.selected.detaIngrCantIngresa}" title="#{bundle.ViewDetalleingresoTitle_detaIngrCantIngresa}"/>
+                        <h:outputText value="#{bundle.ViewDetalleingresoLabel_deraIngrPreciIngresa}"/>
+                        <h:outputText value="#{detalleingresoController.selected.deraIngrPreciIngresa}" title="#{bundle.ViewDetalleingresoTitle_deraIngrPreciIngresa}"/>
+                        <h:outputText value="#{bundle.ViewDetalleingresoLabel_detaIngrTotal}"/>
+                        <h:outputText value="#{detalleingresoController.selected.detaIngrTotal}" title="#{bundle.ViewDetalleingresoTitle_detaIngrTotal}"/>
+                        <h:outputText value="#{bundle.ViewDetalleingresoLabel_detaIngrBorrLogi}"/>
+                        <p:selectBooleanCheckbox value="#{detalleingresoController.selected.detaIngrBorrLogi}" disabled="true"/>
+                        <h:outputText value="#{bundle.ViewDetalleingresoLabel_detaIngrIngrId}"/>
+                        <h:outputText value="#{detalleingresoController.selected.detaIngrIngrId}" title="#{bundle.ViewDetalleingresoTitle_detaIngrIngrId}"/>
+                        <h:outputText value="#{bundle.ViewDetalleingresoLabel_detaIngrProdId}"/>
+                        <h:outputText value="#{detalleingresoController.selected.detaIngrProdId}" title="#{bundle.ViewDetalleingresoTitle_detaIngrProdId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="DetalleingresoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
