@@ -56,7 +56,7 @@ public class Proveedor implements Serializable {
     @Column(name = "prov_Email")
     private String provEmail;
     @Column(name = "prov_BorrLogi")
-    private Boolean provBorrLogi;
+    private Boolean provBorrLogi=true;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingrProveId")
     private List<Ingreso> ingresoList;
 

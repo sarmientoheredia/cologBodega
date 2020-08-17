@@ -39,17 +39,12 @@
                             </f:facet>
                             <h:outputText value="#{item.rackNombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRackTitle_rackBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.rackBorrLogi}" disabled="true"/>
-                        </p:column>
+               
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListRackTitle_rackSeccId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.rackSeccId}"/>
+                            <h:outputText value="#{item.rackSeccId.seccNombre}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{rackController.prepareCreate}" update=":RackCreateForm" oncomplete="PF('RackCreateDialog').show()"/>

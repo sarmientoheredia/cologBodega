@@ -1,16 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bodcol.facade;
 
+import com.bodcol.entidades.Usuario;
 import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
  *
  * @author Cbos- Com. Sarmiento H. Luis A.
+ * @param <T>
  */
 public abstract class AbstractFacade<T> {
 
@@ -29,11 +26,14 @@ public abstract class AbstractFacade<T> {
     public void edit(T entity) {
         getEntityManager().merge(entity);
     }
+    
 
     public void remove(T entity) {
         getEntityManager().remove(getEntityManager().merge(entity));
     }
 
+    
+    
     public T find(Object id) {
         return getEntityManager().find(entityClass, id);
     }
@@ -60,5 +60,7 @@ public abstract class AbstractFacade<T> {
         javax.persistence.Query q = getEntityManager().createQuery(cq);
         return ((Long) q.getSingleResult()).intValue();
     }
+    
+    
     
 }

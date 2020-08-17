@@ -22,6 +22,7 @@ com\bodcol\beans\DetalleegresoController$DetalleegresoControllerConverter.class
 com\bodcol\beans\RackController.class
 com\bodcol\facade\SeccionFacade.class
 com\bodcol\entidades\Producto_.class
+com\bodcol\beans\Loggin.class
 com\bodcol\beans\RolController.class
 com\bodcol\beans\DetalleegresoController.class
 com\bodcol\beans\ProductoController.class
@@ -55,4 +56,5 @@ com\bodcol\entidades\Rack_.class
 com\bodcol\beans\HistoricoproductoController$HistoricoproductoControllerConverter.class
 com\bodcol\entidades\Usuario_.class
 com\bodcol\facade\UsuarioFacade.class
+com\bodcol\beans\PlantillaController.class
 com\bodcol\entidades\Detalleegreso.class

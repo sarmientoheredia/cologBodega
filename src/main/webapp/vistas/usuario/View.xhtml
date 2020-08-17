@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioViewDlg" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
+        <p:dialog id="UsuarioViewDlg" showEffect="explode" hideEffect="bounce" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
@@ -28,12 +28,9 @@
                         <h:outputText value="#{usuarioController.selected.usuaUsuario}" title="#{bundle.ViewUsuarioTitle_usuaUsuario}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_usuaPassword}"/>
                         <h:outputText value="#{usuarioController.selected.usuaPassword}" title="#{bundle.ViewUsuarioTitle_usuaPassword}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaBorrLogi}"/>
-                        <p:selectBooleanCheckbox value="#{usuarioController.selected.usuaBorrLogi}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_usuaRolId}"/>
-                        <h:outputText value="#{usuarioController.selected.usuaRolId}" title="#{bundle.ViewUsuarioTitle_usuaRolId}"/>
+                        <h:outputText value="#{usuarioController.selected.usuaRolId.rolNombre}" title="#{bundle.ViewUsuarioTitle_usuaRolId}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="UsuarioViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

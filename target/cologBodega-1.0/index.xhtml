@@ -29,48 +29,17 @@
                     </f:facet>
 
                     <p:outputLabel for="usuario" value="Usuario"/>
-                    <p:inputText id="usuario" placeholder="Ingrese el Usuario" required="true" class="ui-g-12" autocomplete="off"/>
+                    <p:inputText id="usuario" value="#{logginBean.usuario.usuaUsuario}" placeholder="Ingrese el Usuario" required="true" class="ui-g-12" autocomplete="off"/>
 
                     <p:outputLabel for="password" value="Password:"/>
-                    <p:inputText type="password" id="password" placeholder="Ingrese el Password" required="true" class="ui-g-12"/>
+                    <p:inputText type="password" value="#{logginBean.usuario.usuaPassword}" id="password" placeholder="Ingrese el Password" required="true" class="ui-g-12"/>
 
                     <f:facet name="footer">
-                        <p:commandButton value="Ingresar" action="/vistas/roles/rol.xhtml" class="ui-g-12"/>
+                        <p:commandButton value="Ingresar" action="#{logginBean.iniciarSesion()}" class="ui-g-12"/>
                     </f:facet>
                 </p:panelGrid>
             </h:form>
         </div>
-        
-        <div>
-               Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
-        <br />
-        <h:link outcome="/vistas/detalleegreso/List" value="Show All Detalleegreso Items"/>
-        <br />
-        <h:link outcome="/vistas/detalleingreso/List" value="Show All Detalleingreso Items"/>
-        <br />
-        <h:link outcome="/vistas/egreso/List" value="Show All Egreso Items"/>
-        <br />
-        <h:link outcome="/vistas/historicoproducto/List" value="Show All Historicoproducto Items"/>
-        <br />
-        <h:link outcome="/vistas/ingreso/List" value="Show All Ingreso Items"/>
-        <br />
-        <h:link outcome="/vistas/producto/List" value="Show All Producto Items"/>
-        <br />
-        <h:link outcome="/vistas/proveedor/List" value="Show All Proveedor Items"/>
-        <br />
-        <h:link outcome="/vistas/rack/List" value="Show All Rack Items"/>
-        <br />
-        <h:link outcome="/vistas/rol/List" value="Show All Rol Items"/>
-        <br />
-        <h:link outcome="/vistas/seccion/List" value="Show All Seccion Items"/>
-        <br />
-        <h:link outcome="/vistas/usuario/List" value="Show All Usuario Items"/>
-        <br />
-        <h:link outcome="/plantilla" value="Show All Usuario Items"/>
-        </div>
-
     </h:body>
 
 </html>

@@ -12,33 +12,34 @@
             <h:form id="DetalleegresoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{detalleegresoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreId}" for="detaEgreId" />
-                        <p:inputText id="detaEgreId" value="#{detalleegresoController.selected.detaEgreId}" title="#{bundle.CreateDetalleegresoTitle_detaEgreId}" required="true" requiredMessage="#{bundle.CreateDetalleegresoRequiredMessage_detaEgreId}"/>
-                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreUnidMedida}" for="detaEgreUnidMedida" />
-                        <p:inputText id="detaEgreUnidMedida" value="#{detalleegresoController.selected.detaEgreUnidMedida}" title="#{bundle.CreateDetalleegresoTitle_detaEgreUnidMedida}" required="true" requiredMessage="#{bundle.CreateDetalleegresoRequiredMessage_detaEgreUnidMedida}"/>
-                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreCantEgresa}" for="detaEgreCantEgresa" />
-                        <p:inputText id="detaEgreCantEgresa" value="#{detalleegresoController.selected.detaEgreCantEgresa}" title="#{bundle.CreateDetalleegresoTitle_detaEgreCantEgresa}" />
-                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgrePreciEgresa}" for="detaEgrePreciEgresa" />
-                        <p:inputText id="detaEgrePreciEgresa" value="#{detalleegresoController.selected.detaEgrePreciEgresa}" title="#{bundle.CreateDetalleegresoTitle_detaEgrePreciEgresa}" />
-                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaTotal}" for="detaTotal" />
-                        <p:inputText id="detaTotal" value="#{detalleegresoController.selected.detaTotal}" title="#{bundle.CreateDetalleegresoTitle_detaTotal}" />
-                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreBorrLogi}" for="detaEgreBorrLogi" />
-                        <p:selectBooleanCheckbox id="detaEgreBorrLogi" value="#{detalleegresoController.selected.detaEgreBorrLogi}" />
                         <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreEgreId}" for="detaEgreEgreId" />
                         <p:selectOneMenu id="detaEgreEgreId" value="#{detalleegresoController.selected.detaEgreEgreId}" required="true" requiredMessage="#{bundle.EditDetalleegresoRequiredMessage_detaEgreEgreId}">
+                            <f:selectItem itemLabel="--- Seleccione ---" itemValue=""/>
                             <f:selectItems value="#{egresoController.itemsAvailableSelectOne}"
                                            var="detaEgreEgreIdItem"
+                                           itemLabel="#{detaEgreEgreIdItem.egreId}"
                                            itemValue="#{detaEgreEgreIdItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreProdId}" for="detaEgreProdId" />
+                          <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreProdId}" for="detaEgreProdId" />
                         <p:selectOneMenu id="detaEgreProdId" value="#{detalleegresoController.selected.detaEgreProdId}" required="true" requiredMessage="#{bundle.EditDetalleegresoRequiredMessage_detaEgreProdId}">
+                            <f:selectItem itemLabel="--- Seleccione ---" itemValue=""/>
                             <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
                                            var="detaEgreProdIdItem"
+                                           itemLabel="#{detaEgreProdIdItem.prodNombre}"
                                            itemValue="#{detaEgreProdIdItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreUnidMedida}" for="detaEgreUnidMedida" />
+                        <p:inputText id="detaEgreUnidMedida"  value="#{detalleegresoController.selected.detaEgreUnidMedida}" title="#{bundle.CreateDetalleegresoTitle_detaEgreUnidMedida}" required="true" requiredMessage="#{bundle.CreateDetalleegresoRequiredMessage_detaEgreUnidMedida}"/>
+                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgreCantEgresa}" for="detaEgreCantEgresa" />
+                        <p:inputText id="detaEgreCantEgresa" required="true" value="#{detalleegresoController.selected.detaEgreCantEgresa}" title="#{bundle.CreateDetalleegresoTitle_detaEgreCantEgresa}" />
+                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaEgrePreciEgresa}" for="detaEgrePreciEgresa" />
+                        <p:inputText id="detaEgrePreciEgresa" required="true" value="#{detalleegresoController.selected.detaEgrePreciEgresa}" title="#{bundle.CreateDetalleegresoTitle_detaEgrePreciEgresa}" />
+                        <p:outputLabel value="#{bundle.CreateDetalleegresoLabel_detaTotal}" for="detaTotal" />
+                        <p:inputText id="detaTotal" required="true" value="#{detalleegresoController.selected.detaTotal}" title="#{bundle.CreateDetalleegresoTitle_detaTotal}" />
+                        
+                      
                     </p:panelGrid>
                     <p:commandButton actionListener="#{detalleegresoController.create}" value="#{bundle.Save}" update="display,:DetalleegresoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DetalleegresoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleegresoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

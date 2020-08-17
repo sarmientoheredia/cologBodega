@@ -35,6 +35,19 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleingresoTitle_detaIngrIngrId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.detaIngrIngrId.ingrNumeFactura}"/>
+                        </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleingresoTitle_detaIngrProdId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.detaIngrProdId.prodNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetalleingresoTitle_detaIngrunidMedida}"/>
                             </f:facet>
                             <h:outputText value="#{item.detaIngrunidMedida}"/>
@@ -57,24 +70,9 @@
                             </f:facet>
                             <h:outputText value="#{item.detaIngrTotal}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleingresoTitle_detaIngrBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.detaIngrBorrLogi}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleingresoTitle_detaIngrIngrId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.detaIngrIngrId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleingresoTitle_detaIngrProdId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.detaIngrProdId}"/>
-                        </p:column>
+
+
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{detalleingresoController.prepareCreate}" update=":DetalleingresoCreateForm" oncomplete="PF('DetalleingresoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetalleingresoViewForm" oncomplete="PF('DetalleingresoViewDialog').show()" disabled="#{empty detalleingresoController.selected}"/>

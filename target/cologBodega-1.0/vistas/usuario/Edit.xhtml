@@ -8,16 +8,54 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioEditDlg" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
+        <p:dialog id="UsuarioEditDlg" showEffect="explode" hideEffect="bounce" widgetVar="UsuarioEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditUsuarioTitle}">
             <h:form id="UsuarioEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaId}" for="usuaId" />
-                        <p:inputText id="usuaId" value="#{usuarioController.selected.usuaId}" title="#{bundle.EditUsuarioTitle_usuaId}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_usuaId}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaGrado}" for="usuaGrado" />
-                        <p:inputText id="usuaGrado" value="#{usuarioController.selected.usuaGrado}" title="#{bundle.EditUsuarioTitle_usuaGrado}" />
+
+                        <p:selectOneMenu id="usuaGrado" value="#{usuarioController.selected.usuaGrado}" required="true" >
+                            <f:selectItem itemLabel="seleccione el grado" itemValue="" />
+                            <f:selectItem itemLabel="S.P" itemValue="S.P" />
+                            <f:selectItem itemLabel="CPTO" itemValue="CPTO" />
+                            <f:selectItem itemLabel="SLDO" itemValue="SLDO" />
+                            <f:selectItem itemLabel="CBOS" itemValue="CBOS" />
+                            <f:selectItem itemLabel="CBOP" itemValue="CBOP" />
+                            <f:selectItem itemLabel="SGOS" itemValue="SGOS" />
+                            <f:selectItem itemLabel="SGOP" itemValue="SGOP" />
+                            <f:selectItem itemLabel="SUBS" itemValue="SUBS" />
+                            <f:selectItem itemLabel="SUBP" itemValue="SUBP" />
+                            <f:selectItem itemLabel="SUBM" itemValue="SUBM" />
+                            <f:selectItem itemLabel="SUBT" itemValue="SUBT" />
+                            <f:selectItem itemLabel="TNTE" itemValue="TNTE" />
+                            <f:selectItem itemLabel="CAPT" itemValue="CAPT" />
+                            <f:selectItem itemLabel="MAYO" itemValue="MAYO" />
+                            <f:selectItem itemLabel="TCRN" itemValue="TCRN" />
+                            <f:selectItem itemLabel="CRNL" itemValue="CRNL" />
+                            <f:selectItem itemLabel="GRAB" itemValue="GRAB" />
+                            <f:selectItem itemLabel="GRAD" itemValue="GRAD" />
+                            <f:selectItem itemLabel="GRAE" itemValue="GRAE" />
+                        </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaiArma}" for="usuaiArma" />
-                        <p:inputText id="usuaiArma" value="#{usuarioController.selected.usuaiArma}" title="#{bundle.EditUsuarioTitle_usuaiArma}" />
+
+                        <p:selectOneMenu id="usuaiArma" value="#{usuarioController.selected.usuaiArma}" required="true"  >
+                            <f:selectItem itemLabel="Seleccione el arma" itemValue="" />
+                            <f:selectItem itemLabel="I" itemValue="I" />
+                            <f:selectItem itemLabel="C.B" itemValue="C.B" />
+                            <f:selectItem itemLabel="A" itemValue="A" />
+                            <f:selectItem itemLabel="E" itemValue="E" />
+                            <f:selectItem itemLabel="COM" itemValue="COM" />
+                            <f:selectItem itemLabel="A.E" itemValue="A.E" />
+                            <f:selectItem itemLabel="INT" itemValue="INT" />
+                            <f:selectItem itemLabel="M.G" itemValue="M.G" />
+                            <f:selectItem itemLabel="TRP" itemValue="TRP" />
+                            <f:selectItem itemLabel="SND" itemValue="SND" />
+                            <f:selectItem itemLabel="MUS" itemValue="MUS" />
+                            <f:selectItem itemLabel="ADMG" itemValue="ADMG" />
+                        </p:selectOneMenu>
+
+
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaCedula}" for="usuaCedula" />
                         <p:inputText id="usuaCedula" value="#{usuarioController.selected.usuaCedula}" title="#{bundle.EditUsuarioTitle_usuaCedula}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_usuaCedula}"/>
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaNombre}" for="usuaNombre" />
@@ -28,18 +66,16 @@
                         <p:inputText id="usuaUsuario" value="#{usuarioController.selected.usuaUsuario}" title="#{bundle.EditUsuarioTitle_usuaUsuario}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaPassword}" for="usuaPassword" />
                         <p:inputText id="usuaPassword" value="#{usuarioController.selected.usuaPassword}" title="#{bundle.EditUsuarioTitle_usuaPassword}" />
-                        <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaBorrLogi}" for="usuaBorrLogi" />
-                        <p:selectBooleanCheckbox id="usuaBorrLogi" value="#{usuarioController.selected.usuaBorrLogi}" />
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaRolId}" for="usuaRolId" />
                         <p:selectOneMenu id="usuaRolId" value="#{usuarioController.selected.usuaRolId}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_usuaRolId}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{rolController.itemsAvailableSelectOne}"
                                            var="usuaRolIdItem"
+                                           itemLabel="#{usuaRolIdItem.rolNombre}"
                                            itemValue="#{usuaRolIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.update}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args, 'UsuarioEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

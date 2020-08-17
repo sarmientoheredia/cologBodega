@@ -53,7 +53,7 @@ public class Detalleingreso implements Serializable {
     @Column(name = "detaIngr_Total")
     private BigDecimal detaIngrTotal;
     @Column(name = "detaIngr_BorrLogi")
-    private Boolean detaIngrBorrLogi;
+    private Boolean detaIngrBorrLogi=true;
     @JoinColumn(name = "detaIngr_Ingr_Id", referencedColumnName = "ingr_Id")
     @ManyToOne(optional = false)
     private Ingreso detaIngrIngrId;

@@ -8,12 +8,14 @@
 
     <ui:composition>
 
-        <p:dialog id="ProductoViewDlg" widgetVar="ProductoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProductoTitle}">
+        <p:dialog id="ProductoViewDlg" showEffect="explode" hideEffect="bounce" widgetVar="ProductoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProductoTitle}">
             <h:form id="ProductoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
                         <h:outputText value="#{bundle.ViewProductoLabel_prodId}"/>
                         <h:outputText value="#{productoController.selected.prodId}" title="#{bundle.ViewProductoTitle_prodId}"/>
+                        <h:outputText value="#{bundle.ViewProductoLabel_prodRackId}"/>
+                        <h:outputText value="#{productoController.selected.prodRackId.rackNombre}" title="#{bundle.ViewProductoTitle_prodRackId}"/>
                         <h:outputText value="#{bundle.ViewProductoLabel_prodRackFila}"/>
                         <h:outputText value="#{productoController.selected.prodRackFila}" title="#{bundle.ViewProductoTitle_prodRackFila}"/>
                         <h:outputText value="#{bundle.ViewProductoLabel_prodRackColumna}"/>
@@ -30,12 +32,8 @@
                         <h:outputText value="#{productoController.selected.prodCostActual}" title="#{bundle.ViewProductoTitle_prodCostActual}"/>
                         <h:outputText value="#{bundle.ViewProductoLabel_prodStatus}"/>
                         <h:outputText value="#{productoController.selected.prodStatus}" title="#{bundle.ViewProductoTitle_prodStatus}"/>
-                        <h:outputText value="#{bundle.ViewProductoLabel_prodBorrLogi}"/>
-                        <p:selectBooleanCheckbox value="#{productoController.selected.prodBorrLogi}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewProductoLabel_prodRackId}"/>
-                        <h:outputText value="#{productoController.selected.prodRackId}" title="#{bundle.ViewProductoTitle_prodRackId}"/>
+                        
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ProductoViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

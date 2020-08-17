@@ -8,12 +8,18 @@
 
     <ui:composition>
 
-        <p:dialog id="ProductoCreateDlg" widgetVar="ProductoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductoTitle}">
+        <p:dialog id="ProductoCreateDlg" showEffect="explode" hideEffect="bounce" widgetVar="ProductoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProductoTitle}">
             <h:form id="ProductoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodId}" for="prodId" />
-                        <p:inputText id="prodId" value="#{productoController.selected.prodId}" title="#{bundle.CreateProductoTitle_prodId}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodId}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackId}" for="prodRackId" />
+                        <p:selectOneMenu id="prodRackId" value="#{productoController.selected.prodRackId}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackId}">
+                            <f:selectItem itemLabel="--- Seleccione ---" itemValue="" />
+                            <f:selectItems value="#{rackController.itemsAvailableSelectOne}"
+                                           var="prodRackIdItem"
+                                           itemLabel="#{prodRackIdItem.rackNombre}"
+                                           itemValue="#{prodRackIdItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackFila}" for="prodRackFila" />
                         <p:inputText id="prodRackFila" value="#{productoController.selected.prodRackFila}" title="#{bundle.CreateProductoTitle_prodRackFila}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodRackFila}"/>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackColumna}" for="prodRackColumna" />
@@ -22,25 +28,41 @@
                         <p:inputText id="prodCodigo" value="#{productoController.selected.prodCodigo}" title="#{bundle.CreateProductoTitle_prodCodigo}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodCodigo}"/>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_prodNombre}" for="prodNombre" />
                         <p:inputText id="prodNombre" value="#{productoController.selected.prodNombre}" title="#{bundle.CreateProductoTitle_prodNombre}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodNombre}"/>
+
                         <p:outputLabel value="#{bundle.CreateProductoLabel_prodUnidMedida}" for="prodUnidMedida" />
-                        <p:inputText id="prodUnidMedida" value="#{productoController.selected.prodUnidMedida}" title="#{bundle.CreateProductoTitle_prodUnidMedida}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodUnidMedida}"/>
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodStocActual}" for="prodStocActual" />
-                        <p:inputText id="prodStocActual" value="#{productoController.selected.prodStocActual}" title="#{bundle.CreateProductoTitle_prodStocActual}" />
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodCostActual}" for="prodCostActual" />
-                        <p:inputText id="prodCostActual" value="#{productoController.selected.prodCostActual}" title="#{bundle.CreateProductoTitle_prodCostActual}" />
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodStatus}" for="prodStatus" />
-                        <p:inputText id="prodStatus" value="#{productoController.selected.prodStatus}" title="#{bundle.CreateProductoTitle_prodStatus}" />
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodBorrLogi}" for="prodBorrLogi" />
-                        <p:selectBooleanCheckbox id="prodBorrLogi" value="#{productoController.selected.prodBorrLogi}" />
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackId}" for="prodRackId" />
-                        <p:selectOneMenu id="prodRackId" value="#{productoController.selected.prodRackId}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackId}">
-                            <f:selectItems value="#{rackController.itemsAvailableSelectOne}"
-                                           var="prodRackIdItem"
-                                           itemValue="#{prodRackIdItem}"/>
+                        <p:selectOneMenu id="prodUnidMedida" value="#{productoController.selected.prodUnidMedida}" required="true" >
+                            <f:selectItem itemLabel="--- Seleccione ---" itemValue="" />
+                            <f:selectItem itemLabel="S.P" itemValue="S.P" />
+                            <f:selectItem itemLabel="CPTO" itemValue="CPTO" />
+                            <f:selectItem itemLabel="SLDO" itemValue="SLDO" />
+                            <f:selectItem itemLabel="CBOS" itemValue="CBOS" />
+                            <f:selectItem itemLabel="CBOP" itemValue="CBOP" />
+                            <f:selectItem itemLabel="SGOS" itemValue="SGOS" />
+                            <f:selectItem itemLabel="SGOP" itemValue="SGOP" />
+                            <f:selectItem itemLabel="SUBS" itemValue="SUBS" />
+                            <f:selectItem itemLabel="SUBP" itemValue="SUBP" />
+                            <f:selectItem itemLabel="SUBM" itemValue="SUBM" />
+                            <f:selectItem itemLabel="SUBT" itemValue="SUBT" />
+                            <f:selectItem itemLabel="TNTE" itemValue="TNTE" />
+                            <f:selectItem itemLabel="CAPT" itemValue="CAPT" />
+                            <f:selectItem itemLabel="MAYO" itemValue="MAYO" />
+                            <f:selectItem itemLabel="TCRN" itemValue="TCRN" />
+                            <f:selectItem itemLabel="CRNL" itemValue="CRNL" />
+                            <f:selectItem itemLabel="GRAB" itemValue="GRAB" />
+                            <f:selectItem itemLabel="GRAD" itemValue="GRAD" />
+                            <f:selectItem itemLabel="GRAE" itemValue="GRAE" />
                         </p:selectOneMenu>
+
+
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodStocActual}" for="prodStocActual" />
+                        <p:inputText id="prodStocActual" value="#{productoController.selected.prodStocActual}" title="#{bundle.CreateProductoTitle_prodStocActual}" required="true" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodCostActual}" for="prodCostActual" />
+                        <p:inputText id="prodCostActual" value="#{productoController.selected.prodCostActual}" title="#{bundle.CreateProductoTitle_prodCostActual}" required="true" />
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodStatus}" for="prodStatus" />
+                        <p:inputText id="prodStatus" value="#{productoController.selected.prodStatus}" title="#{bundle.CreateProductoTitle_prodStatus}" required="true"/>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

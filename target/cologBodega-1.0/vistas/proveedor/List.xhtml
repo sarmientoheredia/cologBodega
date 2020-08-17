@@ -57,12 +57,6 @@
                             </f:facet>
                             <h:outputText value="#{item.provEmail}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProveedorTitle_provBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.provBorrLogi}" disabled="true"/>
-                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{proveedorController.prepareCreate}" update=":ProveedorCreateForm" oncomplete="PF('ProveedorCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProveedorViewForm" oncomplete="PF('ProveedorViewDialog').show()" disabled="#{empty proveedorController.selected}"/>

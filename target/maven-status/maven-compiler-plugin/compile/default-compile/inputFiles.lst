@@ -6,6 +6,7 @@ F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\facade\UsuarioF
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\entidades\Seccion.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\beans\DetalleegresoController.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\beans\SeccionController.java
+F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\beans\PlantillaController.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\facade\AbstractFacade.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\entidades\Detalleingreso.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\facade\ProveedorFacade.java
@@ -25,6 +26,7 @@ F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\beans\UsuarioCo
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\entidades\Usuario.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\facade\DetalleegresoFacade.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\facade\ProductoFacade.java
+F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\beans\Loggin.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\beans\IngresoController.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\entidades\Producto.java
 F:\8. TESIS\SARMIENTO TESIS\cologBodega\src\main\java\com\bodcol\beans\HistoricoproductoController.java

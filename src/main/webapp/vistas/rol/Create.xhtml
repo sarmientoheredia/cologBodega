@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-     <p:dialog id="RolCreateDlg" widgetVar="RolCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRolTitle}">
+     <p:dialog id="RolCreateDlg" showEffect="explode" hideEffect="bounce" widgetVar="RolCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateRolTitle}">
             <h:form id="RolCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{rolController.selected != null}">
@@ -16,7 +16,6 @@
                         <p:inputText id="rolNombre" value="#{rolController.selected.rolNombre}" title="#{bundle.CreateRolTitle_rolNombre}" required="true" requiredMessage="#{bundle.CreateRolRequiredMessage_rolNombre}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{rolController.create}" value="#{bundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args,'RolCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="RolCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

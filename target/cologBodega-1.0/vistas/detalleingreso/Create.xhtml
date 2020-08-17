@@ -12,33 +12,38 @@
             <h:form id="DetalleingresoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{detalleingresoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrId}" for="detaIngrId" />
-                        <p:inputText id="detaIngrId" value="#{detalleingresoController.selected.detaIngrId}" title="#{bundle.CreateDetalleingresoTitle_detaIngrId}" required="true" requiredMessage="#{bundle.CreateDetalleingresoRequiredMessage_detaIngrId}"/>
+                        <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrIngrId}" for="detaIngrIngrId" />
+                        <p:selectOneMenu id="detaIngrIngrId" value="#{detalleingresoController.selected.detaIngrIngrId}" required="true" requiredMessage="#{bundle.EditDetalleingresoRequiredMessage_detaIngrIngrId}">
+                            <f:selectItem itemLabel=" --- Seleccione --" itemValue=""/>
+                            <f:selectItems value="#{ingresoController.itemsAvailableSelectOne}"
+                                           var="detaIngrIngrIdItem"
+                                           itemLabel="#{detaIngrIngrIdItem.ingrNumeFactura}"
+                                           itemValue="#{detaIngrIngrIdItem}"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrProdId}" for="detaIngrProdId" />
+                        <p:selectOneMenu id="detaIngrProdId" value="#{detalleingresoController.selected.detaIngrProdId}" required="true" requiredMessage="#{bundle.EditDetalleingresoRequiredMessage_detaIngrProdId}">
+                            <f:selectItem itemLabel=" --- Seleccione --" itemValue=""/>
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="detaIngrProdIdItem"
+                                           itemLabel="#{detaIngrProdIdItem.prodNombre}"
+                                           itemValue="#{detaIngrProdIdItem}"/>
+                        </p:selectOneMenu>
+                       
                         <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrunidMedida}" for="detaIngrunidMedida" />
                         <p:inputText id="detaIngrunidMedida" value="#{detalleingresoController.selected.detaIngrunidMedida}" title="#{bundle.CreateDetalleingresoTitle_detaIngrunidMedida}" />
+
+
                         <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrCantIngresa}" for="detaIngrCantIngresa" />
                         <p:inputText id="detaIngrCantIngresa" value="#{detalleingresoController.selected.detaIngrCantIngresa}" title="#{bundle.CreateDetalleingresoTitle_detaIngrCantIngresa}" />
                         <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_deraIngrPreciIngresa}" for="deraIngrPreciIngresa" />
                         <p:inputText id="deraIngrPreciIngresa" value="#{detalleingresoController.selected.deraIngrPreciIngresa}" title="#{bundle.CreateDetalleingresoTitle_deraIngrPreciIngresa}" />
                         <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrTotal}" for="detaIngrTotal" />
                         <p:inputText id="detaIngrTotal" value="#{detalleingresoController.selected.detaIngrTotal}" title="#{bundle.CreateDetalleingresoTitle_detaIngrTotal}" />
-                        <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrBorrLogi}" for="detaIngrBorrLogi" />
-                        <p:selectBooleanCheckbox id="detaIngrBorrLogi" value="#{detalleingresoController.selected.detaIngrBorrLogi}" />
-                        <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrIngrId}" for="detaIngrIngrId" />
-                        <p:selectOneMenu id="detaIngrIngrId" value="#{detalleingresoController.selected.detaIngrIngrId}" required="true" requiredMessage="#{bundle.EditDetalleingresoRequiredMessage_detaIngrIngrId}">
-                            <f:selectItems value="#{ingresoController.itemsAvailableSelectOne}"
-                                           var="detaIngrIngrIdItem"
-                                           itemValue="#{detaIngrIngrIdItem}"/>
-                        </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrProdId}" for="detaIngrProdId" />
-                        <p:selectOneMenu id="detaIngrProdId" value="#{detalleingresoController.selected.detaIngrProdId}" required="true" requiredMessage="#{bundle.EditDetalleingresoRequiredMessage_detaIngrProdId}">
-                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
-                                           var="detaIngrProdIdItem"
-                                           itemValue="#{detaIngrProdIdItem}"/>
-                        </p:selectOneMenu>
+
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{detalleingresoController.create}" value="#{bundle.Save}" update="display,:DetalleingresoListForm:datalist,:growl" oncomplete="handleSubmit(args,'DetalleingresoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="DetalleingresoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

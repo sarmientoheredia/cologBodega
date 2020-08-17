@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByUsuaNombre", query = "SELECT u FROM Usuario u WHERE u.usuaNombre = :usuaNombre"),
     @NamedQuery(name = "Usuario.findByUsuaApellido", query = "SELECT u FROM Usuario u WHERE u.usuaApellido = :usuaApellido"),
     @NamedQuery(name = "Usuario.findByUsuaUsuario", query = "SELECT u FROM Usuario u WHERE u.usuaUsuario = :usuaUsuario"),
+     @NamedQuery(name = "Usuario.findByLoggin", query = "SELECT u FROM Usuario u WHERE u.usuaUsuario = :usuaUsuario ANd u.usuaPassword=:usuaPassword"),
     @NamedQuery(name = "Usuario.findByUsuaPassword", query = "SELECT u FROM Usuario u WHERE u.usuaPassword = :usuaPassword"),
     @NamedQuery(name = "Usuario.findByUsuaBorrLogi", query = "SELECT u FROM Usuario u WHERE u.usuaBorrLogi = :usuaBorrLogi")})
 public class Usuario implements Serializable {
@@ -77,7 +78,7 @@ public class Usuario implements Serializable {
     @Column(name = "usua_Password")
     private String usuaPassword;
     @Column(name = "usua_BorrLogi")
-    private Boolean usuaBorrLogi;
+    private Boolean usuaBorrLogi=true;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingrUsuaBodeguero")
     private List<Ingreso> ingresoList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingrUsuaCompPublicas")

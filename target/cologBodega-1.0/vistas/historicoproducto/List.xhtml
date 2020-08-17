@@ -43,6 +43,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListHistoricoproductoTitle_HPProdId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.HPProdId.prodNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListHistoricoproductoTitle_HPStocAnterior}"/>
                             </f:facet>
                             <h:outputText value="#{item.HPStocAnterior}"/>
@@ -59,18 +65,7 @@
                             </f:facet>
                             <h:outputText value="#{item.HPTotal}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListHistoricoproductoTitle_HPBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.HPBorrLogi}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListHistoricoproductoTitle_HPProdId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.HPProdId}"/>
-                        </p:column>
+                       
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{historicoproductoController.prepareCreate}" update=":HistoricoproductoCreateForm" oncomplete="PF('HistoricoproductoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":HistoricoproductoViewForm" oncomplete="PF('HistoricoproductoViewDialog').show()" disabled="#{empty historicoproductoController.selected}"/>

@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="RolViewDlg" widgetVar="RolViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRolTitle}">
+        <p:dialog id="RolViewDlg" showEffect="explode" hideEffect="bounce" widgetVar="RolViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRolTitle}">
             <h:form id="RolViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{rolController.selected != null}">
@@ -16,10 +16,7 @@
                         <h:outputText value="#{rolController.selected.rolId}" title="#{bundle.ViewRolTitle_rolId}"/>
                         <h:outputText value="#{bundle.ViewRolLabel_rolNombre}"/>
                         <h:outputText value="#{rolController.selected.rolNombre}" title="#{bundle.ViewRolTitle_rolNombre}"/>
-                        <h:outputText value="#{bundle.ViewRolLabel_rolBorrLogi}"/>
-                        <p:selectBooleanCheckbox value="#{rolController.selected.rolBorrLogi}" disabled="true"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="RolViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

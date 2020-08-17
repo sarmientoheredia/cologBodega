@@ -39,12 +39,6 @@
                             </f:facet>
                             <h:outputText value="#{item.seccNombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSeccionTitle_seccBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.seccBorrLogi}" disabled="true"/>
-                        </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{seccionController.prepareCreate}" update=":SeccionCreateForm" oncomplete="PF('SeccionCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SeccionViewForm" oncomplete="PF('SeccionViewDialog').show()" disabled="#{empty seccionController.selected}"/>

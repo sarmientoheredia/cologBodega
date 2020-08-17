@@ -12,28 +12,25 @@
             <h:form id="HistoricoproductoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{historicoproductoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditHistoricoproductoLabel_HPId}" for="HPId" />
-                        <p:inputText id="HPId" value="#{historicoproductoController.selected.HPId}" title="#{bundle.EditHistoricoproductoTitle_HPId}" required="true" requiredMessage="#{bundle.EditHistoricoproductoRequiredMessage_HPId}"/>
                         <p:outputLabel value="#{bundle.EditHistoricoproductoLabel_HPFecha}" for="HPFecha" />
                         <p:calendar id="HPFecha" pattern="MM/dd/yyyy" value="#{historicoproductoController.selected.HPFecha}" title="#{bundle.EditHistoricoproductoTitle_HPFecha}"  showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditHistoricoproductoLabel_HPProdId}" for="HPProdId" />
+                        <p:selectOneMenu id="HPProdId" value="#{historicoproductoController.selected.HPProdId}" required="true" requiredMessage="#{bundle.EditHistoricoproductoRequiredMessage_HPProdId}">
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
+                                           var="HPProdIdItem"
+                                           itemLabel="#{HPProdIdItem.prodNombre}"
+                                           itemValue="#{HPProdIdItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditHistoricoproductoLabel_HPStocAnterior}" for="HPStocAnterior" />
                         <p:inputText id="HPStocAnterior" value="#{historicoproductoController.selected.HPStocAnterior}" title="#{bundle.EditHistoricoproductoTitle_HPStocAnterior}" />
                         <p:outputLabel value="#{bundle.EditHistoricoproductoLabel_HPCostAnterior}" for="HPCostAnterior" />
                         <p:inputText id="HPCostAnterior" value="#{historicoproductoController.selected.HPCostAnterior}" title="#{bundle.EditHistoricoproductoTitle_HPCostAnterior}" />
                         <p:outputLabel value="#{bundle.EditHistoricoproductoLabel_HPTotal}" for="HPTotal" />
                         <p:inputText id="HPTotal" value="#{historicoproductoController.selected.HPTotal}" title="#{bundle.EditHistoricoproductoTitle_HPTotal}" />
-                        <p:outputLabel value="#{bundle.EditHistoricoproductoLabel_HPBorrLogi}" for="HPBorrLogi" />
-                        <p:selectBooleanCheckbox id="HPBorrLogi" value="#{historicoproductoController.selected.HPBorrLogi}" />
-                        <p:outputLabel value="#{bundle.EditHistoricoproductoLabel_HPProdId}" for="HPProdId" />
-                        <p:selectOneMenu id="HPProdId" value="#{historicoproductoController.selected.HPProdId}" required="true" requiredMessage="#{bundle.EditHistoricoproductoRequiredMessage_HPProdId}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{productoController.itemsAvailableSelectOne}"
-                                           var="HPProdIdItem"
-                                           itemValue="#{HPProdIdItem}"/>
-                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{historicoproductoController.update}" value="#{bundle.Save}" update="display,:HistoricoproductoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'HistoricoproductoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="HistoricoproductoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

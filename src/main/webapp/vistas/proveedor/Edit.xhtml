@@ -8,12 +8,10 @@
 
     <ui:composition>
 
-        <p:dialog id="ProveedorEditDlg" widgetVar="ProveedorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProveedorTitle}">
+        <p:dialog id="ProveedorEditDlg" showEffect="explode" hideEffect="bounce" widgetVar="ProveedorEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProveedorTitle}">
             <h:form id="ProveedorEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditProveedorLabel_provId}" for="provId" />
-                        <p:inputText id="provId" value="#{proveedorController.selected.provId}" title="#{bundle.EditProveedorTitle_provId}" required="true" requiredMessage="#{bundle.EditProveedorRequiredMessage_provId}"/>
                         <p:outputLabel value="#{bundle.EditProveedorLabel_provRuc}" for="provRuc" />
                         <p:inputText id="provRuc" value="#{proveedorController.selected.provRuc}" title="#{bundle.EditProveedorTitle_provRuc}" />
                         <p:outputLabel value="#{bundle.EditProveedorLabel_provNombre}" for="provNombre" />
@@ -22,11 +20,8 @@
                         <p:inputText id="provTelefono" value="#{proveedorController.selected.provTelefono}" title="#{bundle.EditProveedorTitle_provTelefono}" />
                         <p:outputLabel value="#{bundle.EditProveedorLabel_provEmail}" for="provEmail" />
                         <p:inputText id="provEmail" value="#{proveedorController.selected.provEmail}" title="#{bundle.EditProveedorTitle_provEmail}" />
-                        <p:outputLabel value="#{bundle.EditProveedorLabel_provBorrLogi}" for="provBorrLogi" />
-                        <p:selectBooleanCheckbox id="provBorrLogi" value="#{proveedorController.selected.provBorrLogi}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{proveedorController.update}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProveedorEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProveedorEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

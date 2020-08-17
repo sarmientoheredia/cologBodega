@@ -24,12 +24,9 @@
                         <h:outputText value="#{historicoproductoController.selected.HPCostAnterior}" title="#{bundle.ViewHistoricoproductoTitle_HPCostAnterior}"/>
                         <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPTotal}"/>
                         <h:outputText value="#{historicoproductoController.selected.HPTotal}" title="#{bundle.ViewHistoricoproductoTitle_HPTotal}"/>
-                        <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPBorrLogi}"/>
-                        <p:selectBooleanCheckbox value="#{historicoproductoController.selected.HPBorrLogi}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewHistoricoproductoLabel_HPProdId}"/>
                         <h:outputText value="#{historicoproductoController.selected.HPProdId}" title="#{bundle.ViewHistoricoproductoTitle_HPProdId}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="HistoricoproductoViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

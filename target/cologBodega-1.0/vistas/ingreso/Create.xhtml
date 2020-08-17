@@ -12,45 +12,51 @@
             <h:form id="IngresoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ingresoController.selected != null}">
-                        <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrId}" for="ingrId" />
-                        <p:inputText id="ingrId" value="#{ingresoController.selected.ingrId}" title="#{bundle.CreateIngresoTitle_ingrId}" required="true" requiredMessage="#{bundle.CreateIngresoRequiredMessage_ingrId}"/>
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrFecha}" for="ingrFecha" />
                         <p:calendar id="ingrFecha" pattern="MM/dd/yyyy" value="#{ingresoController.selected.ingrFecha}" title="#{bundle.EditIngresoTitle_ingrFecha}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrNumeFactura}" for="ingrNumeFactura" />
                         <p:inputText id="ingrNumeFactura" value="#{ingresoController.selected.ingrNumeFactura}" title="#{bundle.CreateIngresoTitle_ingrNumeFactura}" />
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUnidMilitar}" for="ingrUnidMilitar" />
                         <p:inputText id="ingrUnidMilitar" value="#{ingresoController.selected.ingrUnidMilitar}" title="#{bundle.CreateIngresoTitle_ingrUnidMilitar}" required="true" requiredMessage="#{bundle.CreateIngresoRequiredMessage_ingrUnidMilitar}"/>
-                        <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrTotal}" for="ingrTotal" />
-                        <p:inputText id="ingrTotal" value="#{ingresoController.selected.ingrTotal}" title="#{bundle.CreateIngresoTitle_ingrTotal}" />
-                        <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrBorrLogi}" for="ingrBorrLogi" />
-                        <p:selectBooleanCheckbox id="ingrBorrLogi" value="#{ingresoController.selected.ingrBorrLogi}" />
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaBodeguero}" for="ingrUsuaBodeguero" />
                         <p:selectOneMenu id="ingrUsuaBodeguero" value="#{ingresoController.selected.ingrUsuaBodeguero}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaBodeguero}">
+                            <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="ingrUsuaBodegueroItem"
+                                           itemLabel="#{ingrUsuaBodegueroItem.usuaGrado} #{ingrUsuaBodegueroItem.usuaApellido} #{ingrUsuaBodegueroItem.usuaNombre}"
                                            itemValue="#{ingrUsuaBodegueroItem}"/>
                         </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaCompPublicas}" for="ingrUsuaCompPublicas" />
                         <p:selectOneMenu id="ingrUsuaCompPublicas" value="#{ingresoController.selected.ingrUsuaCompPublicas}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaCompPublicas}">
+                            <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="ingrUsuaCompPublicasItem"
+                                           itemLabel="#{ingrUsuaCompPublicasItem.usuaGrado} #{ingrUsuaCompPublicasItem.usuaApellido} #{ingrUsuaCompPublicasItem.usuaNombre}"
                                            itemValue="#{ingrUsuaCompPublicasItem}"/>
                         </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaLogistica}" for="ingrUsuaLogistica" />
                         <p:selectOneMenu id="ingrUsuaLogistica" value="#{ingresoController.selected.ingrUsuaLogistica}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaLogistica}">
+                            <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="ingrUsuaLogisticaItem"
+                                           itemLabel="#{ingrUsuaLogisticaItem.usuaGrado} #{ingrUsuaLogisticaItem.usuaApellido} #{ingrUsuaLogisticaItem.usuaNombre}"
                                            itemValue="#{ingrUsuaLogisticaItem}"/>
                         </p:selectOneMenu>
+
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrProveId}" for="ingrProveId" />
                         <p:selectOneMenu id="ingrProveId" value="#{ingresoController.selected.ingrProveId}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrProveId}">
+                            <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                             <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
                                            var="ingrProveIdItem"
+                                           itemLabel="#{ingrProveIdItem.provNombre}"
                                            itemValue="#{ingrProveIdItem}"/>
                         </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrTotal}" for="ingrTotal" />
+                        <p:inputText id="ingrTotal" value="#{ingresoController.selected.ingrTotal}" title="#{bundle.CreateIngresoTitle_ingrTotal}" placeholder="#{bundle.IngreseValor}"/>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ingresoController.create}" value="#{bundle.Save}" update="display,:IngresoListForm:datalist,:growl" oncomplete="handleSubmit(args,'IngresoCreateDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="IngresoCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

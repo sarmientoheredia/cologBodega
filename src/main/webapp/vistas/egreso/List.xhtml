@@ -53,29 +53,24 @@
                             </f:facet>
                             <h:outputText value="#{item.egreTotal}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEgresoTitle_egreBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.egreBorrLogi}" disabled="true"/>
-                        </p:column>
-                        <p:column>
+                  
+                        <p:column colspan="2">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEgresoTitle_egreUsuaBodeguero}"/>
                             </f:facet>
-                            <h:outputText value="#{item.egreUsuaBodeguero}"/>
+                            <h:outputText value="#{item.egreUsuaBodeguero.usuaGrado} #{item.egreUsuaBodeguero.usuaApellido}"/>
                         </p:column>
-                        <p:column>
+                        <p:column colspan="2">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEgresoTitle_egreUsuaLogistico}"/>
                             </f:facet>
-                            <h:outputText value="#{item.egreUsuaLogistico}"/>
+                            <h:outputText value="#{item.egreUsuaLogistico.usuaGrado} #{item.egreUsuaLogistico.usuaApellido}"/>
                         </p:column>
-                        <p:column>
+                        <p:column colspan="2">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEgresoTitle_egreUsuaSolicita}"/>
                             </f:facet>
-                            <h:outputText value="#{item.egreUsuaSolicita}"/>
+                            <h:outputText value="#{item.egreUsuaSolicita.usuaGrado} #{item.egreUsuaSolicita.usuaApellido}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{egresoController.prepareCreate}" update=":EgresoCreateForm" oncomplete="PF('EgresoCreateDialog').show()"/>

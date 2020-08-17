@@ -46,7 +46,7 @@ public class Rack implements Serializable {
     @Column(name = "rack_Nombre")
     private String rackNombre;
     @Column(name = "rack_BorrLogi")
-    private Boolean rackBorrLogi;
+    private Boolean rackBorrLogi=true;
     @JoinColumn(name = "rack_Secc_Id", referencedColumnName = "secc_Id")
     @ManyToOne(optional = false)
     private Seccion rackSeccId;

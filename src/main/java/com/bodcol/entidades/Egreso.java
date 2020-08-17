@@ -58,7 +58,7 @@ public class Egreso implements Serializable {
     @Column(name = "egre_Total")
     private BigDecimal egreTotal;
     @Column(name = "egre_BorrLogi")
-    private Boolean egreBorrLogi;
+    private Boolean egreBorrLogi=true;
     @JoinColumn(name = "egre_Usua_Bodeguero", referencedColumnName = "usua_Id")
     @ManyToOne(optional = false)
     private Usuario egreUsuaBodeguero;

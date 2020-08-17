@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="SeccionViewDlg" widgetVar="SeccionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSeccionTitle}">
+        <p:dialog id="SeccionViewDlg" showEffect="explode" hideEffect="bounce" widgetVar="SeccionViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewSeccionTitle}">
             <h:form id="SeccionViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{seccionController.selected != null}">
@@ -16,10 +16,7 @@
                         <h:outputText value="#{seccionController.selected.seccId}" title="#{bundle.ViewSeccionTitle_seccId}"/>
                         <h:outputText value="#{bundle.ViewSeccionLabel_seccNombre}"/>
                         <h:outputText value="#{seccionController.selected.seccNombre}" title="#{bundle.ViewSeccionTitle_seccNombre}"/>
-                        <h:outputText value="#{bundle.ViewSeccionLabel_seccBorrLogi}"/>
-                        <p:selectBooleanCheckbox value="#{seccionController.selected.seccBorrLogi}" disabled="true"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="SeccionViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

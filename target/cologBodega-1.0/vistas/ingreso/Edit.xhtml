@@ -12,8 +12,6 @@
             <h:form id="IngresoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{ingresoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditIngresoLabel_ingrId}" for="ingrId" />
-                        <p:inputText id="ingrId" value="#{ingresoController.selected.ingrId}" title="#{bundle.EditIngresoTitle_ingrId}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrId}"/>
                         <p:outputLabel value="#{bundle.EditIngresoLabel_ingrFecha}" for="ingrFecha" />
                         <p:calendar id="ingrFecha" pattern="MM/dd/yyyy" value="#{ingresoController.selected.ingrFecha}" title="#{bundle.EditIngresoTitle_ingrFecha}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.EditIngresoLabel_ingrNumeFactura}" for="ingrNumeFactura" />
@@ -22,20 +20,23 @@
                         <p:inputText id="ingrUnidMilitar" value="#{ingresoController.selected.ingrUnidMilitar}" title="#{bundle.EditIngresoTitle_ingrUnidMilitar}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUnidMilitar}"/>
                         <p:outputLabel value="#{bundle.EditIngresoLabel_ingrTotal}" for="ingrTotal" />
                         <p:inputText id="ingrTotal" value="#{ingresoController.selected.ingrTotal}" title="#{bundle.EditIngresoTitle_ingrTotal}" />
-                        <p:outputLabel value="#{bundle.EditIngresoLabel_ingrBorrLogi}" for="ingrBorrLogi" />
-                        <p:selectBooleanCheckbox id="ingrBorrLogi" value="#{ingresoController.selected.ingrBorrLogi}" />
+                        
                         <p:outputLabel value="#{bundle.EditIngresoLabel_ingrUsuaBodeguero}" for="ingrUsuaBodeguero" />
                         <p:selectOneMenu id="ingrUsuaBodeguero" value="#{ingresoController.selected.ingrUsuaBodeguero}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaBodeguero}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="ingrUsuaBodegueroItem"
+                                           itemLabel="#{ingrUsuaBodegueroItem.usuaGrado} #{ingrUsuaBodegueroItem.usuaApellido} #{ingrUsuaBodegueroItem.usuaNombre}"
                                            itemValue="#{ingrUsuaBodegueroItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditIngresoLabel_ingrUsuaCompPublicas}" for="ingrUsuaCompPublicas" />
+                        
+                        
                         <p:selectOneMenu id="ingrUsuaCompPublicas" value="#{ingresoController.selected.ingrUsuaCompPublicas}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaCompPublicas}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="ingrUsuaCompPublicasItem"
+                                           itemLabel="#{ingrUsuaCompPublicasItem.usuaGrado}  #{ingrUsuaCompPublicasItem.usuaApellido} #{ingrUsuaCompPublicasItem.usuaNombre}"
                                            itemValue="#{ingrUsuaCompPublicasItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditIngresoLabel_ingrUsuaLogistica}" for="ingrUsuaLogistica" />
@@ -43,18 +44,19 @@
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                            var="ingrUsuaLogisticaItem"
+                                           itemLabel="#{ingrUsuaLogisticaItem.usuaGrado} #{ingrUsuaLogisticaItem.usuaApellido} #{ingrUsuaLogisticaItem.usuaNombre}"
                                            itemValue="#{ingrUsuaLogisticaItem}"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditIngresoLabel_ingrProveId}" for="ingrProveId" />
-                        <p:selectOneMenu id="ingrProveId" value="#{ingresoController.selected.ingrProveId}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrProveId}">
+                        <p:selectOneMenu id="ingrProveId"  value="#{ingresoController.selected.ingrProveId}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrProveId}">
                             <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
                             <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
                                            var="ingrProveIdItem"
+                                           itemLabel="#{ingrProveIdItem.provNombre}"
                                            itemValue="#{ingrProveIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{ingresoController.update}" value="#{bundle.Save}" update="display,:IngresoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'IngresoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="IngresoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

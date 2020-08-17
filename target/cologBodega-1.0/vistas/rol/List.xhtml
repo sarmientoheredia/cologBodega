@@ -39,12 +39,7 @@
                             </f:facet>
                             <h:outputText value="#{item.rolNombre}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRolTitle_rolBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.rolBorrLogi}" disabled="true"/>
-                        </p:column>
+                
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{rolController.prepareCreate}" update=":RolCreateForm" oncomplete="PF('RolCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RolViewForm" oncomplete="PF('RolViewDialog').show()" disabled="#{empty rolController.selected}"/>

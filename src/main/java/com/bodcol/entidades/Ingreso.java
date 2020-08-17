@@ -65,7 +65,7 @@ public class Ingreso implements Serializable {
     @Column(name = "ingr_Total")
     private BigDecimal ingrTotal;
     @Column(name = "ingr_BorrLogi")
-    private Boolean ingrBorrLogi;
+    private Boolean ingrBorrLogi=true;
     @JoinColumn(name = "ingr_Usua_Bodeguero", referencedColumnName = "usua_Id")
     @ManyToOne(optional = false)
     private Usuario ingrUsuaBodeguero;

@@ -12,8 +12,15 @@
             <h:form id="DetalleegresoViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{detalleegresoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreId}"/>
+                       <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreId}"/>
                         <h:outputText value="#{detalleegresoController.selected.detaEgreId}" title="#{bundle.ViewDetalleegresoTitle_detaEgreId}"/>
+                        <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreEgreId}"/>
+                       <h:outputText value="#{detalleegresoController.selected.detaEgreEgreId.egreId}" title="#{bundle.ViewDetalleegresoTitle_detaEgreEgreId}"/>
+                        
+                       <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreProdId}"/>
+                        <h:outputText value="#{detalleegresoController.selected.detaEgreProdId.prodNombre}" title="#{bundle.ViewDetalleegresoTitle_detaEgreProdId}"/>
+                        
+                        
                         <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreUnidMedida}"/>
                         <h:outputText value="#{detalleegresoController.selected.detaEgreUnidMedida}" title="#{bundle.ViewDetalleegresoTitle_detaEgreUnidMedida}"/>
                         <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreCantEgresa}"/>
@@ -22,14 +29,8 @@
                         <h:outputText value="#{detalleegresoController.selected.detaEgrePreciEgresa}" title="#{bundle.ViewDetalleegresoTitle_detaEgrePreciEgresa}"/>
                         <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaTotal}"/>
                         <h:outputText value="#{detalleegresoController.selected.detaTotal}" title="#{bundle.ViewDetalleegresoTitle_detaTotal}"/>
-                        <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreBorrLogi}"/>
-                        <p:selectBooleanCheckbox value="#{detalleegresoController.selected.detaEgreBorrLogi}" disabled="true"/>
-                        <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreEgreId}"/>
-                        <h:outputText value="#{detalleegresoController.selected.detaEgreEgreId}" title="#{bundle.ViewDetalleegresoTitle_detaEgreEgreId}"/>
-                        <h:outputText value="#{bundle.ViewDetalleegresoLabel_detaEgreProdId}"/>
-                        <h:outputText value="#{detalleegresoController.selected.detaEgreProdId}" title="#{bundle.ViewDetalleegresoTitle_detaEgreProdId}"/>
+                        
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="DetalleegresoViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

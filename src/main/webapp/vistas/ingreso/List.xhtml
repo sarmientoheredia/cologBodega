@@ -59,36 +59,7 @@
                             </f:facet>
                             <h:outputText value="#{item.ingrTotal}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIngresoTitle_ingrBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.ingrBorrLogi}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIngresoTitle_ingrUsuaBodeguero}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ingrUsuaBodeguero}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIngresoTitle_ingrUsuaCompPublicas}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ingrUsuaCompPublicas}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIngresoTitle_ingrUsuaLogistica}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ingrUsuaLogistica}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListIngresoTitle_ingrProveId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.ingrProveId}"/>
-                        </p:column>
+                        
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{ingresoController.prepareCreate}" update=":IngresoCreateForm" oncomplete="PF('IngresoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":IngresoViewForm" oncomplete="PF('IngresoViewDialog').show()" disabled="#{empty ingresoController.selected}"/>

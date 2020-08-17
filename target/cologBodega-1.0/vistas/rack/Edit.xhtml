@@ -8,26 +8,22 @@
 
     <ui:composition>
 
-        <p:dialog id="RackEditDlg" widgetVar="RackEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRackTitle}">
+        <p:dialog id="RackEditDlg" showEffect="explode" hideEffect="bounce" widgetVar="RackEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRackTitle}">
             <h:form id="RackEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{rackController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditRackLabel_rackId}" for="rackId" />
-                        <p:inputText id="rackId" value="#{rackController.selected.rackId}" title="#{bundle.EditRackTitle_rackId}" required="true" requiredMessage="#{bundle.EditRackRequiredMessage_rackId}"/>
                         <p:outputLabel value="#{bundle.EditRackLabel_rackNombre}" for="rackNombre" />
                         <p:inputText id="rackNombre" value="#{rackController.selected.rackNombre}" title="#{bundle.EditRackTitle_rackNombre}" />
-                        <p:outputLabel value="#{bundle.EditRackLabel_rackBorrLogi}" for="rackBorrLogi" />
-                        <p:selectBooleanCheckbox id="rackBorrLogi" value="#{rackController.selected.rackBorrLogi}" />
                         <p:outputLabel value="#{bundle.EditRackLabel_rackSeccId}" for="rackSeccId" />
                         <p:selectOneMenu id="rackSeccId" value="#{rackController.selected.rackSeccId}" required="true" requiredMessage="#{bundle.EditRackRequiredMessage_rackSeccId}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                             <f:selectItems value="#{seccionController.itemsAvailableSelectOne}"
                                            var="rackSeccIdItem"
+                                           itemLabel="#{rackSeccIdItem.seccNombre}"
                                            itemValue="#{rackSeccIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{rackController.update}" value="#{bundle.Save}" update="display,:RackListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RackEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="RackEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

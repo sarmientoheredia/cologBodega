@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="RackViewDlg" widgetVar="RackViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRackTitle}">
+        <p:dialog id="RackViewDlg" showEffect="explode" hideEffect="bounce" widgetVar="RackViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewRackTitle}">
             <h:form id="RackViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{rackController.selected != null}">
@@ -16,12 +16,9 @@
                         <h:outputText value="#{rackController.selected.rackId}" title="#{bundle.ViewRackTitle_rackId}"/>
                         <h:outputText value="#{bundle.ViewRackLabel_rackNombre}"/>
                         <h:outputText value="#{rackController.selected.rackNombre}" title="#{bundle.ViewRackTitle_rackNombre}"/>
-                        <h:outputText value="#{bundle.ViewRackLabel_rackBorrLogi}"/>
-                        <p:selectBooleanCheckbox value="#{rackController.selected.rackBorrLogi}" disabled="true"/>
                         <h:outputText value="#{bundle.ViewRackLabel_rackSeccId}"/>
-                        <h:outputText value="#{rackController.selected.rackSeccId}" title="#{bundle.ViewRackTitle_rackSeccId}"/>
+                        <h:outputText value="#{rackController.selected.rackSeccId.seccNombre}" title="#{bundle.ViewRackTitle_rackSeccId}"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="RackViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

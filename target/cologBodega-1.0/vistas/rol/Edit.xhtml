@@ -8,19 +8,14 @@
 
     <ui:composition>
 
-        <p:dialog id="RolEditDlg" widgetVar="RolEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRolTitle}">
+        <p:dialog id="RolEditDlg" showEffect="explode" hideEffect="bounce" widgetVar="RolEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditRolTitle}">
             <h:form id="RolEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{rolController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditRolLabel_rolId}" for="rolId" />
-                        <p:inputText id="rolId" value="#{rolController.selected.rolId}" title="#{bundle.EditRolTitle_rolId}" required="true" requiredMessage="#{bundle.EditRolRequiredMessage_rolId}"/>
                         <p:outputLabel value="#{bundle.EditRolLabel_rolNombre}" for="rolNombre" />
                         <p:inputText id="rolNombre" value="#{rolController.selected.rolNombre}" title="#{bundle.EditRolTitle_rolNombre}" required="true" requiredMessage="#{bundle.EditRolRequiredMessage_rolNombre}"/>
-                        <p:outputLabel value="#{bundle.EditRolLabel_rolBorrLogi}" for="rolBorrLogi" />
-                        <p:selectBooleanCheckbox id="rolBorrLogi" value="#{rolController.selected.rolBorrLogi}" />
                     </p:panelGrid>
                     <p:commandButton actionListener="#{rolController.update}" value="#{bundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RolEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="RolEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

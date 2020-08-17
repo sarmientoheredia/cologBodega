@@ -28,6 +28,7 @@ public class UsuarioController implements Serializable {
     private List<Usuario> items = null;
     private Usuario selected;
 
+    
     public UsuarioController() {
     }
 
@@ -121,6 +122,7 @@ public class UsuarioController implements Serializable {
         return getFacade().findAll();
     }
 
+    
     @FacesConverter(forClass = Usuario.class)
     public static class UsuarioControllerConverter implements Converter {
 
@@ -161,5 +163,7 @@ public class UsuarioController implements Serializable {
         }
 
     }
+    
+    
 
 }

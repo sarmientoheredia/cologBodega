@@ -56,7 +56,7 @@ public class Detalleegreso implements Serializable {
     @Column(name = "deta_Total")
     private BigDecimal detaTotal;
     @Column(name = "detaEgre_BorrLogi")
-    private Boolean detaEgreBorrLogi;
+    private Boolean detaEgreBorrLogi=true;
     @JoinColumn(name = "detaEgre_Egre_Id", referencedColumnName = "egre_Id")
     @ManyToOne(optional = false)
     private Egreso detaEgreEgreId;

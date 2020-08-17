@@ -55,7 +55,7 @@ public class Historicoproducto implements Serializable {
     @Column(name = "HP_Total")
     private BigDecimal hPTotal;
     @Column(name = "HP_BorrLogi")
-    private Boolean hPBorrLogi;
+    private Boolean hPBorrLogi=true;
     @JoinColumn(name = "HP_Prod_Id", referencedColumnName = "prod_Id")
     @ManyToOne(optional = false)
     private Producto hPProdId;

@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p"),
+    @NamedQuery(name = "Producto.findAll", query = "SELECT p FROM Producto p "),
     @NamedQuery(name = "Producto.findByProdId", query = "SELECT p FROM Producto p WHERE p.prodId = :prodId"),
     @NamedQuery(name = "Producto.findByProdRackFila", query = "SELECT p FROM Producto p WHERE p.prodRackFila = :prodRackFila"),
     @NamedQuery(name = "Producto.findByProdRackColumna", query = "SELECT p FROM Producto p WHERE p.prodRackColumna = :prodRackColumna"),
@@ -85,7 +85,7 @@ public class Producto implements Serializable {
     @Column(name = "prod_Status")
     private String prodStatus;
     @Column(name = "prod_BorrLogi")
-    private Boolean prodBorrLogi;
+    private Boolean prodBorrLogi=true;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "detaIngrProdId")
     private List<Detalleingreso> detalleingresoList;
     @JoinColumn(name = "prod_Rack_Id", referencedColumnName = "rack_Id")

@@ -51,41 +51,25 @@
                             </f:facet>
                             <h:outputText value="#{item.usuaCedula}"/>
                         </p:column>
-                        <p:column>
+                        <p:column colspan="2">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_usuaNombre}"/>
                             </f:facet>
                             <h:outputText value="#{item.usuaNombre}"/>
                         </p:column>
-                        <p:column>
+                        <p:column colspan="2">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_usuaApellido}"/>
                             </f:facet>
                             <h:outputText value="#{item.usuaApellido}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_usuaUsuario}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaUsuario}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_usuaPassword}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.usuaPassword}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_usuaBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.usuaBorrLogi}" disabled="true"/>
-                        </p:column>
+                     
+             
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_usuaRolId}"/>
                             </f:facet>
-                            <h:outputText value="#{item.usuaRolId}"/>
+                            <h:outputText value="#{item.usuaRolId.rolNombre}"/>
                         </p:column>
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>

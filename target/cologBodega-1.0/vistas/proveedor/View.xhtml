@@ -8,7 +8,7 @@
 
     <ui:composition>
 
-        <p:dialog id="ProveedorViewDlg" widgetVar="ProveedorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProveedorTitle}">
+        <p:dialog id="ProveedorViewDlg" showEffect="explode" hideEffect="bounce" widgetVar="ProveedorViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProveedorTitle}">
             <h:form id="ProveedorViewForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
@@ -22,10 +22,7 @@
                         <h:outputText value="#{proveedorController.selected.provTelefono}" title="#{bundle.ViewProveedorTitle_provTelefono}"/>
                         <h:outputText value="#{bundle.ViewProveedorLabel_provEmail}"/>
                         <h:outputText value="#{proveedorController.selected.provEmail}" title="#{bundle.ViewProveedorTitle_provEmail}"/>
-                        <h:outputText value="#{bundle.ViewProveedorLabel_provBorrLogi}"/>
-                        <p:selectBooleanCheckbox value="#{proveedorController.selected.provBorrLogi}" disabled="true"/>
                     </p:panelGrid>
-                    <p:commandButton value="#{bundle.Close}" onclick="ProveedorViewDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

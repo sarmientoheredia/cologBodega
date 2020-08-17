@@ -35,6 +35,12 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodRackId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodRackId.rackNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_prodRackFila}"/>
                             </f:facet>
                             <h:outputText value="#{item.prodRackFila}"/>
@@ -81,18 +87,7 @@
                             </f:facet>
                             <h:outputText value="#{item.prodStatus}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.prodBorrLogi}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodRackId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodRackId}"/>
-                        </p:column>
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{productoController.prepareCreate}" update=":ProductoCreateForm" oncomplete="PF('ProductoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProductoViewForm" oncomplete="PF('ProductoViewDialog').show()" disabled="#{empty productoController.selected}"/>

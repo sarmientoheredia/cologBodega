@@ -47,7 +47,7 @@ public class Seccion implements Serializable {
     @Column(name = "secc_Nombre")
     private String seccNombre;
     @Column(name = "secc_BorrLogi")
-    private Boolean seccBorrLogi;
+    private Boolean seccBorrLogi=true;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rackSeccId")
     private List<Rack> rackList;
 

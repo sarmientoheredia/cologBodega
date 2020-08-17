@@ -8,12 +8,17 @@
 
     <ui:composition>
 
-        <p:dialog id="ProductoEditDlg" widgetVar="ProductoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProductoTitle}">
+        <p:dialog id="ProductoEditDlg" showEffect="explode" hideEffect="bounce" widgetVar="ProductoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProductoTitle}">
             <h:form id="ProductoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
-                        <p:outputLabel value="#{bundle.EditProductoLabel_prodId}" for="prodId" />
-                        <p:inputText id="prodId" value="#{productoController.selected.prodId}" title="#{bundle.EditProductoTitle_prodId}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodId}"/>
+                        <p:outputLabel value="#{bundle.EditProductoLabel_prodRackId}" for="prodRackId" />
+                        <p:selectOneMenu id="prodRackId" value="#{productoController.selected.prodRackId}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackId}">
+                            <f:selectItems value="#{rackController.itemsAvailableSelectOne}"
+                                           var="prodRackIdItem"
+                                           itemLabel="#{prodRackIdItem.rackNombre}"
+                                           itemValue="#{prodRackIdItem}"/>
+                        </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.EditProductoLabel_prodRackFila}" for="prodRackFila" />
                         <p:inputText id="prodRackFila" value="#{productoController.selected.prodRackFila}" title="#{bundle.EditProductoTitle_prodRackFila}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackFila}"/>
                         <p:outputLabel value="#{bundle.EditProductoLabel_prodRackColumna}" for="prodRackColumna" />
@@ -30,21 +35,17 @@
                         <p:inputText id="prodCostActual" value="#{productoController.selected.prodCostActual}" title="#{bundle.EditProductoTitle_prodCostActual}" />
                         <p:outputLabel value="#{bundle.EditProductoLabel_prodStatus}" for="prodStatus" />
                         <p:inputText id="prodStatus" value="#{productoController.selected.prodStatus}" title="#{bundle.EditProductoTitle_prodStatus}" />
-                        <p:outputLabel value="#{bundle.EditProductoLabel_prodBorrLogi}" for="prodBorrLogi" />
-                        <p:selectBooleanCheckbox id="prodBorrLogi" value="#{productoController.selected.prodBorrLogi}" />
-                        <p:outputLabel value="#{bundle.EditProductoLabel_prodRackId}" for="prodRackId" />
-                        <p:selectOneMenu id="prodRackId" value="#{productoController.selected.prodRackId}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackId}">
-                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
-                            <f:selectItems value="#{rackController.itemsAvailableSelectOne}"
-                                           var="prodRackIdItem"
-                                           itemValue="#{prodRackIdItem}"/>
-                        </p:selectOneMenu>
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{productoController.update}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductoEditDialog');"/>
-                    <p:commandButton value="#{bundle.Cancel}" onclick="ProductoEditDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
     </ui:composition>
 </html>
+
+
+
+<!--<p:outputLabel value="#{bundle.EditProductoLabel_prodBorrLogi}" for="prodBorrLogi" />
+                        <p:selectBooleanCheckbox id="prodBorrLogi" value="#{productoController.selected.prodBorrLogi}" />-->

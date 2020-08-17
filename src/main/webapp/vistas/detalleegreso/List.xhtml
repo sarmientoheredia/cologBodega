@@ -35,6 +35,18 @@
                         </p:column>
                         <p:column>
                             <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleegresoTitle_detaEgreEgreId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.detaEgreEgreId.egreId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListDetalleegresoTitle_detaEgreProdId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.detaEgreProdId.prodNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
                                 <h:outputText value="#{bundle.ListDetalleegresoTitle_detaEgreUnidMedida}"/>
                             </f:facet>
                             <h:outputText value="#{item.detaEgreUnidMedida}"/>
@@ -57,24 +69,9 @@
                             </f:facet>
                             <h:outputText value="#{item.detaTotal}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleegresoTitle_detaEgreBorrLogi}"/>
-                            </f:facet>
-                            <p:selectBooleanCheckbox value="#{item.detaEgreBorrLogi}" disabled="true"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleegresoTitle_detaEgreEgreId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.detaEgreEgreId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListDetalleegresoTitle_detaEgreProdId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.detaEgreProdId}"/>
-                        </p:column>
+
+
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{detalleegresoController.prepareCreate}" update=":DetalleegresoCreateForm" oncomplete="PF('DetalleegresoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":DetalleegresoViewForm" oncomplete="PF('DetalleegresoViewDialog').show()" disabled="#{empty detalleegresoController.selected}"/>
