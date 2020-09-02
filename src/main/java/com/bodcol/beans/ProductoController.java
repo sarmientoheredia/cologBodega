@@ -3,32 +3,113 @@ package com.bodcol.beans;
 import com.bodcol.entidades.Producto;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
+import com.bodcol.entidades.Rack;
+import com.bodcol.entidades.Seccion;
 import com.bodcol.facade.ProductoFacade;
+import com.bodcol.facade.RackFacade;
+import com.bodcol.facade.SeccionFacade;
 
 import java.io.Serializable;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.EJBException;
+import java.util.*;
+import java.util.logging.*;
+import javax.annotation.PostConstruct;
+import javax.ejb.*;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.faces.convert.*;
+import javax.faces.view.ViewScoped;
 
 @Named("productoController")
-@SessionScoped
+@ViewScoped
 public class ProductoController implements Serializable {
 
     @EJB
+    private SeccionFacade seccionFacade;
+
+    @EJB
+    private com.bodcol.facade.RackFacade rackFacade;
+
+    @EJB
     private com.bodcol.facade.ProductoFacade ejbFacade;
+
     private List<Producto> items = null;
+    private List<Rack> listadoRack = null;
+    private Rack rack;
+    private Seccion seccion;
+
     private Producto selected;
+    private String nombreSeccion;
+
+    @PostConstruct
+    public void init() {
+        rack = new Rack();
+    }
+
+
+    public List<Rack> getListadoRack() {
+        return listadoRack;
+    }
+
+    public void setListadoRack(List<Rack> listadoRack) {
+        this.listadoRack = listadoRack;
+    }
+    
+    public void llenarComboAjax() {
+        
+        System.out.println(seccion);
+        if(seccion!=null){
+            
+            listadoRack = rackFacade.recuperarRaks(seccion);
+        }else if(seccion==null){
+            System.out.println("limpiando");
+        }
+        
+        
+    }
+
+    public Seccion getSeccion() {
+        return seccion;
+    }
+
+    public void setSeccion(Seccion seccion) {
+        this.seccion = seccion;
+    }
 
     public ProductoController() {
+    }
+
+    public Rack getRack() {
+        return rack;
+    }
+
+    public void setRack(Rack rack) {
+        this.rack = rack;
+    }
+
+    //METODO PARA FILTRAR POR CUALQUIER CAMPO
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        Producto producto = (Producto) value;
+        return producto.getProdNombre().toLowerCase().contains(filterText)
+                || producto.getProdCodigo().toLowerCase().contains(filterText)
+                || producto.getProdStatus().toLowerCase().contains(filterText)
+                || producto.getProdId() == filterInt;
+    }
+
+    //METODO PARA CONVERTIR EL ID
+    private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
     }
 
     public Producto getSelected() {
@@ -40,6 +121,14 @@ public class ProductoController implements Serializable {
     }
 
     protected void setEmbeddableKeys() {
+    }
+
+    public String getNombreSeccion() {
+        return nombreSeccion;
+    }
+
+    public void setNombreSeccion(String nombreSeccion) {
+        this.nombreSeccion = nombreSeccion;
     }
 
     protected void initializeEmbeddableKey() {
@@ -56,9 +145,17 @@ public class ProductoController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProductoCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (ejbFacade.verificarCodigoProducto(selected.getProdCodigo(), selected.getProdNombre())) {
+
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El Producto ya esta registrado", "Error"));
+            selected = null;
+
+        } else {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("ProductoCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
 
@@ -72,6 +169,12 @@ public class ProductoController implements Serializable {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
+    }
+
+    //METODO PARA LIMPIAR LOS COMPONENTES
+    public void limpiar() {
+        selected = null;
+        items = null;
     }
 
     public List<Producto> getItems() {
@@ -119,6 +222,15 @@ public class ProductoController implements Serializable {
 
     public List<Producto> getItemsAvailableSelectOne() {
         return getFacade().findAll();
+    }
+
+    //esto es para recuperar
+    public List<Seccion> getItemsAvailableSelectManySeccion() {
+        return seccionFacade.findAll();
+    }
+
+    public List<Seccion> getItemsAvailableSelectOneSeccion() {
+        return seccionFacade.findAll();
     }
 
     @FacesConverter(forClass = Producto.class)

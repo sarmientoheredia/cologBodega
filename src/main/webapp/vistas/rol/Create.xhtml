@@ -13,9 +13,11 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{rolController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateRolLabel_rolNombre}" for="rolNombre" />
-                        <p:inputText id="rolNombre" value="#{rolController.selected.rolNombre}" title="#{bundle.CreateRolTitle_rolNombre}" required="true" requiredMessage="#{bundle.CreateRolRequiredMessage_rolNombre}"/>
+                        <p:inputText id="rolNombre" value="#{rolController.selected.rolNombre}" placeholder="#{bundle.RolNombre}" title="#{bundle.CreateRolTitle_rolNombre}" required="true" requiredMessage="#{bundle.CreateRolRequiredMessage_rolNombre}">
+                        <p:ajax event="keyup" update="rolNombre" />
+                        </p:inputText>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{rolController.create}" value="#{bundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args,'RolCreateDialog');"/>
+                    <p:commandButton style="width: 300px" actionListener="#{rolController.create}" value="#{bundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args,'RolCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

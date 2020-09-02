@@ -30,9 +30,13 @@
                         <h:outputText value="#{productoController.selected.prodStocActual}" title="#{bundle.ViewProductoTitle_prodStocActual}"/>
                         <h:outputText value="#{bundle.ViewProductoLabel_prodCostActual}"/>
                         <h:outputText value="#{productoController.selected.prodCostActual}" title="#{bundle.ViewProductoTitle_prodCostActual}"/>
+
+                        <h:outputLabel value="#{bundle.ViewProductoLabel_prodTotalActual}" />
+                        <h:outputLabel   value="#{productoController.selected.prodTotalActual}" title="#{bundle.ViewProductoTitle_prodTotalActual}" />
+
                         <h:outputText value="#{bundle.ViewProductoLabel_prodStatus}"/>
                         <h:outputText value="#{productoController.selected.prodStatus}" title="#{bundle.ViewProductoTitle_prodStatus}"/>
-                        
+
                     </p:panelGrid>
                 </h:panelGroup>
             </h:form>

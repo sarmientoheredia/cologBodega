@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>BodCol</title>
+        <h:outputStylesheet name="css/loggin.css"/>
+        <h:outputStylesheet name="css/primeflex.css"/>
+        <f:event type="preRenderView" listener="#{plantillaController.verificarSesion}"/>
+        <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+    </h:head>
+    <h:body>
+   
+
+        <div class="ui-g" id="formulario" >
+         
+
+
+            <h:form id="ProductoListForm" style="padding: 20px;" class="ui-g-12 ui-md-12 ui-lg-12">
+
+                    <p:menubar>
+                        <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" />
+                        <p:menuitem actionListener="#{plantillaController.cerrarSesion()}" value="#{bundle.Session}" action="/index?faces-redirect=true" icon="pi pi-power-off" style="color: red;"/>
+
+                    </p:menubar> 
+
+                <p:panel header="#{bundle.ListProductoTitle}">
+                    <p:dataTable id="datalist" value="#{productoController.items}" var="item"
+                                 selectionMode="single" selection="#{productoController.selected}"
+                                 paginator="true"
+                                 widgetVar="tablaProducto1"
+                                 globalFilterFunction="#{productoController.globalFilterFunction}"
+                                 rowKey="#{item.prodId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50" style="height: 600px;"
+                                 >
+
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaProducto1').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodCodigo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodCodigo}"/>
+                        </p:column>
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodRackId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodRackId.rackNombre}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodRackFila}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodRackFila}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodRackColumna}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodRackColumna}"/>
+                        </p:column>
+
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodUnidMedida}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodUnidMedida}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodStocActual}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodStocActual}"/>
+                        </p:column>
+                  
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodStatus}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodStatus}"/>
+                        </p:column>
+
+                      
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+        </div>
+    </h:body>
+
+</html>
+

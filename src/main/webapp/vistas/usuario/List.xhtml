@@ -19,6 +19,8 @@
                     <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"
                                  selectionMode="single" selection="#{usuarioController.selected}"
                                  paginator="true"
+                                 widgetVar="tablaUsuario"
+                                 globalFilterFunction="#{usuarioController.globalFilterFunction}"
                                  rowKey="#{item.usuaId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
@@ -26,7 +28,12 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
-
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaUsuario').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_usuaId}"/>
@@ -45,7 +52,7 @@
                             </f:facet>
                             <h:outputText value="#{item.usuaiArma}"/>
                         </p:column>
-                        <p:column>
+                        <p:column colspan="2">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_usuaCedula}"/>
                             </f:facet>
@@ -63,8 +70,8 @@
                             </f:facet>
                             <h:outputText value="#{item.usuaApellido}"/>
                         </p:column>
-                     
-             
+
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_usuaRolId}"/>
@@ -75,12 +82,23 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{usuarioController.prepareCreate}" update=":UsuarioCreateForm" oncomplete="PF('UsuarioCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":UsuarioViewForm" oncomplete="PF('UsuarioViewDialog').show()" disabled="#{empty usuarioController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":UsuarioEditForm" oncomplete="PF('UsuarioEditDialog').show()" disabled="#{empty usuarioController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{usuarioController.destroy}" update=":growl,datalist" disabled="#{empty usuarioController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" oncomplete="PF('eliminacion').show()" update=":growl,datalist" disabled="#{empty usuarioController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
+                
+                
+                
             </h:form>
-
+            <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
+                      appendTo="@(body)" header="Esta seguro de eliminar" showEffect="explode" hideEffect="bounce">
+                <h:form id="formUsuario">
+                    <h:panelGroup id="confirmacion">
+                            <p:commandButton style="width: 160px" value="cancelar" process="@this" partialSubmit="true" update=":UsuarioListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
+                            <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{usuarioController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":UsuarioListForm:datalist,:growl"/>
+                    </h:panelGroup>
+                </h:form>
+            </p:dialog>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

@@ -1,29 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bodcol.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import javax.xml.bind.annotation.*;
 
 /**
  *
@@ -36,7 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Producto.findByProdId", query = "SELECT p FROM Producto p WHERE p.prodId = :prodId"),
     @NamedQuery(name = "Producto.findByProdRackFila", query = "SELECT p FROM Producto p WHERE p.prodRackFila = :prodRackFila"),
     @NamedQuery(name = "Producto.findByProdRackColumna", query = "SELECT p FROM Producto p WHERE p.prodRackColumna = :prodRackColumna"),
-    @NamedQuery(name = "Producto.findByProdCodigo", query = "SELECT p FROM Producto p WHERE p.prodCodigo = :prodCodigo"),
+    @NamedQuery(name = "Producto.findByProdCodigo", query = "SELECT p FROM Producto p WHERE p.prodCodigo = :prodCodigo OR p.prodNombre=:prodNombre"),
     @NamedQuery(name = "Producto.findByProdNombre", query = "SELECT p FROM Producto p WHERE p.prodNombre = :prodNombre"),
     @NamedQuery(name = "Producto.findByProdUnidMedida", query = "SELECT p FROM Producto p WHERE p.prodUnidMedida = :prodUnidMedida"),
     @NamedQuery(name = "Producto.findByProdStocActual", query = "SELECT p FROM Producto p WHERE p.prodStocActual = :prodStocActual"),
@@ -64,7 +46,7 @@ public class Producto implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 60)
-    @Column(name = "prod_Codigo")
+    @Column(name = "prod_Codigo",unique = true)
     private String prodCodigo;
     @Basic(optional = false)
     @NotNull
@@ -78,22 +60,27 @@ public class Producto implements Serializable {
     private String prodUnidMedida;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "prod_StocActual")
-    private BigDecimal prodStocActual;
+    private BigDecimal prodStocActual=BigDecimal.ZERO;
     @Column(name = "prod_CostActual")
-    private BigDecimal prodCostActual;
+    private BigDecimal prodCostActual=BigDecimal.ZERO;
+    
+    @Column(name = "prod_TotalActual")
+    private BigDecimal prodTotalActual=BigDecimal.ZERO;
+    
+    
     @Size(max = 30)
     @Column(name = "prod_Status")
     private String prodStatus;
     @Column(name = "prod_BorrLogi")
     private Boolean prodBorrLogi=true;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detaIngrProdId")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "detaIngrProdId")
     private List<Detalleingreso> detalleingresoList;
     @JoinColumn(name = "prod_Rack_Id", referencedColumnName = "rack_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Rack prodRackId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hPProdId")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "hPProdId")
     private List<Historicoproducto> historicoproductoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detaEgreProdId")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "detaEgreProdId")
     private List<Detalleegreso> detalleegresoList;
 
     public Producto() {
@@ -176,6 +163,16 @@ public class Producto implements Serializable {
         this.prodCostActual = prodCostActual;
     }
 
+    public BigDecimal getProdTotalActual() {
+        return prodTotalActual;
+    }
+
+    public void setProdTotalActual(BigDecimal prodTotalActual) {
+        this.prodTotalActual = prodTotalActual;
+    }
+
+    
+    
     public String getProdStatus() {
         return prodStatus;
     }

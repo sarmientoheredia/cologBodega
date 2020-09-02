@@ -15,6 +15,7 @@ com\bodcol\facade\HistoricoproductoFacade.class
 com\bodcol\entidades\Proveedor_.class
 com\bodcol\entidades\Seccion_.class
 com\bodcol\facade\ProveedorFacade.class
+com\bodcol\beans\ValidadorController.class
 com\bodcol\entidades\Producto.class
 com\bodcol\beans\EgresoController.class
 com\bodcol\entidades\Egreso.class

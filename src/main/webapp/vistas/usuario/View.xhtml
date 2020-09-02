@@ -8,10 +8,13 @@
 
     <ui:composition>
 
-        <p:dialog id="UsuarioViewDlg" showEffect="explode" hideEffect="bounce" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioTitle}">
+        <p:dialog id="UsuarioViewDlg" showEffect="explode" hideEffect="bounce" widgetVar="UsuarioViewDialog" modal="true" resizable="false" appendTo="@(body)"  >
             <h:form id="UsuarioViewForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}" style="width: 400px;height: 100px">
+                        <f:facet name="header">
+                            <h3 header="#{bundle.ViewUsuarioTitle}"> Detalle de Usuario</h3>
+                        </f:facet>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_usuaId}"/>
                         <h:outputText value="#{usuarioController.selected.usuaId}" title="#{bundle.ViewUsuarioTitle_usuaId}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_usuaGrado}"/>
@@ -24,10 +27,7 @@
                         <h:outputText value="#{usuarioController.selected.usuaNombre}" title="#{bundle.ViewUsuarioTitle_usuaNombre}"/>
                         <h:outputText value="#{bundle.ViewUsuarioLabel_usuaApellido}"/>
                         <h:outputText value="#{usuarioController.selected.usuaApellido}" title="#{bundle.ViewUsuarioTitle_usuaApellido}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaUsuario}"/>
-                        <h:outputText value="#{usuarioController.selected.usuaUsuario}" title="#{bundle.ViewUsuarioTitle_usuaUsuario}"/>
-                        <h:outputText value="#{bundle.ViewUsuarioLabel_usuaPassword}"/>
-                        <h:outputText value="#{usuarioController.selected.usuaPassword}" title="#{bundle.ViewUsuarioTitle_usuaPassword}"/>
+
                         <h:outputText value="#{bundle.ViewUsuarioLabel_usuaRolId}"/>
                         <h:outputText value="#{usuarioController.selected.usuaRolId.rolNombre}" title="#{bundle.ViewUsuarioTitle_usuaRolId}"/>
                     </p:panelGrid>
@@ -37,3 +37,9 @@
 
     </ui:composition>
 </html>
+
+
+<!--<h:outputText value="#{bundle.ViewUsuarioLabel_usuaUsuario}"/>
+<h:outputText value="#{usuarioController.selected.usuaUsuario}" title="#{bundle.ViewUsuarioTitle_usuaUsuario}"/>
+<h:outputText value="#{bundle.ViewUsuarioLabel_usuaPassword}"/>
+<h:outputText value="#{usuarioController.selected.usuaPassword}" title="#{bundle.ViewUsuarioTitle_usuaPassword}"/>-->

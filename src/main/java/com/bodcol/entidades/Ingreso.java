@@ -54,31 +54,31 @@ public class Ingreso implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date ingrFecha;
     @Size(max = 80)
-    @Column(name = "ingr_NumeFactura")
+    @Column(name = "ingr_NumeFactura",unique = true)
     private String ingrNumeFactura;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
     @Column(name = "ingr_UnidMilitar")
-    private String ingrUnidMilitar;
+    private String ingrUnidMilitar="Colog";
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "ingr_Total")
     private BigDecimal ingrTotal;
     @Column(name = "ingr_BorrLogi")
     private Boolean ingrBorrLogi=true;
     @JoinColumn(name = "ingr_Usua_Bodeguero", referencedColumnName = "usua_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     private Usuario ingrUsuaBodeguero;
     @JoinColumn(name = "ingr_Usua_CompPublicas", referencedColumnName = "usua_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     private Usuario ingrUsuaCompPublicas;
     @JoinColumn(name = "ingr_Usua_Logistica", referencedColumnName = "usua_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     private Usuario ingrUsuaLogistica;
     @JoinColumn(name = "ingr_Prove_Id", referencedColumnName = "prov_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private Proveedor ingrProveId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detaIngrIngrId")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "detaIngrIngrId")
     private List<Detalleingreso> detalleingresoList;
 
     public Ingreso() {

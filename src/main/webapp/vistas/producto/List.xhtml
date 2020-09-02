@@ -19,6 +19,8 @@
                     <p:dataTable id="datalist" value="#{productoController.items}" var="item"
                                  selectionMode="single" selection="#{productoController.selected}"
                                  paginator="true"
+                                 widgetVar="tablaProducto"
+                                 globalFilterFunction="#{productoController.globalFilterFunction}"
                                  rowKey="#{item.prodId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
@@ -27,11 +29,30 @@
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaProducto').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_prodId}"/>
                             </f:facet>
                             <h:outputText value="#{item.prodId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodCodigo}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodCodigo}"/>
+                        </p:column>
+                        <p:column colspan="2">
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodNombre}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodNombre}"/>
                         </p:column>
                         <p:column>
                             <f:facet name="header">
@@ -51,18 +72,8 @@
                             </f:facet>
                             <h:outputText value="#{item.prodRackColumna}"/>
                         </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodCodigo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodCodigo}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodNombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodNombre}"/>
-                        </p:column>
+
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_prodUnidMedida}"/>
@@ -81,6 +92,14 @@
                             </f:facet>
                             <h:outputText value="#{item.prodCostActual}"/>
                         </p:column>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProductoTitle_prodTotalActual}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.prodTotalActual}"/>
+                        </p:column>
+
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_prodStatus}"/>
@@ -92,11 +111,37 @@
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{productoController.prepareCreate}" update=":ProductoCreateForm" oncomplete="PF('ProductoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProductoViewForm" oncomplete="PF('ProductoViewDialog').show()" disabled="#{empty productoController.selected}"/>
                             <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProductoEditForm" oncomplete="PF('ProductoEditDialog').show()" disabled="#{empty productoController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{productoController.destroy}" update=":growl,datalist" disabled="#{empty productoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" oncomplete="PF('eliminacion').show()" update=":growl,datalist" disabled="#{empty productoController.selected}"/>
                         </f:facet>
+                    </p:dataTable>
+
+                    <p:dataTable id="paraver" value="#{productoController.listadoRack}" var="listado" style=" height: 300px">
+                        <f:facet name="header">
+                            <p:outputLabel value="Cabezara"/>
+                        </f:facet>
+                      
+                        <p:column>
+                            <f:facet name="header">
+                                <p:outputLabel value="nombre"/>
+                            </f:facet>
+                            <h:outputLabel value="#{listado.rackNombre}"/>
+                        </p:column>
                     </p:dataTable>
                 </p:panel>
             </h:form>
+
+
+            <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
+                      appendTo="@(body)" header="Esta seguro de eliminar" showEffect="explode" hideEffect="bounce">
+                <h:form id="formRol">
+                    <h:panelGroup id="confirmacion">
+
+                        <p:commandButton style="width: 160px" value="cancelar" actionListener="#{rackController.limpiar()}" process="@this" partialSubmit="true" update=":ProductoListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
+                        <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{productoController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":ProductoListForm:datalist,:growl"/>
+
+                    </h:panelGroup>
+                </h:form>
+            </p:dialog>
 
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>

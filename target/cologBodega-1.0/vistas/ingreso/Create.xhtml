@@ -16,8 +16,7 @@
                         <p:calendar id="ingrFecha" pattern="MM/dd/yyyy" value="#{ingresoController.selected.ingrFecha}" title="#{bundle.EditIngresoTitle_ingrFecha}"  showOn="button"/>
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrNumeFactura}" for="ingrNumeFactura" />
                         <p:inputText id="ingrNumeFactura" value="#{ingresoController.selected.ingrNumeFactura}" title="#{bundle.CreateIngresoTitle_ingrNumeFactura}" />
-                        <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUnidMilitar}" for="ingrUnidMilitar" />
-                        <p:inputText id="ingrUnidMilitar" value="#{ingresoController.selected.ingrUnidMilitar}" title="#{bundle.CreateIngresoTitle_ingrUnidMilitar}" required="true" requiredMessage="#{bundle.CreateIngresoRequiredMessage_ingrUnidMilitar}"/>
+
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaBodeguero}" for="ingrUsuaBodeguero" />
                         <p:selectOneMenu id="ingrUsuaBodeguero" value="#{ingresoController.selected.ingrUsuaBodeguero}" required="true" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaBodeguero}">
                             <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
@@ -55,10 +54,34 @@
                         </p:selectOneMenu>
                         <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrTotal}" for="ingrTotal" />
                         <p:inputText id="ingrTotal" value="#{ingresoController.selected.ingrTotal}" title="#{bundle.CreateIngresoTitle_ingrTotal}" placeholder="#{bundle.IngreseValor}"/>
-                    </p:panelGrid>
+                    
+                       <p:outputLabel value="#{bundle.CreateDetalleingresoLabel_detaIngrIngrId}" for="detaIngrIngrId" />
+                    <p:selectOneMenu id="detaIngrIngrId"  required="true" requiredMessage="#{bundle.EditDetalleingresoRequiredMessage_detaIngrIngrId}">
+                        <f:selectItem itemLabel=" --- Seleccione --" itemValue=""/>
+                        <f:selectItems value="#{ingresoController.itemsAvailableSelectOne}"
+                                       var="detaIngrIngrIdItem"
+                                       itemLabel="#{detaIngrIngrIdItem.ingrNumeFactura}"
+                                       itemValue="#{detaIngrIngrIdItem}"/>
+                    </p:selectOneMenu>
                     <p:commandButton actionListener="#{ingresoController.create}" value="#{bundle.Save}" update="display,:IngresoListForm:datalist,:growl" oncomplete="handleSubmit(args,'IngresoCreateDialog');"/>
+                    
+                    </p:panelGrid>
+                    
+
+
+
+
+                 
+
+
                 </h:panelGroup>
             </h:form>
+
+
+
+
+
+
         </p:dialog>
 
     </ui:composition>

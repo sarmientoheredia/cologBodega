@@ -6,9 +6,11 @@
 package com.bodcol.facade;
 
 import com.bodcol.entidades.Rol;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,17 @@ public class RolFacade extends AbstractFacade<Rol> {
         super(Rol.class);
     }
     
+    
+    //MEMTODO PARA VERIFICAR SI EL ROL YA EXISTE EN LA BASE DE DATOS
+    public boolean varificarRol(String rolNombre){
+        Query query=em.createNamedQuery("Rol.findByRolNombre",Rol.class);
+        query.setParameter("rolNombre", rolNombre);
+        List<Rol> listado=query.getResultList();
+        if(!listado.isEmpty()){
+            return true ;
+        }else{
+            return false;
+        }
+        
+    }
 }

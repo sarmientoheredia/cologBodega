@@ -8,23 +8,74 @@
 
     <ui:composition>
 
-        <p:dialog id="ProveedorCreateDlg" showEffect="explode" hideEffect="bounce" widgetVar="ProveedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProveedorTitle}">
-            <h:form id="ProveedorCreateForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
+        <p:dialog id="ProveedorCreateDlg" showEffect="explode" hideEffect="bounce" widgetVar="ProveedorCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProveedorTitle}" style="width: 100px">
+            <h:form id="ProveedorCreateForm" >
+                <h:panelGroup id="display" >
+                    <p:panelGrid columns="2"  rendered="#{proveedorController.selected != null}" style="width: 500px">
+
+
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provTipo}" for="provTipo" />
+                        <p:selectOneMenu id="provTipo" value="#{proveedorController.selected.provTipo}" title="#{bundle.CreateProveedorTitle_provTipo}"  requiredMessage="#{bundle.CreateProveedorRequiredMessage_provTipo}">
+                            <f:selectItem itemLabel=" --- Seleccione ---" itemValue="0"/>
+                            <f:selectItem itemLabel="Persona Juridica"  itemValue="2"/>
+                            <f:selectItem itemLabel="Persona Natural"  itemValue="1"/>
+                            <f:selectItem itemLabel="No Dispone de Ruc"  itemValue="3"/>
+                            <p:ajax event="change" listener="#{proveedorController.activarCajas}" update="provRuc,provRucPersonaNatural" />
+                        </p:selectOneMenu>
+
+                       
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_provRuc}" for="provRuc" />
-                        <p:inputText id="provRuc" required="true" value="#{proveedorController.selected.provRuc}" title="#{bundle.CreateProveedorTitle_provRuc}" />
-                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provNombre}" for="provNombre" />
-                        <p:inputText id="provNombre" required="true" value="#{proveedorController.selected.provNombre}" title="#{bundle.CreateProveedorTitle_provNombre}" />
+                        <p:inputText style="width: 400px" placeholder="1700000000001" id="provRuc" disabled="#{!proveedorController.activoRuc}" required="true"  value="#{proveedorController.selected.provRuc}" title="#{bundle.CreateProveedorTitle_provRuc}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provRuc}" >
+                            <p:ajax event="keyup"  listener="#{proveedorController.validarRucAjax}"/>
+                            <f:validateLength minimum="13" maximum="13"/>
+                        </p:inputText>
+
+
+
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provRucNatural}" for="provRucPersonaNatural" />
+                        <p:inputText style="width: 400px" placeholder="1700000000001" id="provRucPersonaNatural" disabled="#{!proveedorController.activoRucPersonaNatural}" required="true"  value="#{proveedorController.selected.provRucNatural}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provRuc}"  >
+                            <p:ajax event="keyup"  listener="#{proveedorController.validarRucNaturalAjax}"/>
+                            <f:validateLength minimum="13" maximum="13"/>
+                        </p:inputText>
+
+
+
+
+
+
+                        <p:selectBooleanCheckbox  itemLabel="Cedula: "  style="width: 200px" value="#{proveedorController.activoCedula}" >
+                            <p:ajax  listener="#{proveedorController.activarCedula()}" update="provCedula" event="change" />
+                        </p:selectBooleanCheckbox>
+                        <p:inputText style="width: 400px" id="provCedula" placeholder="1700000000" value="#{proveedorController.selected.provCedula}" required="true" disabled="#{!proveedorController.activoCedula}"  title="#{bundle.CreateProveedorTitle_provCedula}"  requiredMessage="#{bundle.CreateProveedorRequiredMessage_provCedula}">
+                            <p:ajax event="keyup"  listener="#{proveedorController.validarCedula}"/>
+                            <f:validateLength minimum="10" maximum="10" />
+                        </p:inputText>
+
+                        <p:outputLabel value="#{bundle.ProveedorNombreLavel}" for="provNombre" />
+                        <p:inputText style="width: 400px" id="provNombre" required="true" placeholder="Nombre o razon social" value="#{proveedorController.selected.provNombre}" title="#{bundle.CreateProveedorTitle_provNombre}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provNombre}" />
+
+
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provDireccion}" for="provDireccion" />
+                        <p:inputText style="width: 400px" id="provDireccion" placeholder="Provincia - ciudad - calle principal" value="#{proveedorController.selected.provDireccion}" title="#{bundle.CreateProveedorTitle_provDireccion}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provDireccion}"/>
+
+
+
+
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_provTelefono}" for="provTelefono" />
-                        <p:inputText id="provTelefono" required="true" value="#{proveedorController.selected.provTelefono}" title="#{bundle.CreateProveedorTitle_provTelefono}" />
-                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provEmail}" for="provEmail" />
-                        <p:inputText id="provEmail" required="true" value="#{proveedorController.selected.provEmail}" title="#{bundle.CreateProveedorTitle_provEmail}" />
+                        <p:inputText style="width: 400px" id="provTelefono"  placeholder="02-2222-222" value="#{proveedorController.selected.provTelefono}" title="#{bundle.CreateProveedorTitle_provTelefono}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provTelefono}" />
+
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provCelular}" for="provCelular" />
+                        <p:inputText style="width: 400px" id="provCelular" placeholder="0999999999"  value="#{proveedorController.selected.provCelular}" title="#{bundle.CreateProveedorTitle_provCelular}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provCelular}"/>
+
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provEmail}"  for="provEmail" />
+                        <p:inputText style="width: 400px" id="provEmail" required="true" placeholder="ejemplo@gmail.com" value="#{proveedorController.selected.provEmail}" title="#{bundle.CreateProveedorTitle_provEmail}"  requiredMessage="#{bundle.CreateProveedorRequiredMessage_provEmail}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{proveedorController.create}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>
+                    <p:commandButton  style="width: 660px" actionListener="#{proveedorController.create}"  value="#{bundle.Save}" update="ProveedorCreateForm:display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProveedorCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
     </ui:composition>
 </html>
+
+

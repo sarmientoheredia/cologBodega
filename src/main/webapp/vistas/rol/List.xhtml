@@ -14,45 +14,71 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="RolListForm">
-                <p:panel header="#{bundle.ListRolTitle}">
-                    <p:dataTable id="datalist" value="#{rolController.items}" var="item"
-                                 selectionMode="single" selection="#{rolController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.rolId}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+            <div class="ui-g" style="justify-content: center; text-align: center">
+                <div class="ui-g-12 ui-md-12 ui-lg-8" >
+                    <h:form id="RolListForm">
+                        <p:panel header="#{bundle.ListRolTitle}">
+                            <p:dataTable id="datalist" value="#{rolController.items}" var="item"
+                                         widgetVar="tablaRol"
+                                         selectionMode="single" selection="#{rolController.selected}"
+                                         paginator="true" 
+                                         globalFilterFunction="#{rolController.globalFilterFunction}"
+                                         rowKey="#{item.rolId}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                                <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                                <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRolTitle_rolId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rolId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRolTitle_rolNombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rolNombre}"/>
-                        </p:column>
-                
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{rolController.prepareCreate}" update=":RolCreateForm" oncomplete="PF('RolCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RolViewForm" oncomplete="PF('RolViewDialog').show()" disabled="#{empty rolController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RolEditForm" oncomplete="PF('RolEditDialog').show()" disabled="#{empty rolController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{rolController.destroy}" update=":growl,datalist" disabled="#{empty rolController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                                 <f:facet name="header">
+                                    <p:outputPanel>
+                                        <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                        <p:inputText id="globalFilter" onkeyup="PF('tablaRol').filter()" style="text-align: center" placeholder="Buscar" />
+                                    </p:outputPanel>
+                                </f:facet>
+                                
+                                <p:column >
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListRolTitle_rolId}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.rolId}"/>
+                                </p:column>
+                                <p:column colspan="2">
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.ListRolTitle_rolNombre}"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.rolNombre}"/>
+                                </p:column>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
-            <ui:include src="View.xhtml"/>
+                                <f:facet name="footer">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{rolController.prepareCreate}" update=":RolCreateForm" oncomplete="PF('RolCreateDialog').show()"/>
+                                    <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RolViewForm" oncomplete="PF('RolViewDialog').show()" disabled="#{empty rolController.selected}"/>
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RolEditForm" oncomplete="PF('RolEditDialog').show()" disabled="#{empty rolController.selected}"/>
+                                    <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" oncomplete="PF('eliminacion').show()" update=":growl,datalist" disabled="#{empty rolController.selected}"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:panel>
+                    </h:form>
+                    <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
+                              appendTo="@(body)" header="Esta seguro de eliminar" showEffect="explode" hideEffect="bounce">
+                              
+                        <h:form id="formRol">
+                            <h:panelGroup id="confirmacion">
+                               
+                                <p:commandButton style="width: 160px" value="cancelar" actionListener="#{rolController.limpiar()}" process="@this" partialSubmit="true" update=":RolListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
+                                    <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{rolController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":RolListForm:datalist,:growl"/>
+                                    
+                            </h:panelGroup>
+                        </h:form>
+                        
+                    </p:dialog>
+
+                    <ui:include src="Create.xhtml"/>
+                    <ui:include src="Edit.xhtml"/>
+                    <ui:include src="View.xhtml"/>
+                </div>
+            </div>
         </ui:define>
     </ui:composition>
 

@@ -3,32 +3,75 @@ package com.bodcol.beans;
 import com.bodcol.entidades.Seccion;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
+import com.bodcol.entidades.Rack;
 import com.bodcol.facade.SeccionFacade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("seccionController")
-@SessionScoped
+@ViewScoped
 public class SeccionController implements Serializable {
 
     @EJB
     private com.bodcol.facade.SeccionFacade ejbFacade;
     private List<Seccion> items = null;
     private Seccion selected;
-
+    private List<Rack> listaracks;
+    private Rack racks;
+  
+    @PostConstruct
+    public void init(){
+         racks=new Rack();
+    }
+    
     public SeccionController() {
+    }
+
+    
+ 
+    
+    
+    //METODO PARA FILTRAR POR CUALQUIER CAMPO
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        Seccion seccion = (Seccion) value;
+        return seccion.getSeccNombre().toLowerCase().contains(filterText)
+                || seccion.getSeccId() == filterInt;
+
+    }
+
+    public void limpiar() {
+        selected = null;
+        items = null;
+    }
+
+    //METODO PARA CONVERTIR EL ID
+    private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
     }
 
     public Seccion getSelected() {
@@ -39,12 +82,23 @@ public class SeccionController implements Serializable {
         this.selected = selected;
     }
 
+    public List<Rack> getRacks() {
+        return listaracks;
+    }
+
+    public void setRacks(List<Rack> racks) {
+        this.listaracks = racks;
+    }
+
+    
     protected void setEmbeddableKeys() {
     }
 
     protected void initializeEmbeddableKey() {
     }
 
+
+    
     private SeccionFacade getFacade() {
         return ejbFacade;
     }
@@ -56,14 +110,27 @@ public class SeccionController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SeccionCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (ejbFacade.verificarNombreSeccion(selected.getSeccNombre())) {
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La seccion ya esta registrada", "Error"));
+            selected = null;
+        } else {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("SeccionCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
+
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SeccionUpdated"));
+        if (ejbFacade.verificarNombreSeccion(selected.getSeccNombre())) {
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "La seccion ya esta registrada", "Error"));
+            selected = null;
+        } else {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("SeccionUpdated"));
+        }
     }
 
     public void destroy() {
@@ -118,6 +185,7 @@ public class SeccionController implements Serializable {
     }
 
     public List<Seccion> getItemsAvailableSelectOne() {
+               
         return getFacade().findAll();
     }
 

@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditRolLabel_rolNombre}" for="rolNombre" />
                         <p:inputText id="rolNombre" value="#{rolController.selected.rolNombre}" title="#{bundle.EditRolTitle_rolNombre}" required="true" requiredMessage="#{bundle.EditRolRequiredMessage_rolNombre}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{rolController.update}" value="#{bundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RolEditDialog');"/>
+                    <p:commandButton style="width: 300px" actionListener="#{rolController.update}" value="#{bundle.Save}" update="display,:RolListForm:datalist,:growl" oncomplete="handleSubmit(args, 'RolEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

@@ -7,12 +7,13 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
-        <title><ui:insert name="title">Default Title</ui:insert></title>
+        <title><ui:insert name="title">BodCol</ui:insert></title>
         <h:outputStylesheet library="css" name="jsfcrud.css"/>
         <h:outputScript library="js" name="jsfcrud.js"/>
         <h:outputStylesheet name="css/primeflex.css"/>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
         <f:event type="preRenderView" listener="#{plantillaController.verificarSesion}"/>
+
     </h:head>
 
     <h:body >
@@ -29,31 +30,21 @@
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/inicio" icon="pi pi-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="Rol" outcome="/vistas/rol/List.xhtml" />
-                            <p:menuitem value="Usuario" outcome="/vistas/usuario/List.xhtml" />
-                            <p:menuitem value="Proveedor" outcome="/vistas/proveedor/List.xhtml" />
-                            <p:menuitem value="Seccion" outcome="/vistas/seccion/List.xhtml" />
-                            <p:menuitem value="Rack" outcome="/vistas/rack/List.xhtml" />
-                            <p:menuitem value="Producto" outcome="/vistas/producto/List.xhtml" />
-                            <p:menuitem value="Historicoproducto" outcome="/vistas/historicoproducto/List.xhtml" />
-                            <p:menuitem value="Ingreso" outcome="/vistas/ingreso/List.xhtml" />
-                            <p:menuitem value="Detalleingreso" outcome="/vistas/detalleingreso/List.xhtml" />
-                            <p:menuitem value="Egreso" outcome="/vistas/egreso/List.xhtml" />
-                            <p:menuitem value="Detalleegreso" outcome="/vistas/detalleegreso/List.xhtml" />
+                            <p:menuitem value="Rol" outcome="/vistas/rol/List.xhtml" icon="pi pi-key" />
+                            <p:menuitem value="Usuario" outcome="/vistas/usuario/List.xhtml" icon="pi pi-users"/>
+                            <p:menuitem value="Proveedor" outcome="/vistas/proveedor/List.xhtml" icon="pi pi-shopping-cart"/>
+                            <p:menuitem value="Seccion" outcome="/vistas/seccion/List.xhtml" icon="pi pi-sitemap" />
+                            <p:menuitem value="Rack" outcome="/vistas/rack/List.xhtml" icon="pi pi-table"/>
+                            <p:menuitem value="Producto" outcome="/vistas/producto/List.xhtml" icon="pi pi-apple"/>
+
+
                         </p:submenu>
 
                         <p:submenu label="#{bundle.ModuloProcesos}">
-                            <p:menuitem value="Detalleegreso" outcome="/vistas/detalleegreso/List.xhtml" />
-                            <p:menuitem value="Detalleingreso" outcome="/vistas/detalleingreso/List.xhtml" />
-                            <p:menuitem value="Egreso" outcome="/vistas/egreso/List.xhtml" />
-                            <p:menuitem value="Historicoproducto" outcome="/vistas/historicoproducto/List.xhtml" />
                             <p:menuitem value="Ingreso" outcome="/vistas/ingreso/List.xhtml" />
-                            <p:menuitem value="Producto" outcome="/vistas/producto/List.xhtml" />
-                            <p:menuitem value="Proveedor" outcome="/vistas/proveedor/List.xhtml" />
-                            <p:menuitem value="Rack" outcome="/vistas/rack/List.xhtml" />
-                            <p:menuitem value="Rol" outcome="/vistas/rol/List.xhtml" />
-                            <p:menuitem value="Seccion" outcome="/vistas/seccion/List.xhtml" />
-                            <p:menuitem value="Usuario" outcome="/vistas/usuario/List.xhtml" />
+                            <p:menuitem value="Detalle Ingreso" outcome="/vistas/detalleingreso/List.xhtml" />
+                            <p:menuitem value="Egreso" outcome="/vistas/egreso/List.xhtml" />
+                            <p:menuitem value="Detalle Egreso" outcome="/vistas/detalleegreso/List.xhtml" />
                         </p:submenu>
                         <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" />
                         <p:menuitem actionListener="#{plantillaController.cerrarSesion()}" value="#{bundle.Session}" action="/index?faces-redirect=true" icon="pi pi-power-off" style="color: red;"/>
@@ -71,8 +62,13 @@
 
 
 
-            <p:layoutUnit position="south" size="60" >
-                <ui:insert name="footer"/>
+            <p:layoutUnit position="south" size="60"  >
+                <ui:insert name="footer" >
+                    <h:form style="text-align: center; font-weight: bold">
+                        <p:outputLabel value="© 2020 Sarmiento Luis"/>
+                    </h:form>
+                </ui:insert>
+
             </p:layoutUnit>
 
             <p:layoutUnit position="center">

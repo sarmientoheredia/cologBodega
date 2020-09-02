@@ -12,6 +12,9 @@
             <h:form id="ProductoEditForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditProductoLabel_prodCodigo}" for="prodCodigo" />
+                        <p:inputText id="prodCodigo" readonly="true" value="#{productoController.selected.prodCodigo}" title="#{bundle.EditProductoTitle_prodCodigo}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodCodigo}"/>
+                        
                         <p:outputLabel value="#{bundle.EditProductoLabel_prodRackId}" for="prodRackId" />
                         <p:selectOneMenu id="prodRackId" value="#{productoController.selected.prodRackId}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackId}">
                             <f:selectItems value="#{rackController.itemsAvailableSelectOne}"
@@ -23,21 +26,31 @@
                         <p:inputText id="prodRackFila" value="#{productoController.selected.prodRackFila}" title="#{bundle.EditProductoTitle_prodRackFila}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackFila}"/>
                         <p:outputLabel value="#{bundle.EditProductoLabel_prodRackColumna}" for="prodRackColumna" />
                         <p:inputText id="prodRackColumna" value="#{productoController.selected.prodRackColumna}" title="#{bundle.EditProductoTitle_prodRackColumna}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackColumna}"/>
-                        <p:outputLabel value="#{bundle.EditProductoLabel_prodCodigo}" for="prodCodigo" />
-                        <p:inputText id="prodCodigo" value="#{productoController.selected.prodCodigo}" title="#{bundle.EditProductoTitle_prodCodigo}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodCodigo}"/>
+                        
                         <p:outputLabel value="#{bundle.EditProductoLabel_prodNombre}" for="prodNombre" />
-                        <p:inputText id="prodNombre" value="#{productoController.selected.prodNombre}" title="#{bundle.EditProductoTitle_prodNombre}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodNombre}"/>
+                        <p:inputText id="prodNombre" readonly="true" value="#{productoController.selected.prodNombre}" title="#{bundle.EditProductoTitle_prodNombre}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodNombre}"/>
                         <p:outputLabel value="#{bundle.EditProductoLabel_prodUnidMedida}" for="prodUnidMedida" />
-                        <p:inputText id="prodUnidMedida" value="#{productoController.selected.prodUnidMedida}" title="#{bundle.EditProductoTitle_prodUnidMedida}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodUnidMedida}"/>
-                        <p:outputLabel value="#{bundle.EditProductoLabel_prodStocActual}" for="prodStocActual" />
-                        <p:inputText id="prodStocActual" value="#{productoController.selected.prodStocActual}" title="#{bundle.EditProductoTitle_prodStocActual}" />
-                        <p:outputLabel value="#{bundle.EditProductoLabel_prodCostActual}" for="prodCostActual" />
-                        <p:inputText id="prodCostActual" value="#{productoController.selected.prodCostActual}" title="#{bundle.EditProductoTitle_prodCostActual}" />
-                        <p:outputLabel value="#{bundle.EditProductoLabel_prodStatus}" for="prodStatus" />
-                        <p:inputText id="prodStatus" value="#{productoController.selected.prodStatus}" title="#{bundle.EditProductoTitle_prodStatus}" />
+                        <p:selectOneMenu id="prodUnidMedida" value="#{productoController.selected.prodUnidMedida}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodUnidMedida}">
+                            <f:selectItem itemLabel="--- Seleccione ---" itemValue="" />
+                            <f:selectItem itemLabel="Unidad" itemValue="Unidad" />
+                            <f:selectItem itemLabel="Caneca" itemValue="Caneca" />
+                            <f:selectItem itemLabel="Resma" itemValue="Resma" />
+                            <f:selectItem itemLabel="Kilogramo" itemValue="Kilogramo" />
+                            <f:selectItem itemLabel="Quintal" itemValue="Quintal" />
+                            <f:selectItem itemLabel="Metro" itemValue="Metro" />
+                            <f:selectItem itemLabel="Litro" itemValue="Litro" />
+                        </p:selectOneMenu>
 
+                        
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodStatus}" for="prodStatus" />
+                        <p:selectOneMenu id="prodStatus" value="#{productoController.selected.prodStatus}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodStatus}">
+                            <f:selectItem itemLabel="--- Seleccione ---" itemValue="" />
+                            <f:selectItem itemLabel="Nuevo" itemValue="Nuevo" />
+                            <f:selectItem itemLabel="Medio Uso" itemValue="Medio Uso" />
+                            <f:selectItem itemLabel="Dado de Baja" itemValue="Dado de Baja" />
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productoController.update}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductoEditDialog');"/>
+                    <p:commandButton style="width: 370px" actionListener="#{productoController.update}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProductoEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
@@ -48,4 +61,12 @@
 
 
 <!--<p:outputLabel value="#{bundle.EditProductoLabel_prodBorrLogi}" for="prodBorrLogi" />
-                        <p:selectBooleanCheckbox id="prodBorrLogi" value="#{productoController.selected.prodBorrLogi}" />-->
+                        <p:selectBooleanCheckbox id="prodBorrLogi" value="#{productoController.selected.prodBorrLogi}" />
+                    <p:outputLabel value="#{bundle.EditProductoLabel_prodStocActual}" for="prodStocActual" />
+                        <p:inputText id="prodStocActual" value="#{productoController.selected.prodStocActual}" title="#{bundle.EditProductoTitle_prodStocActual}" />
+                        <p:outputLabel value="#{bundle.EditProductoLabel_prodCostActual}" for="prodCostActual" />
+                        <p:inputText id="prodCostActual" value="#{productoController.selected.prodCostActual}" title="#{bundle.EditProductoTitle_prodCostActual}" />
+                    
+                    
+                    
+                    -->

@@ -24,12 +24,14 @@ public class PlantillaController implements Serializable {
         this.usuario = usuario;
     }
 
+    
     public void verificarSesion() {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             usuario = (Usuario) context.getExternalContext().getSessionMap().get("administrador");
             if (usuario == null) {
-                context.getExternalContext().redirect("index.xhtml");
+                context.getExternalContext().redirect("./../../index.xhtml");
+                
             }
 
         } catch (Exception e) {

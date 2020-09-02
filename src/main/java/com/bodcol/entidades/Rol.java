@@ -44,11 +44,13 @@ public class Rol implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 45)
-    @Column(name = "rol_Nombre")
+    
+    @Column(name = "rol_Nombre",unique = true)
     private String rolNombre;
+    
     @Column(name = "rol_BorrLogi")
     private Boolean rolBorrLogi=true;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuaRolId")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "usuaRolId")
     private List<Usuario> usuarioList;
 
     public Rol() {

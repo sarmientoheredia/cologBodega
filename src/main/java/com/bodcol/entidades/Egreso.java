@@ -63,12 +63,12 @@ public class Egreso implements Serializable {
     @ManyToOne(optional = false)
     private Usuario egreUsuaBodeguero;
     @JoinColumn(name = "egre_Usua_Logistico", referencedColumnName = "usua_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     private Usuario egreUsuaLogistico;
     @JoinColumn(name = "egre_Usua_Solicita", referencedColumnName = "usua_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     private Usuario egreUsuaSolicita;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "detaEgreEgreId")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "detaEgreEgreId")
     private List<Detalleegreso> detalleegresoList;
 
     public Egreso() {

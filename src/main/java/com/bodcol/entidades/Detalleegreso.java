@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,20 +18,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.OneToOne;
 
 /**
  *
  * @author Cbos- Com. Sarmiento H. Luis A.
  */
 @Entity
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Detalleegreso.findAll", query = "SELECT d FROM Detalleegreso d"),
     @NamedQuery(name = "Detalleegreso.findByDetaEgreId", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreId = :detaEgreId"),
-    @NamedQuery(name = "Detalleegreso.findByDetaEgreUnidMedida", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreUnidMedida = :detaEgreUnidMedida"),
     @NamedQuery(name = "Detalleegreso.findByDetaEgreCantEgresa", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreCantEgresa = :detaEgreCantEgresa"),
     @NamedQuery(name = "Detalleegreso.findByDetaEgrePreciEgresa", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgrePreciEgresa = :detaEgrePreciEgresa"),
     @NamedQuery(name = "Detalleegreso.findByDetaTotal", query = "SELECT d FROM Detalleegreso d WHERE d.detaTotal = :detaTotal"),
@@ -43,25 +40,22 @@ public class Detalleegreso implements Serializable {
     @Basic(optional = false)
     @Column(name = "detaEgre_Id")
     private Integer detaEgreId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 45)
-    @Column(name = "detaEgre_UnidMedida")
-    private String detaEgreUnidMedida;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "detaEgre_CantEgresa")
     private BigDecimal detaEgreCantEgresa;
+    
     @Column(name = "detaEgre_PreciEgresa")
     private BigDecimal detaEgrePreciEgresa;
+    
     @Column(name = "deta_Total")
     private BigDecimal detaTotal;
     @Column(name = "detaEgre_BorrLogi")
-    private Boolean detaEgreBorrLogi=true;
+    private Boolean detaEgreBorrLogi;
     @JoinColumn(name = "detaEgre_Egre_Id", referencedColumnName = "egre_Id")
     @ManyToOne(optional = false)
     private Egreso detaEgreEgreId;
     @JoinColumn(name = "detaEgre_Prod_Id", referencedColumnName = "prod_Id")
-    @ManyToOne(optional = false)
+    @OneToOne
     private Producto detaEgreProdId;
 
     public Detalleegreso() {
@@ -71,25 +65,12 @@ public class Detalleegreso implements Serializable {
         this.detaEgreId = detaEgreId;
     }
 
-    public Detalleegreso(Integer detaEgreId, String detaEgreUnidMedida) {
-        this.detaEgreId = detaEgreId;
-        this.detaEgreUnidMedida = detaEgreUnidMedida;
-    }
-
     public Integer getDetaEgreId() {
         return detaEgreId;
     }
 
     public void setDetaEgreId(Integer detaEgreId) {
         this.detaEgreId = detaEgreId;
-    }
-
-    public String getDetaEgreUnidMedida() {
-        return detaEgreUnidMedida;
-    }
-
-    public void setDetaEgreUnidMedida(String detaEgreUnidMedida) {
-        this.detaEgreUnidMedida = detaEgreUnidMedida;
     }
 
     public BigDecimal getDetaEgreCantEgresa() {
@@ -162,7 +143,7 @@ public class Detalleegreso implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bodcol.entidades.Detalleegreso[ detaEgreId=" + detaEgreId + " ]";
+        return "com.bodcol.mavenproject3.Detalleegreso[ detaEgreId=" + detaEgreId + " ]";
     }
     
 }

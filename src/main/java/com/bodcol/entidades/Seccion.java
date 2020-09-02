@@ -44,11 +44,11 @@ public class Seccion implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "secc_Nombre")
+    @Column(name = "secc_Nombre",unique = true)
     private String seccNombre;
     @Column(name = "secc_BorrLogi")
     private Boolean seccBorrLogi=true;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rackSeccId")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "rackSeccId")
     private List<Rack> rackList;
 
     public Seccion() {

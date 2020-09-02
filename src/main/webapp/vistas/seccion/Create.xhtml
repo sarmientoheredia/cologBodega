@@ -13,9 +13,9 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{seccionController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateSeccionLabel_seccNombre}" for="seccNombre" />
-                        <p:inputText id="seccNombre" value="#{seccionController.selected.seccNombre}" title="#{bundle.CreateSeccionTitle_seccNombre}" required="true" requiredMessage="#{bundle.CreateSeccionRequiredMessage_seccNombre}"/>
+                        <p:inputText id="seccNombre" placeholder="#{bundle.SeccionNombre}" value="#{seccionController.selected.seccNombre}" title="#{bundle.CreateSeccionTitle_seccNombre}" required="true" requiredMessage="#{bundle.CreateSeccionRequiredMessage_seccNombre}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{seccionController.create}" value="#{bundle.Save}" update="display,:SeccionListForm:datalist,:growl" oncomplete="handleSubmit(args,'SeccionCreateDialog');"/>
+                    <p:commandButton style="width: 300px" actionListener="#{seccionController.create}" value="#{bundle.Save}" update="display,:SeccionListForm:datalist,:growl" oncomplete="handleSubmit(args,'SeccionCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

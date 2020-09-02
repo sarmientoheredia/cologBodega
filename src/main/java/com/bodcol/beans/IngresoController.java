@@ -8,19 +8,17 @@ import com.bodcol.facade.IngresoFacade;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.faces.convert.*;
+import javax.faces.view.ViewScoped;
 
 @Named("ingresoController")
-@SessionScoped
+@ViewScoped
 public class IngresoController implements Serializable {
 
     @EJB

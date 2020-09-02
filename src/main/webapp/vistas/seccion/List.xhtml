@@ -14,41 +14,71 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="SeccionListForm">
-                <p:panel header="#{bundle.ListSeccionTitle}">
-                    <p:dataTable id="datalist" value="#{seccionController.items}" var="item"
-                                 selectionMode="single" selection="#{seccionController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.seccId}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
+            <div class="ui-g" style="justify-content: center;text-align: center">
+                <h:form id="SeccionListForm" class="ui-g-12 ui-md-12 ui-lg-6">
+                    <p:panel header="#{bundle.ListSeccionTitle}">
+                        <p:dataTable id="datalist" value="#{seccionController.items}" var="item"
+                                     selectionMode="single" selection="#{seccionController.selected}"
+                                     paginator="true"
+                                     widgetVar="tablaSeccion"
+                                     globalFilterFunction="#{seccionController.globalFilterFunction}"
+                                     rowKey="#{item.seccId}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                        <p:column>
+
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSeccionTitle_seccId}"/>
+                                <p:outputPanel>
+                                    <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaSeccion').filter()" style="text-align: center" placeholder="Buscar" />
+                                </p:outputPanel>
                             </f:facet>
-                            <h:outputText value="#{item.seccId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListSeccionTitle_seccNombre}"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListSeccionTitle_seccId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.seccId}"/>
+                            </p:column>
+                            <p:column colspan="3">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListSeccionTitle_seccNombre}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.seccNombre}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{seccionController.prepareCreate}" update=":SeccionCreateForm" oncomplete="PF('SeccionCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SeccionViewForm" oncomplete="PF('SeccionViewDialog').show()" disabled="#{empty seccionController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SeccionEditForm" oncomplete="PF('SeccionEditDialog').show()" disabled="#{empty seccionController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" oncomplete="PF('eliminacion').show()" update=":growl,datalist" disabled="#{empty seccionController.selected}"/>
                             </f:facet>
-                            <h:outputText value="#{item.seccNombre}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{seccionController.prepareCreate}" update=":SeccionCreateForm" oncomplete="PF('SeccionCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SeccionViewForm" oncomplete="PF('SeccionViewDialog').show()" disabled="#{empty seccionController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SeccionEditForm" oncomplete="PF('SeccionEditDialog').show()" disabled="#{empty seccionController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{seccionController.destroy}" update=":growl,datalist" disabled="#{empty seccionController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
 
+                <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
+                          appendTo="@(body)" header="Esta seguro de eliminar" showEffect="explode" hideEffect="bounce">
+
+                    <h:form id="formRol">
+                        <h:panelGroup id="confirmacion">
+
+                            <p:commandButton style="width: 160px" value="cancelar" actionListener="#{seccionController.limpiar()}" process="@this" partialSubmit="true" update=":SeccionListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
+                            <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{seccionController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":SeccionListForm:datalist,:growl"/>
+
+                        </h:panelGroup>
+                    </h:form>
+
+                </p:dialog>
+
+
+
+
+
+
+            </div>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

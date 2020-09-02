@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -56,8 +57,8 @@ public class Historicoproducto implements Serializable {
     private BigDecimal hPTotal;
     @Column(name = "HP_BorrLogi")
     private Boolean hPBorrLogi=true;
-    @JoinColumn(name = "HP_Prod_Id", referencedColumnName = "prod_Id")
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "HP_Prod_Id", referencedColumnName = "prod_Id",unique = true)
+    @ManyToOne(optional = false,cascade = CascadeType.MERGE)
     private Producto hPProdId;
 
     public Historicoproducto() {

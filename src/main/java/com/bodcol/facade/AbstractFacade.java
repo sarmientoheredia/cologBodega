@@ -20,7 +20,10 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
-        getEntityManager().persist(entity);
+        
+            getEntityManager().persist(entity);
+     
+        
     }
 
     public void edit(T entity) {

@@ -36,5 +36,9 @@
             <to-view-id>/inicio.xhtml</to-view-id>
             <redirect/>
         </navigation-case>
+        <navigation-case>
+            <from-outcome>invitado</from-outcome>
+            <to-view-id>/invitado.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule>
 </faces-config>

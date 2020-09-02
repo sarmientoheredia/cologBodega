@@ -6,7 +6,9 @@ import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.facade.HistoricoproductoFacade;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,6 +33,34 @@ public class HistoricoproductoController implements Serializable {
     public HistoricoproductoController() {
     }
 
+        
+    //METODO PARA FILTRAR POR CUALQUIER CAMPO
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+ 
+        Historicoproducto Historicoproducto = (Historicoproducto) value;
+        return 
+                Historicoproducto.getHPProdId().getProdNombre().toLowerCase().contains(filterText)
+                || Historicoproducto.getHPFecha().toString().contains(filterText)
+                || Historicoproducto.getHPId()== filterInt;
+    }
+    
+    //METODO PARA CONVERTIR EL ID
+     private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        }
+        catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
+    
+    
+    
     public Historicoproducto getSelected() {
         return selected;
     }

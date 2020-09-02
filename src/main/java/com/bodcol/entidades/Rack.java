@@ -33,6 +33,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Rack.findAll", query = "SELECT r FROM Rack r"),
     @NamedQuery(name = "Rack.findByRackId", query = "SELECT r FROM Rack r WHERE r.rackId = :rackId"),
     @NamedQuery(name = "Rack.findByRackNombre", query = "SELECT r FROM Rack r WHERE r.rackNombre = :rackNombre"),
+   
+
     @NamedQuery(name = "Rack.findByRackBorrLogi", query = "SELECT r FROM Rack r WHERE r.rackBorrLogi = :rackBorrLogi")})
 public class Rack implements Serializable {
 
@@ -42,15 +44,19 @@ public class Rack implements Serializable {
     @Basic(optional = false)
     @Column(name = "rack_Id")
     private Integer rackId;
+
+   
+
     @Size(max = 20)
-    @Column(name = "rack_Nombre")
+    @Column(name = "rack_Nombre", unique = true)
     private String rackNombre;
+
     @Column(name = "rack_BorrLogi")
-    private Boolean rackBorrLogi=true;
+    private Boolean rackBorrLogi = true;
     @JoinColumn(name = "rack_Secc_Id", referencedColumnName = "secc_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Seccion rackSeccId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "prodRackId")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "prodRackId")
     private List<Producto> productoList;
 
     public Rack() {
@@ -125,5 +131,5 @@ public class Rack implements Serializable {
     public String toString() {
         return "com.bodcol.entidades.Rack[ rackId=" + rackId + " ]";
     }
-    
+
 }

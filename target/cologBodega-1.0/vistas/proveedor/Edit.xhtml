@@ -13,15 +13,39 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
                         <p:outputLabel value="#{bundle.EditProveedorLabel_provRuc}" for="provRuc" />
-                        <p:inputText id="provRuc" value="#{proveedorController.selected.provRuc}" title="#{bundle.EditProveedorTitle_provRuc}" />
+                        <p:inputText id="provRuc" style="width: 400px" readonly="true" value="#{proveedorController.selected.provRuc}" title="#{bundle.EditProveedorTitle_provRuc}" />
+
+                        <p:outputLabel value="#{bundle.EditProveedorLabel_provRucNatural}" for="provRucNatural" />
+                        <p:inputText id="provRucNatural" style="width: 400px" readonly="true" value="#{proveedorController.selected.provRucNatural}" title="#{bundle.EditProveedorTitle_provRucNatural}" />
+                        
+                        <p:outputLabel value="#{bundle.EditProveedorLabel_provCedula}" for="provCedula" />
+                        <p:inputText id="provCedula" style="width: 400px" readonly="true" value="#{proveedorController.selected.provCedula}" title="#{bundle.EditProveedorTitle_provCedula}" />
+
+
                         <p:outputLabel value="#{bundle.EditProveedorLabel_provNombre}" for="provNombre" />
-                        <p:inputText id="provNombre" value="#{proveedorController.selected.provNombre}" title="#{bundle.EditProveedorTitle_provNombre}" />
+                        <p:inputText id="provNombre" readonly="true" style="width: 400px" value="#{proveedorController.selected.provNombre}" title="#{bundle.EditProveedorTitle_provNombre}" />
+
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provTipo}" for="provTipo" />
+                        <p:selectOneMenu  id="provTipo" value="#{proveedorController.selected.provTipo}" disabled="#{!proveedorController.activoRuc}" title="#{bundle.CreateProveedorTitle_provTipo}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provTipo}">
+                            <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
+                            <f:selectItem itemLabel="Persona Natural"  itemValue="Persona Natural"/>
+                            <f:selectItem itemLabel="Persona Juridica"  itemValue="Persona Juridica"/>
+                            <f:selectItem itemLabel="Persona del Portal"  itemValue="Persona del Portal"/>
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provDireccion}" for="provDireccion" />
+                        <p:inputText style="width: 400px" id="provDireccion"  placeholder="Provincia - ciudad - calle principal" value="#{proveedorController.selected.provDireccion}" title="#{bundle.CreateProveedorTitle_provDireccion}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provDireccion}"/>
+
+
                         <p:outputLabel value="#{bundle.EditProveedorLabel_provTelefono}" for="provTelefono" />
-                        <p:inputText id="provTelefono" value="#{proveedorController.selected.provTelefono}" title="#{bundle.EditProveedorTitle_provTelefono}" />
+                        <p:inputText id="provTelefono" style="width: 400px" value="#{proveedorController.selected.provTelefono}" title="#{bundle.EditProveedorTitle_provTelefono}" />
+                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provCelular}" for="provCelular" />
+                        <p:inputText style="width: 400px" id="provCelular" placeholder="0999999999"  value="#{proveedorController.selected.provCelular}" title="#{bundle.CreateProveedorTitle_provCelular}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provCelular}"/>
+
                         <p:outputLabel value="#{bundle.EditProveedorLabel_provEmail}" for="provEmail" />
-                        <p:inputText id="provEmail" value="#{proveedorController.selected.provEmail}" title="#{bundle.EditProveedorTitle_provEmail}" />
+                        <p:inputText id="provEmail" required="true" style="width: 400px" value="#{proveedorController.selected.provEmail}" title="#{bundle.EditProveedorTitle_provEmail}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provEmail}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{proveedorController.update}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProveedorEditDialog');"/>
+                    <p:commandButton style="width: 570px" actionListener="#{proveedorController.update}" value="#{bundle.Save}" update="display,:ProveedorListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProveedorEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

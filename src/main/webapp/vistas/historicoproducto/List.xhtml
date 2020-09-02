@@ -19,6 +19,8 @@
                     <p:dataTable id="datalist" value="#{historicoproductoController.items}" var="item"
                                  selectionMode="single" selection="#{historicoproductoController.selected}"
                                  paginator="true"
+                                 widgetVar="tablaHistorico"
+                                 globalFilterFunction="#{historicoproductoController.globalFilterFunction}"
                                  rowKey="#{item.HPId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
@@ -26,6 +28,12 @@
 
                         <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaHistorico').filter()" style="text-align: center" placeholder="Buscar" />
+                            </p:outputPanel>
+                        </f:facet>
 
                         <p:column>
                             <f:facet name="header">
@@ -65,7 +73,7 @@
                             </f:facet>
                             <h:outputText value="#{item.HPTotal}"/>
                         </p:column>
-                       
+
                         <f:facet name="footer">
                             <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{historicoproductoController.prepareCreate}" update=":HistoricoproductoCreateForm" oncomplete="PF('HistoricoproductoCreateDialog').show()"/>
                             <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":HistoricoproductoViewForm" oncomplete="PF('HistoricoproductoViewDialog').show()" disabled="#{empty historicoproductoController.selected}"/>

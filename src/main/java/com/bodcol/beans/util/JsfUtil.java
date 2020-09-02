@@ -33,6 +33,7 @@ public class JsfUtil {
             addErrorMessage(msg);
         } else {
             addErrorMessage(defaultMsg);
+            System.out.println("prueba");
         }
     }
 
@@ -65,5 +66,6 @@ public class JsfUtil {
         CREATE,
         DELETE,
         UPDATE
+        
     }
 }

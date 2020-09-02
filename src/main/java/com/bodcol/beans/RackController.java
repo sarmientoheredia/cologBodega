@@ -7,20 +7,22 @@ import com.bodcol.facade.RackFacade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("rackController")
-@SessionScoped
+@ViewScoped
 public class RackController implements Serializable {
 
     @EJB
@@ -29,6 +31,35 @@ public class RackController implements Serializable {
     private Rack selected;
 
     public RackController() {
+    }
+
+    //METODO PARA FILTRAR POR CUALQUIER CAMPO
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        Rack rack = (Rack) value;
+        return rack.getRackNombre().toLowerCase().contains(filterText)
+                || rack.getRackSeccId().getSeccNombre().toLowerCase().contains(filterText)
+                || rack.getRackId() == filterInt;
+    }
+
+    //METODO PARA CONVERTIR EL ID
+    private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
+
+    //METODO PARA LIMPIAR LOS COMPONENTES
+    public void limpiar() {
+        selected = null;
+        items = null;
     }
 
     public Rack getSelected() {
@@ -55,15 +86,29 @@ public class RackController implements Serializable {
         return selected;
     }
 
+
+
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RackCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (ejbFacade.verificarNombreRack(selected.getRackNombre())) {
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El rack ya esta registrado", "Error"));
+            selected = null;
+        } else {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RackCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;    // Invalidate list of items to trigger re-query.
+            }
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RackUpdated"));
+        if (ejbFacade.verificarNombreRack(selected.getRackNombre())) {
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El rack ya esta registrado", "Error"));
+            selected = null;
+        } else {
+            persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("RackUpdated"));
+        }
     }
 
     public void destroy() {

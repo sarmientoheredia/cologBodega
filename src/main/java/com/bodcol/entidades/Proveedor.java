@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bodcol.entidades;
 
 import java.io.Serializable;
@@ -17,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -31,8 +27,16 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proveedor.findAll", query = "SELECT p FROM Proveedor p"),
     @NamedQuery(name = "Proveedor.findByProvId", query = "SELECT p FROM Proveedor p WHERE p.provId = :provId"),
     @NamedQuery(name = "Proveedor.findByProvRuc", query = "SELECT p FROM Proveedor p WHERE p.provRuc = :provRuc"),
+    @NamedQuery(name = "Proveedor.findByProvRucCedula", query = "SELECT p FROM Proveedor p WHERE p.provRuc = :provRuc OR p.provCedula=:provCedula"),
+    @NamedQuery(name = "Proveedor.findByProvRucNatural", query = "SELECT p FROM Proveedor p WHERE p.provRucNatural = :provRucNatural"),
+    @NamedQuery(name = "Proveedor.findByProvCedulaRucNatural", query = "SELECT p FROM Proveedor p WHERE p.provRucNatural = :provRucNatural OR p.provCedula = :provCedula"),
+    @NamedQuery(name = "Proveedor.findByProvCedula", query = "SELECT p FROM Proveedor p WHERE p.provCedula = :provCedula"),
+    @NamedQuery(name = "Proveedor.findByProvRucCedulaNatural", query = "SELECT p FROM Proveedor p WHERE p.provCedula = :provCedula OR p.provRuc=:provRuc OR P.provRucNatural=:provRucNatural"),
     @NamedQuery(name = "Proveedor.findByProvNombre", query = "SELECT p FROM Proveedor p WHERE p.provNombre = :provNombre"),
+    @NamedQuery(name = "Proveedor.findByProvTipo", query = "SELECT p FROM Proveedor p WHERE p.provTipo = :provTipo"),
+    @NamedQuery(name = "Proveedor.findByProvDireccion", query = "SELECT p FROM Proveedor p WHERE p.provDireccion = :provDireccion"),
     @NamedQuery(name = "Proveedor.findByProvTelefono", query = "SELECT p FROM Proveedor p WHERE p.provTelefono = :provTelefono"),
+    @NamedQuery(name = "Proveedor.findByProvCelular", query = "SELECT p FROM Proveedor p WHERE p.provCelular = :provCelular"),
     @NamedQuery(name = "Proveedor.findByProvEmail", query = "SELECT p FROM Proveedor p WHERE p.provEmail = :provEmail"),
     @NamedQuery(name = "Proveedor.findByProvBorrLogi", query = "SELECT p FROM Proveedor p WHERE p.provBorrLogi = :provBorrLogi")})
 public class Proveedor implements Serializable {
@@ -43,21 +47,60 @@ public class Proveedor implements Serializable {
     @Basic(optional = false)
     @Column(name = "prov_Id")
     private Integer provId;
-    @Size(max = 50)
-    @Column(name = "prov_Ruc")
+    
+    
+    @Size(max = 14)    
+    @Column(name = "prov_Ruc", unique = true)
     private String provRuc;
+    
+    @Size(max = 14)   
+    @Column(name = "prov_RucNatural", unique = true)
+    private String provRucNatural;
+    
+    
     @Size(max = 50)
+    @Column(name = "prov_Cedula",unique = true)
+    private String provCedula;
+    
+    
+    @Size(min = 1, max = 50)
     @Column(name = "prov_Nombre")
     private String provNombre;
+    
+    
+    @Size(max = 30)
+    @Column(name = "prov_Tipo")
+    private String provTipo;
+    
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 200)
+    @Column(name = "prov_Direccion")
+    private String provDireccion;
+    
+    
     @Size(max = 30)
     @Column(name = "prov_Telefono")
     private String provTelefono;
+    
+    
     @Size(max = 50)
+    @Column(name = "prov_Celular")
+    private String provCelular;
+    
+    
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     @Column(name = "prov_Email")
     private String provEmail;
+    
+    
     @Column(name = "prov_BorrLogi")
-    private Boolean provBorrLogi=true;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingrProveId")
+    private Boolean provBorrLogi = true;
+    
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "ingrProveId")
     private List<Ingreso> ingresoList;
 
     public Proveedor() {
@@ -73,6 +116,39 @@ public class Proveedor implements Serializable {
 
     public void setProvId(Integer provId) {
         this.provId = provId;
+    }
+
+    public String getProvCedula() {
+        return provCedula;
+    }
+
+    public void setProvCedula(String provCedula) {
+        this.provCedula = provCedula;
+    }
+
+    public String getProvDireccion() {
+        return provDireccion;
+    }
+
+    public void setProvDireccion(String provDireccion) {
+        this.provDireccion = provDireccion;
+    }
+
+    public String getProvCelular() {
+        return provCelular;
+    }
+
+    public String getProvRucNatural() {
+        return provRucNatural;
+    }
+
+    public void setProvRucNatural(String provRucNatural) {
+        this.provRucNatural = provRucNatural;
+    }
+
+    
+    public void setProvCelular(String provCelular) {
+        this.provCelular = provCelular;
     }
 
     public String getProvRuc() {
@@ -109,6 +185,14 @@ public class Proveedor implements Serializable {
 
     public Boolean getProvBorrLogi() {
         return provBorrLogi;
+    }
+
+    public String getProvTipo() {
+        return provTipo;
+    }
+
+    public void setProvTipo(String provTipo) {
+        this.provTipo = provTipo;
     }
 
     public void setProvBorrLogi(Boolean provBorrLogi) {
@@ -148,5 +232,5 @@ public class Proveedor implements Serializable {
     public String toString() {
         return "com.bodcol.entidades.Proveedor[ provId=" + provId + " ]";
     }
-    
+
 }

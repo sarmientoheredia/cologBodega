@@ -11,11 +11,11 @@
         <p:dialog id="UsuarioCreateDlg" showEffect="explode" hideEffect="bounce" widgetVar="UsuarioCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioTitle}">
             <h:form id="UsuarioCreateForm">
                 <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                    <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}" style="width: 400px;">
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaGrado}" for="usuaGrado" />
-                        <p:selectOneMenu id="usuaGrado" value="#{usuarioController.selected.usuaGrado}" required="true" >
+                        <p:selectOneMenu id="usuaGrado" value="#{usuarioController.selected.usuaGrado}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaGrado}">
                             <f:selectItem itemLabel="  --- Seleccione ---" itemValue="" />
-                            <f:selectItem itemLabel="S.P" itemValue="S.p" />
+                            <f:selectItem itemLabel="S.p" itemValue="S.p" />
                             <f:selectItem itemLabel="Cpto" itemValue="Cpto" />
                             <f:selectItem itemLabel="Sldo" itemValue="Sldo" />
                             <f:selectItem itemLabel="Cbos" itemValue="Cbos" />
@@ -37,7 +37,7 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaiArma}" for="usuaiArma" />
-                        <p:selectOneMenu id="usuaiArma" value="#{usuarioController.selected.usuaiArma}" required="true"  >
+                        <p:selectOneMenu id="usuaiArma" value="#{usuarioController.selected.usuaiArma}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaArma}" >
                             <f:selectItem itemLabel="  --- Seleccione ---" itemValue="" />
                             <f:selectItem itemLabel="I" itemValue="I" />
                             <f:selectItem itemLabel="C.B" itemValue="C.B" />
@@ -53,20 +53,19 @@
                             <f:selectItem itemLabel="ADMG" itemValue="ADMG" />
                         </p:selectOneMenu>
 
-
-
-
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaCedula}" for="usuaCedula" />
-                        <p:inputText id="usuaCedula" value="#{usuarioController.selected.usuaCedula}" title="#{bundle.CreateUsuarioTitle_usuaCedula}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaCedula}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaNombre}" for="usuaNombre" />
-                        <p:inputText id="usuaNombre" value="#{usuarioController.selected.usuaNombre}" title="#{bundle.CreateUsuarioTitle_usuaNombre}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaNombre}"/>
+                        <p:inputText autocomplete="off" id="usuaCedula" placeholder="#{bundle.UsuarioCedula}" value="#{usuarioController.selected.usuaCedula}" title="#{bundle.CreateUsuarioTitle_usuaCedula}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaCedula}" style="width: 300px">
+                            <p:ajax event="keyup" rendered="usuaCedula" listener="#{usuarioController.validarCedula}"/>
+                            <f:validateLength minimum="10" maximum="10"/>
+                        </p:inputText>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaApellido}" for="usuaApellido" />
-                        <p:inputText id="usuaApellido" value="#{usuarioController.selected.usuaApellido}" title="#{bundle.CreateUsuarioTitle_usuaApellido}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaApellido}"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaUsuario}" for="usuaUsuario" />
-                        <p:inputText id="usuaUsuario" value="#{usuarioController.selected.usuaUsuario}" title="#{bundle.CreateUsuarioTitle_usuaUsuario}" required="true"/>
-                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaPassword}" for="usuaPassword" />
-                        <p:inputText id="usuaPassword" value="#{usuarioController.selected.usuaPassword}" title="#{bundle.CreateUsuarioTitle_usuaPassword}" required="true" />
-                        
+                        <p:inputText id="usuaApellido" placeholder="#{bundle.UsuarioApellido}" value="#{usuarioController.selected.usuaApellido}" title="#{bundle.CreateUsuarioTitle_usuaApellido}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaApellido}" style="width: 300px"/>
+
+
+                        <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaNombre}" for="usuaNombre" />
+                        <p:inputText id="usuaNombre" placeholder="#{bundle.UsuarioNombre}" value="#{usuarioController.selected.usuaNombre}"  title="#{bundle.CreateUsuarioTitle_usuaNombre}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaNombre}" style="width: 300px"/>
+
+
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaRolId}" for="usuaRolId" />
                         <p:selectOneMenu id="usuaRolId" value="#{usuarioController.selected.usuaRolId}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_usuaRolId}">
                             <f:selectItem itemLabel="  --- Seleccione ---" itemValue="" />
@@ -76,7 +75,7 @@
                                            itemValue="#{usuaRolIdItem}"/>
                         </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
+                    <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');" style="width: 430px"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

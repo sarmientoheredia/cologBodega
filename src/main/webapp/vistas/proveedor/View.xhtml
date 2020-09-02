@@ -14,12 +14,34 @@
                     <p:panelGrid columns="2" rendered="#{proveedorController.selected != null}">
                         <h:outputText value="#{bundle.ViewProveedorLabel_provId}"/>
                         <h:outputText value="#{proveedorController.selected.provId}" title="#{bundle.ViewProveedorTitle_provId}"/>
+                        
+                        
                         <h:outputText value="#{bundle.ViewProveedorLabel_provRuc}"/>
-                        <h:outputText value="#{proveedorController.selected.provRuc}" title="#{bundle.ViewProveedorTitle_provRuc}"/>
+                        <h:outputText id="provRuc"  value="#{proveedorController.selected.provRuc}" />
+                        
+                        <h:outputText value="#{bundle.ViewProveedorLabel_provRucNatural}"/>
+                        <h:outputText id="provRucNatural"  value="#{proveedorController.selected.provRucNatural}" />
+                        
+                        <h:outputText value="#{bundle.ViewProveedorLabel_provCedula}"/>
+                        <h:outputText id="provCedula"  value="#{proveedorController.selected.provCedula}"  title="#{bundle.ViewProveedorTitle_provCedula}" />
+                        
+                        
                         <h:outputText value="#{bundle.ViewProveedorLabel_provNombre}"/>
                         <h:outputText value="#{proveedorController.selected.provNombre}" title="#{bundle.ViewProveedorTitle_provNombre}"/>
+                        
+                        <h:outputText value="#{bundle.ViewProveedorLabel_provTipo}"/>
+                        <h:outputText value="#{proveedorController.selected.provTipo}" title="#{bundle.ViewProveedorTitle_provTipo}"/>
+                        
+                         <h:outputText value="#{bundle.ViewProveedorLabel_provDireccion}"/>
+                         <h:outputText value="#{proveedorController.selected.provDireccion}" title="#{bundle.ViewProveedorTitle_provDireccion}"/>
+                        
                         <h:outputText value="#{bundle.ViewProveedorLabel_provTelefono}"/>
                         <h:outputText value="#{proveedorController.selected.provTelefono}" title="#{bundle.ViewProveedorTitle_provTelefono}"/>
+                        
+                        <h:outputText value="#{bundle.ViewProveedorLabel_provCelular}"/>
+                        <h:outputText value="#{proveedorController.selected.provCelular}" title="#{bundle.ViewProveedorTitle_provCelular}"/>
+                        
+                        
                         <h:outputText value="#{bundle.ViewProveedorLabel_provEmail}"/>
                         <h:outputText value="#{proveedorController.selected.provEmail}" title="#{bundle.ViewProveedorTitle_provEmail}"/>
                     </p:panelGrid>

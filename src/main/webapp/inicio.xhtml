@@ -3,19 +3,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
-        <ui:composition template="./template.xhtml">
+        <ui:composition template="/template.xhtml">
 
             <ui:define name="body">
-                <div style="background-color: red">
-                    <div>
-                        <h:outputLabel value="como te va: #{plantillaController.usuario.usuaApellido} #{plantillaController.usuario.usuaNombre}"/>
+                <div class="ui-g" style="justify-content: center">
+                    <div class="ui-g-12 ui-md-12 ui-lg-12" >
+
+                        <p:media value="/resources/media/guide.pdf" width="100%" height="520px">
+                            Your browser can't display pdf, <h:outputLink value="/resources/demo/media/guide.pdf">click</h:outputLink> to download pdf instead.
+                        </p:media>
+
                     </div>
+
+<!--                    <div class="ui-g-12 ui-md-12 ui-lg-8" style="background-color: green">
+                                              
+                    </div>-->
                 </div>
-                
+
             </ui:define>
 
         </ui:composition>

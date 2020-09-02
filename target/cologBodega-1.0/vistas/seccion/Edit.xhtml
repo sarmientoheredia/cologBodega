@@ -15,7 +15,7 @@
                         <p:outputLabel value="#{bundle.EditSeccionLabel_seccNombre}" for="seccNombre" />
                         <p:inputText id="seccNombre" value="#{seccionController.selected.seccNombre}" title="#{bundle.EditSeccionTitle_seccNombre}" required="true" requiredMessage="#{bundle.EditSeccionRequiredMessage_seccNombre}"/>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{seccionController.update}" value="#{bundle.Save}" update="display,:SeccionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SeccionEditDialog');"/>
+                    <p:commandButton style="width: 300px" actionListener="#{seccionController.update}" value="#{bundle.Save}" update="display,:SeccionListForm:datalist,:growl" oncomplete="handleSubmit(args, 'SeccionEditDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>

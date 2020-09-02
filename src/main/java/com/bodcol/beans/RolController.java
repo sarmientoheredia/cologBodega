@@ -7,30 +7,57 @@ import com.bodcol.facade.RolFacade;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.ejb.EJB;
-import javax.ejb.EJBException;
+import java.util.*;
+import java.util.logging.*;
+import javax.ejb.*;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.convert.Converter;
-import javax.faces.convert.FacesConverter;
+import javax.faces.convert.*;
+import javax.faces.view.ViewScoped;
 
 @Named("rolController")
-@SessionScoped
+@ViewScoped
 public class RolController implements Serializable {
 
     @EJB
     private com.bodcol.facade.RolFacade ejbFacade;
     private List<Rol> items = null;
     private Rol selected;
+    private static final Logger LOG = Logger.getLogger(RolController.class.getName());
 
     public RolController() {
     }
 
+    //METODO PARA FILTRAR POR CUALQUIER CAMPO
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        Rol rol = (Rol) value;
+        return rol.getRolNombre().toLowerCase().contains(filterText)
+                || rol.getRolId() == filterInt;
+    }
+
+    //METODO PARA CONVERTIR EL ID
+    private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
+
+    public void limpiar(){
+    selected=null;
+    items=null;
+}
+    
     public Rol getSelected() {
         return selected;
     }
@@ -55,11 +82,19 @@ public class RolController implements Serializable {
         return selected;
     }
 
+//    LOG.log(Level.SEVERE, "error de base", ex);
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RolCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        if (ejbFacade.varificarRol(selected.getRolNombre())) {
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El rol ya esta registrado", "Error"));
+            selected = null;
+        } else {
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("RolCreated"));
+            if (!JsfUtil.isValidationFailed()) {
+                items = null;
+            }
         }
+
     }
 
     public void update() {
@@ -67,6 +102,7 @@ public class RolController implements Serializable {
     }
 
     public void destroy() {
+
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("RolDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
@@ -103,7 +139,7 @@ public class RolController implements Serializable {
                     JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
                 }
             } catch (Exception ex) {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "prueba", ex);
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }

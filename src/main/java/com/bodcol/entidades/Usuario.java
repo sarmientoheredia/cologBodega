@@ -59,7 +59,7 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 12)
-    @Column(name = "usua_Cedula")
+    @Column(name = "usua_Cedula",unique = true)
     private String usuaCedula;
     @Basic(optional = false)
     @NotNull
@@ -72,27 +72,27 @@ public class Usuario implements Serializable {
     @Column(name = "usua_Apellido")
     private String usuaApellido;
     @Size(max = 45)
-    @Column(name = "usua_Usuario")
+    @Column(name = "usua_Usuario",unique = true)
     private String usuaUsuario;
     @Size(max = 45)
     @Column(name = "usua_Password")
     private String usuaPassword;
     @Column(name = "usua_BorrLogi")
     private Boolean usuaBorrLogi=true;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingrUsuaBodeguero")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "ingrUsuaBodeguero")
     private List<Ingreso> ingresoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingrUsuaCompPublicas")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "ingrUsuaCompPublicas")
     private List<Ingreso> ingresoList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ingrUsuaLogistica")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "ingrUsuaLogistica")
     private List<Ingreso> ingresoList2;
     @JoinColumn(name = "usua_Rol_Id", referencedColumnName = "rol_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Rol usuaRolId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "egreUsuaBodeguero")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "egreUsuaBodeguero")
     private List<Egreso> egresoList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "egreUsuaLogistico")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "egreUsuaLogistico")
     private List<Egreso> egresoList1;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "egreUsuaSolicita")
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "egreUsuaSolicita")
     private List<Egreso> egresoList2;
 
     public Usuario() {

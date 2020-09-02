@@ -14,48 +14,74 @@
         </ui:define>
 
         <ui:define name="body">
-            <h:form id="RackListForm">
-                <p:panel header="#{bundle.ListRackTitle}">
-                    <p:dataTable id="datalist" value="#{rackController.items}" var="item"
-                                 selectionMode="single" selection="#{rackController.selected}"
-                                 paginator="true"
-                                 rowKey="#{item.rackId}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50"
-                                 >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+            <div class="ui-g" style="justify-content: center">
+                <h:form id="RackListForm" class="ui-g-12 ui-md-8 ui-lg-8">
+                    <p:panel header="#{bundle.ListRackTitle}">
+                        <p:dataTable id="datalist" value="#{rackController.items}" var="item"
+                                     selectionMode="single" selection="#{rackController.selected}"
+                                     paginator="true"
+                                     widgetVar="tablaRack"
+                                     globalFilterFunction="#{rackController.globalFilterFunction}"
+                                     rowKey="#{item.rackId}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRackTitle_rackId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rackId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRackTitle_rackNombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rackNombre}"/>
-                        </p:column>
-               
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListRackTitle_rackSeccId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.rackSeccId.seccNombre}"/>
-                        </p:column>
-                        <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{rackController.prepareCreate}" update=":RackCreateForm" oncomplete="PF('RackCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RackViewForm" oncomplete="PF('RackViewDialog').show()" disabled="#{empty rackController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RackEditForm" oncomplete="PF('RackEditDialog').show()" disabled="#{empty rackController.selected}"/>
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{rackController.destroy}" update=":growl,datalist" disabled="#{empty rackController.selected}"/>
-                        </f:facet>
-                    </p:dataTable>
-                </p:panel>
-            </h:form>
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
+
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaRack').filter()" style="text-align: center" placeholder="Buscar" />
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRackTitle_rackId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.rackId}"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRackTitle_rackNombre}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.rackNombre}"/>
+                            </p:column>
+
+                            <p:column colspan="2">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRackTitle_rackSeccId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.rackSeccId.seccNombre}"/>
+                            </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{rackController.prepareCreate}" update=":RackCreateForm" oncomplete="PF('RackCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":RackViewForm" oncomplete="PF('RackViewDialog').show()" disabled="#{empty rackController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":RackEditForm" oncomplete="PF('RackEditDialog').show()" disabled="#{empty rackController.selected}"/>
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" oncomplete="PF('eliminacion').show()" update=":growl,datalist" disabled="#{empty rackController.selected}"/>
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+
+
+
+                <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
+                          appendTo="@(body)" header="Esta seguro de eliminar" showEffect="explode" hideEffect="bounce">
+                    <h:form id="formRol">
+                        <h:panelGroup id="confirmacion">
+
+                            <p:commandButton style="width: 160px" value="cancelar" actionListener="#{rackController.limpiar()}" process="@this" partialSubmit="true" update=":RackListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
+                            <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{rackController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":RackListForm:datalist,:growl"/>
+
+                        </h:panelGroup>
+                    </h:form>
+                </p:dialog>
+            </div>
             <ui:include src="Create.xhtml"/>
             <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>

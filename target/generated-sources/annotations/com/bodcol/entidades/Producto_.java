@@ -10,7 +10,7 @@ import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-08-17T09:32:27")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2020-09-01T22:29:28")
 @StaticMetamodel(Producto.class)
 public class Producto_ { 
 
@@ -26,6 +26,7 @@ public class Producto_ {
     public static volatile SingularAttribute<Producto, BigDecimal> prodStocActual;
     public static volatile SingularAttribute<Producto, String> prodStatus;
     public static volatile SingularAttribute<Producto, Rack> prodRackId;
+    public static volatile SingularAttribute<Producto, BigDecimal> prodTotalActual;
     public static volatile SingularAttribute<Producto, String> prodCodigo;
     public static volatile SingularAttribute<Producto, Boolean> prodBorrLogi;
 

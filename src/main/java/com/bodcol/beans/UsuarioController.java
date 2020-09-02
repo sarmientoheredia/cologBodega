@@ -7,29 +7,60 @@ import com.bodcol.facade.UsuarioFacade;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("usuarioController")
-@SessionScoped
+@ViewScoped
 public class UsuarioController implements Serializable {
+
+    private static final Logger LOG = Logger.getLogger(UsuarioController.class.getName());
 
     @EJB
     private com.bodcol.facade.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
+    private int bandera;
 
-    
     public UsuarioController() {
+    }
+
+    //METODO PARA FILTRAR POR CUALQUIER CAMPO
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        Usuario usuario = (Usuario) value;
+        return usuario.getUsuaCedula().toLowerCase().contains(filterText)
+                || usuario.getUsuaApellido().toLowerCase().contains(filterText)
+                || usuario.getUsuaNombre().toLowerCase().contains(filterText)
+                || usuario.getUsuaGrado().toLowerCase().contains(filterText)
+                || usuario.getUsuaiArma().toLowerCase().contains(filterText)
+                || usuario.getUsuaRolId().getRolNombre().toLowerCase().contains(filterText)
+                || usuario.getUsuaId() == filterInt;
+    }
+
+    //METODO PARA CONVERTIR EL ID
+    private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
     }
 
     public Usuario getSelected() {
@@ -52,21 +83,43 @@ public class UsuarioController implements Serializable {
 
     public Usuario prepareCreate() {
         selected = new Usuario();
+
         initializeEmbeddableKey();
         return selected;
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
-        if (!JsfUtil.isValidationFailed()) {
-            items = null;    // Invalidate list of items to trigger re-query.
+        //metodo para verificar si existe en la base de datos 
+        System.out.println("bandera " + bandera);
+        if (bandera == 1) {
+            if (ejbFacade.verificarCedula(selected.getUsuaCedula())) {
+                FacesContext contexto = FacesContext.getCurrentInstance();
+                contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "El usuario ya esta registrado.", "Error"));
+                selected = null;
+            } else {
+                selected.setUsuaUsuario(selected.getUsuaCedula());
+                selected.setUsuaPassword(selected.getUsuaCedula());
+                persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
+                if (!JsfUtil.isValidationFailed()) {
+                    items = null;    // Invalidate list of items to trigger re-query.
+                }
+            }
+        } else {
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            contexto.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Numero de cedula invalido", "Error"));
         }
+
     }
 
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
     }
-
+public void limpiar(){
+    selected=null;
+    items=null;
+}
+    
+    
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UsuarioDeleted"));
         if (!JsfUtil.isValidationFailed()) {
@@ -122,7 +175,42 @@ public class UsuarioController implements Serializable {
         return getFacade().findAll();
     }
 
-    
+    //metod ajax para ver que tenga los 10 digitos de la cedula
+    public void validarCedula() {
+        
+        if (selected.getUsuaCedula().length() == 10) {
+            System.out.println("sdfdsf");
+            operacionCedula();
+
+        }
+    }
+
+    public void operacionCedula() {
+        int c, suma = 0, acum, resta = 0;
+
+        for (int i = 0; i < selected.getUsuaCedula().length() - 1; i++) {
+            c = Integer.parseInt(selected.getUsuaCedula().charAt(i) + "");
+            if (i % 2 == 0) {
+                c = c * 2;
+                if (c > 9) {
+                    c = c - 9;
+                }
+            }
+            suma = suma + c;
+        }
+        if (suma % 10 != 0) {
+            acum = ((suma / 10) + 1) * 10;
+            resta = acum - suma;
+        }
+        int ultimo = Integer.parseInt(selected.getUsuaCedula().charAt(9) + "");
+        if (ultimo == resta) {
+            bandera = 1;
+            
+        } else {
+            bandera = 0;
+        }
+    }
+
     @FacesConverter(forClass = Usuario.class)
     public static class UsuarioControllerConverter implements Converter {
 
@@ -163,7 +251,5 @@ public class UsuarioController implements Serializable {
         }
 
     }
-    
-    
 
 }

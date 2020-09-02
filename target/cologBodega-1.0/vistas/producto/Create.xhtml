@@ -12,60 +12,68 @@
             <h:form id="ProductoCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{productoController.selected != null}">
+
+                        <p:outputLabel value="#{bundle.CreateRackLabel_rackSeccId}" for="rackSeccId" />
+                        <p:selectOneMenu id="rackSeccId" value="#{productoController.seccion}" required="true" requiredMessage="#{bundle.EditRackRequiredMessage_rackSeccId}">
+                            <f:selectItem itemLabel="--- Seleccione ---" itemValue="1" />
+                            <f:selectItems value="#{productoController.itemsAvailableSelectOneSeccion}"
+                                           var="rackSeccIdItem"
+                                           itemLabel="#{rackSeccIdItem.seccNombre}"
+                                           itemValue="#{rackSeccIdItem}"/>
+                            <p:ajax event="change" listener="#{productoController.llenarComboAjax}" update="prodRackId" />
+                        </p:selectOneMenu>
+
+
+          
                         <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackId}" for="prodRackId" />
                         <p:selectOneMenu id="prodRackId" value="#{productoController.selected.prodRackId}" required="true" requiredMessage="#{bundle.EditProductoRequiredMessage_prodRackId}">
                             <f:selectItem itemLabel="--- Seleccione ---" itemValue="" />
-                            <f:selectItems value="#{rackController.itemsAvailableSelectOne}"
+                            <f:selectItems value="#{productoController.listadoRack}"
                                            var="prodRackIdItem"
                                            itemLabel="#{prodRackIdItem.rackNombre}"
                                            itemValue="#{prodRackIdItem}"/>
                         </p:selectOneMenu>
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackFila}" for="prodRackFila" />
-                        <p:inputText id="prodRackFila" value="#{productoController.selected.prodRackFila}" title="#{bundle.CreateProductoTitle_prodRackFila}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodRackFila}"/>
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackColumna}" for="prodRackColumna" />
-                        <p:inputText id="prodRackColumna" value="#{productoController.selected.prodRackColumna}" title="#{bundle.CreateProductoTitle_prodRackColumna}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodRackColumna}"/>
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodCodigo}" for="prodCodigo" />
-                        <p:inputText id="prodCodigo" value="#{productoController.selected.prodCodigo}" title="#{bundle.CreateProductoTitle_prodCodigo}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodCodigo}"/>
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodNombre}" for="prodNombre" />
-                        <p:inputText id="prodNombre" value="#{productoController.selected.prodNombre}" title="#{bundle.CreateProductoTitle_prodNombre}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodNombre}"/>
 
+
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodCodigo}" for="prodCodigo" />
+                        <p:inputText id="prodCodigo" placeholder="#{bundle.ProductoCodigo}" value="#{productoController.selected.prodCodigo}" title="#{bundle.CreateProductoTitle_prodCodigo}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodCodigo}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodNombre}" for="prodNombre" />
+                        <p:inputText id="prodNombre" placeholder="#{bundle.ProductoNombre}" autocomplete="off" value="#{productoController.selected.prodNombre}" title="#{bundle.CreateProductoTitle_prodNombre}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodNombre}"/>
                         <p:outputLabel value="#{bundle.CreateProductoLabel_prodUnidMedida}" for="prodUnidMedida" />
-                        <p:selectOneMenu id="prodUnidMedida" value="#{productoController.selected.prodUnidMedida}" required="true" >
+                        <p:selectOneMenu id="prodUnidMedida" value="#{productoController.selected.prodUnidMedida}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodUnidMedida}" >
                             <f:selectItem itemLabel="--- Seleccione ---" itemValue="" />
-                            <f:selectItem itemLabel="S.P" itemValue="S.P" />
-                            <f:selectItem itemLabel="CPTO" itemValue="CPTO" />
-                            <f:selectItem itemLabel="SLDO" itemValue="SLDO" />
-                            <f:selectItem itemLabel="CBOS" itemValue="CBOS" />
-                            <f:selectItem itemLabel="CBOP" itemValue="CBOP" />
-                            <f:selectItem itemLabel="SGOS" itemValue="SGOS" />
-                            <f:selectItem itemLabel="SGOP" itemValue="SGOP" />
-                            <f:selectItem itemLabel="SUBS" itemValue="SUBS" />
-                            <f:selectItem itemLabel="SUBP" itemValue="SUBP" />
-                            <f:selectItem itemLabel="SUBM" itemValue="SUBM" />
-                            <f:selectItem itemLabel="SUBT" itemValue="SUBT" />
-                            <f:selectItem itemLabel="TNTE" itemValue="TNTE" />
-                            <f:selectItem itemLabel="CAPT" itemValue="CAPT" />
-                            <f:selectItem itemLabel="MAYO" itemValue="MAYO" />
-                            <f:selectItem itemLabel="TCRN" itemValue="TCRN" />
-                            <f:selectItem itemLabel="CRNL" itemValue="CRNL" />
-                            <f:selectItem itemLabel="GRAB" itemValue="GRAB" />
-                            <f:selectItem itemLabel="GRAD" itemValue="GRAD" />
-                            <f:selectItem itemLabel="GRAE" itemValue="GRAE" />
+                            <f:selectItem itemLabel="Unidad" itemValue="Unidad" />
+                            <f:selectItem itemLabel="Caneca" itemValue="Caneca" />
+                            <f:selectItem itemLabel="Resma" itemValue="Resma" />
+                            <f:selectItem itemLabel="Kilogramo" itemValue="Kilogramo" />
+                            <f:selectItem itemLabel="Quintal" itemValue="Quintal" />
+                            <f:selectItem itemLabel="Metro" itemValue="Metro" />
+                            <f:selectItem itemLabel="Litro" itemValue="Litro" />
                         </p:selectOneMenu>
 
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackFila}" for="prodRackFila" />
+                        <p:inputText id="prodRackFila" placeholder="#{bundle.ProductoFila}" autocomplete="off" value="#{productoController.selected.prodRackFila}" title="#{bundle.CreateProductoTitle_prodRackFila}"  requiredMessage="#{bundle.CreateProductoRequiredMessage_prodRackFila}"/>
+                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodRackColumna}" for="prodRackColumna" />
+                        <p:inputText id="prodRackColumna" placeholder="#{bundle.ProductoColumna}" value="#{productoController.selected.prodRackColumna}" title="#{bundle.CreateProductoTitle_prodRackColumna}"  requiredMessage="#{bundle.CreateProductoRequiredMessage_prodRackColumna}"/>
 
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodStocActual}" for="prodStocActual" />
-                        <p:inputText id="prodStocActual" value="#{productoController.selected.prodStocActual}" title="#{bundle.CreateProductoTitle_prodStocActual}" required="true" />
-                        <p:outputLabel value="#{bundle.CreateProductoLabel_prodCostActual}" for="prodCostActual" />
-                        <p:inputText id="prodCostActual" value="#{productoController.selected.prodCostActual}" title="#{bundle.CreateProductoTitle_prodCostActual}" required="true" />
+
                         <p:outputLabel value="#{bundle.CreateProductoLabel_prodStatus}" for="prodStatus" />
-                        <p:inputText id="prodStatus" value="#{productoController.selected.prodStatus}" title="#{bundle.CreateProductoTitle_prodStatus}" required="true"/>
-
+                        <p:selectOneMenu id="prodStatus" value="#{productoController.selected.prodStatus}" required="true" requiredMessage="#{bundle.CreateProductoRequiredMessage_prodRackEstado}" >
+                            <f:selectItem itemLabel="--- Seleccione ---" itemValue="" />
+                            <f:selectItem itemLabel="Nuevo" itemValue="Nuevo" />
+                            <f:selectItem itemLabel="Medio Uso" itemValue="Medio Uso" />
+                            <f:selectItem itemLabel="Dado de Baja" itemValue="Dado de Baja" />
+                            <f:selectItem itemLabel="Mal Estado" itemValue="Mal Estado" />
+                        </p:selectOneMenu>
                     </p:panelGrid>
-                    <p:commandButton actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductoCreateDialog');"/>
+                    <p:commandButton style="width: 370px" actionListener="#{productoController.create}" value="#{bundle.Save}" update="display,:ProductoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProductoCreateDialog');"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
 
     </ui:composition>
 </html>
+
+
+
+

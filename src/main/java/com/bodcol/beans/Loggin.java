@@ -66,9 +66,14 @@ public class Loggin implements Serializable {
             
             if(us!=null){
                 //Almacenar en la sesion de JSF
-                
+               
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("administrador", us);
-                redireccion="inicio?faces-redirect=true";
+                if(us.getUsuaRolId().getRolNombre().equalsIgnoreCase("administrador")){
+                    redireccion="inicio?faces-redirect=true";
+                }else if(us.getUsuaRolId().getRolNombre().equalsIgnoreCase("invitado")){
+                    redireccion="invitado?faces-redirect=true";
+                }
+                
             }else{
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Credenciales Incorrectas"));
             }

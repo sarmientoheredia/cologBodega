@@ -6,9 +6,11 @@
 package com.bodcol.facade;
 
 import com.bodcol.entidades.Seccion;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,20 @@ public class SeccionFacade extends AbstractFacade<Seccion> {
 
     public SeccionFacade() {
         super(Seccion.class);
+    }
+    
+    
+    
+    //METODO PARA VERIFICAR SI EXISTE ALGUNA SECCION CON EL MISMO NOMBRE REGISTRADO
+    public boolean verificarNombreSeccion(String seccNombre){
+        Query query=em.createNamedQuery("Seccion.findBySeccNombre", Seccion.class);
+        query.setParameter("seccNombre", seccNombre);
+        List<Seccion> listado=query.getResultList();
+        if(!listado.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }
