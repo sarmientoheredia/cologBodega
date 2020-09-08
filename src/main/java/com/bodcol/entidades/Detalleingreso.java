@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bodcol.entidades;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,17 +35,17 @@ public class Detalleingreso implements Serializable {
     @Basic(optional = false)
     @Column(name = "detaIngr_Id")
     private Integer detaIngrId;
-    
+
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "detaIngr_CantIngresa")
     private BigDecimal detaIngrCantIngresa;
-    
+
     @Column(name = "deraIngr_PreciIngresa")
     private BigDecimal deraIngrPreciIngresa;
     @Column(name = "detaIngr_Total")
     private BigDecimal detaIngrTotal;
     @Column(name = "detaIngr_BorrLogi")
-    private Boolean detaIngrBorrLogi;
+    private Boolean detaIngrBorrLogi=true;
     @JoinColumn(name = "detaIngr_Ingr_Id", referencedColumnName = "ingr_Id")
     @ManyToOne(optional = false)
     private Ingreso detaIngrIngrId;
@@ -59,6 +55,21 @@ public class Detalleingreso implements Serializable {
 
     public Detalleingreso() {
     }
+
+ 
+    public Detalleingreso( BigDecimal detaIngrCantIngresa, BigDecimal deraIngrPreciIngresa, BigDecimal detaIngrTotal, Producto detaIngrProdId) {
+        
+        System.out.println("este es el constructor"+detaIngrCantIngresa);
+        this.detaIngrCantIngresa = detaIngrCantIngresa;
+        this.deraIngrPreciIngresa = deraIngrPreciIngresa;
+        this.detaIngrTotal = detaIngrTotal;
+        this.detaIngrProdId = detaIngrProdId;
+ 
+    }
+    
+    
+    
+    
 
     public Detalleingreso(Integer detaIngrId) {
         this.detaIngrId = detaIngrId;
@@ -144,5 +155,5 @@ public class Detalleingreso implements Serializable {
     public String toString() {
         return "com.bodcol.mavenproject3.Detalleingreso[ detaIngrId=" + detaIngrId + " ]";
     }
-    
+
 }

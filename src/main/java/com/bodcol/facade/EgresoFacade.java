@@ -9,6 +9,7 @@ import com.bodcol.entidades.Egreso;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +28,12 @@ public class EgresoFacade extends AbstractFacade<Egreso> {
 
     public EgresoFacade() {
         super(Egreso.class);
+    }
+    
+        //metodo para contar el numero de ingresos que estan en la base de datos
+    public Egreso contarEgresos(){
+        Query query=em.createNamedQuery("Egreso.findByNumeroEgresos", Egreso.class).setMaxResults(1);
+        return  (Egreso) query.getSingleResult(); 
     }
     
 }

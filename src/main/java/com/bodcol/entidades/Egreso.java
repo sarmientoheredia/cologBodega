@@ -36,6 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Egreso.findAll", query = "SELECT e FROM Egreso e"),
     @NamedQuery(name = "Egreso.findByEgreId", query = "SELECT e FROM Egreso e WHERE e.egreId = :egreId"),
+    @NamedQuery(name = "Egreso.findByNumeroEgresos", query = "SELECT e FROM   Egreso e ORDER BY e.egreId DESC"),
     @NamedQuery(name = "Egreso.findByEgreFecha", query = "SELECT e FROM Egreso e WHERE e.egreFecha = :egreFecha"),
     @NamedQuery(name = "Egreso.findByEgreDepenUsar", query = "SELECT e FROM Egreso e WHERE e.egreDepenUsar = :egreDepenUsar"),
     @NamedQuery(name = "Egreso.findByEgreTotal", query = "SELECT e FROM Egreso e WHERE e.egreTotal = :egreTotal"),

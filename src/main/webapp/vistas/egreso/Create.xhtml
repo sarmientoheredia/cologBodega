@@ -14,10 +14,19 @@
                     <p:panelGrid columns="2" rendered="#{egresoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateEgresoLabel_egreFecha}" for="egreFecha" />
                         <p:calendar id="egreFecha" required="true" pattern="MM/dd/yyyy" value="#{egresoController.selected.egreFecha}" title="#{bundle.EditEgresoTitle_egreFecha}"  showOn="button"/>
+                        
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateEgresoLabel_egreDepenUsar}" for="egreDepenUsar" />
                         <p:inputText id="egreDepenUsar" required="true" value="#{egresoController.selected.egreDepenUsar}" title="#{bundle.CreateEgresoTitle_egreDepenUsar}" />
+                        
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateEgresoLabel_egreTotal}" for="egreTotal" />
                         <p:inputText id="egreTotal" required="true" value="#{egresoController.selected.egreTotal}" title="#{bundle.CreateEgresoTitle_egreTotal}" />
+                        
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateEgresoLabel_egreUsuaBodeguero}" for="egreUsuaBodeguero" />
                         <p:selectOneMenu id="egreUsuaBodeguero" value="#{egresoController.selected.egreUsuaBodeguero}" required="true" requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaBodeguero}">
                             <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
@@ -26,6 +35,9 @@
                                            itemLabel="#{egreUsuaBodegueroItem.usuaGrado} #{egreUsuaBodegueroItem.usuaApellido} #{egreUsuaBodegueroItem.usuaNombre}"
                                            itemValue="#{egreUsuaBodegueroItem}"/>
                         </p:selectOneMenu>
+                        
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateEgresoLabel_egreUsuaLogistico}" for="egreUsuaLogistico" />
                         <p:selectOneMenu id="egreUsuaLogistico" value="#{egresoController.selected.egreUsuaLogistico}" required="true" requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaLogistico}">
                             <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
@@ -34,6 +46,9 @@
                                            itemLabel="#{egreUsuaLogisticoItem.usuaGrado} #{egreUsuaLogisticoItem.usuaApellido} #{egreUsuaLogisticoItem.usuaNombre}"
                                            itemValue="#{egreUsuaLogisticoItem}"/>
                         </p:selectOneMenu>
+                        
+                        
+                        
                         <p:outputLabel value="#{bundle.CreateEgresoLabel_egreUsuaSolicita}" for="egreUsuaSolicita" />
                         <p:selectOneMenu id="egreUsuaSolicita" value="#{egresoController.selected.egreUsuaSolicita}" required="true" requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaSolicita}">
                             <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>

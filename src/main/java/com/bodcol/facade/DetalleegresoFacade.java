@@ -29,4 +29,13 @@ public class DetalleegresoFacade extends AbstractFacade<Detalleegreso> {
         super(Detalleegreso.class);
     }
     
+    
+    
+        //metod para guardar el detalle de las ventas
+    public boolean guardarDetallesIngreso(Detalleegreso detalleEgreso){
+        System.out.println("inicio del metodo para guardar el detalle..........");
+        em.persist(detalleEgreso);
+        System.out.println("despues del ingreso del detalle............");
+        return true;
+    }
 }

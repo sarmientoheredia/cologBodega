@@ -3,14 +3,21 @@ package com.bodcol.beans;
 import com.bodcol.entidades.Ingreso;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
+import com.bodcol.entidades.Detalleingreso;
+import com.bodcol.entidades.Producto;
+import com.bodcol.facade.DetalleingresoFacade;
 import com.bodcol.facade.IngresoFacade;
-
+import com.bodcol.facade.ProductoFacade;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.*;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
+import javax.faces.application.FacesMessage;
 import javax.inject.Named;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -22,11 +29,42 @@ import javax.faces.view.ViewScoped;
 public class IngresoController implements Serializable {
 
     @EJB
+    private DetalleingresoFacade detalleingresoFacade;
+
+    @EJB
+    private ProductoFacade productoFacade;
+
+    @EJB
     private com.bodcol.facade.IngresoFacade ejbFacade;
+
     private List<Ingreso> items = null;
+    private List<Detalleingreso> detalles;
+
     private Ingreso selected;
 
+    private int numeroOrdenIngreso;
+
+    private boolean enabled = false;
+
+    private Producto productoSeleccionado;
+
+    private BigDecimal cantidadProducto;
+    private BigDecimal precioProducto;
+    private BigDecimal totalCompra;
+
     public IngresoController() {
+    }
+
+    @PostConstruct
+    public void init() {
+        selected = new Ingreso();
+        productoSeleccionado = new Producto();
+        detalles = new ArrayList<>();
+        totalCompra = new BigDecimal(0);
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public Ingreso getSelected() {
@@ -47,6 +85,130 @@ public class IngresoController implements Serializable {
         return ejbFacade;
     }
 
+    public int getNumeroOrdenIngreso() {
+        return numeroOrdenIngreso;
+    }
+
+    public BigDecimal getCantidadProducto() {
+        return cantidadProducto;
+    }
+
+    public void setCantidadProducto(BigDecimal cantidadProducto) {
+        this.cantidadProducto = cantidadProducto;
+    }
+
+    public BigDecimal getPrecioProducto() {
+        return precioProducto;
+    }
+
+    public void setPrecioProducto(BigDecimal precioProducto) {
+        this.precioProducto = precioProducto;
+    }
+
+    public List<Detalleingreso> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<Detalleingreso> detalles) {
+        this.detalles = detalles;
+    }
+
+    public BigDecimal getTotalCompra() {
+        return totalCompra;
+    }
+
+    public void setTotalCompra(BigDecimal totalCompra) {
+        this.totalCompra = totalCompra;
+    }
+    
+    
+    
+    
+    
+
+    //METODO PARA LIMPIAR LA FACTURA DE INGRESO
+    public void limpiarFactura() {
+        System.out.println("metodo para limpiar ");
+        selected = new Ingreso();
+        totalCompra = new BigDecimal(0);
+        detalles = new ArrayList<>();
+        numeroOrdenIngreso=0;
+        disableButton();
+    }
+
+    //metodo para capturar el producto seleccionado
+    public void capturarProducto(Producto producto) {
+        productoSeleccionado = producto;
+
+    }
+
+    //metodo para registrar la cabecera del ingreso 
+    public void registrarIngreso() {
+        System.out.println(selected.getIngrNumeFactura());
+    }
+
+    //merodo para pasar el producto a la tabla 
+    public void agragarProducto() {
+        try {
+            if (this.cantidadProducto.equals(0) || this.cantidadProducto == null) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Producto no agregado"));
+            } else {
+                Producto prod = productoFacade.obtenerProducto(productoSeleccionado);
+                this.detalles.add(new Detalleingreso(cantidadProducto, precioProducto, cantidadProducto.multiply(precioProducto), prod));
+                cantidadProducto = null;
+                precioProducto = null;
+                CalcularTotalFactura();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    //metodo para calcular el toral de la factura
+    public void CalcularTotalFactura() {
+        BigDecimal totalXProducto = new BigDecimal(0);
+        try {
+            for (Detalleingreso itemProducto : detalles) {
+                totalXProducto = itemProducto.getDetaIngrCantIngresa().multiply(itemProducto.getDeraIngrPreciIngresa());
+            }
+            totalCompra = totalCompra.add(totalXProducto);
+        } catch (Exception e) {
+        }
+    }
+
+    //METODO PARA GUARDAR EL INGRESO Y EL DETALLE DEL INGRESO 
+    public void guradarIngreso() {
+        try {
+            Ingreso ingr;
+            selected.setIngrTotal(totalCompra);
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("IngresoCreated"));
+            ingr = ejbFacade.contarIngresos();
+            for (Detalleingreso items : detalles) {
+                items.setDetaIngrIngrId(ingr);
+                detalleingresoFacade.guardarDetallesIngreso(items);
+            }
+            
+        } catch (Exception e) {
+        }
+
+    }
+
+    public void enableButton() {
+        enabled = true;
+
+    }
+
+    public void disableButton() {
+        enabled = false;
+    }
+
+    //metodo para contar todas las ordenas de ingreso que se encuantran en la base de datos 
+    public void contarIngreso() {
+        Ingreso ingreso;
+        ingreso = ejbFacade.contarIngresos();
+        numeroOrdenIngreso   = ingreso.getIngrId();
+
+    }
+
     public Ingreso prepareCreate() {
         selected = new Ingreso();
         initializeEmbeddableKey();
@@ -61,6 +223,7 @@ public class IngresoController implements Serializable {
     }
 
     public void update() {
+
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("IngresoUpdated"));
     }
 

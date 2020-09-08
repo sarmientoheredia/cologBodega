@@ -25,7 +25,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -33,7 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author Cbos- Com. Sarmiento H. Luis A.
  */
 @Entity
-@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Ingreso.findAll", query = "SELECT i FROM Ingreso i"),
     @NamedQuery(name = "Ingreso.findByIngrId", query = "SELECT i FROM Ingreso i WHERE i.ingrId = :ingrId"),
@@ -41,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Ingreso.findByIngrNumeFactura", query = "SELECT i FROM Ingreso i WHERE i.ingrNumeFactura = :ingrNumeFactura"),
     @NamedQuery(name = "Ingreso.findByIngrUnidMilitar", query = "SELECT i FROM Ingreso i WHERE i.ingrUnidMilitar = :ingrUnidMilitar"),
     @NamedQuery(name = "Ingreso.findByIngrTotal", query = "SELECT i FROM Ingreso i WHERE i.ingrTotal = :ingrTotal"),
+    @NamedQuery(name = "Ingreso.findByNumeroIngresos", query = "SELECT i FROM   Ingreso i ORDER BY i.ingrId DESC"),
     @NamedQuery(name = "Ingreso.findByIngrBorrLogi", query = "SELECT i FROM Ingreso i WHERE i.ingrBorrLogi = :ingrBorrLogi")})
 public class Ingreso implements Serializable {
 
@@ -78,7 +77,7 @@ public class Ingreso implements Serializable {
     @JoinColumn(name = "ingr_Prove_Id", referencedColumnName = "prov_Id")
     @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     private Proveedor ingrProveId;
-    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "detaIngrIngrId")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "detaIngrIngrId")
     private List<Detalleingreso> detalleingresoList;
 
     public Ingreso() {
@@ -206,5 +205,4 @@ public class Ingreso implements Serializable {
     public String toString() {
         return "com.bodcol.entidades.Ingreso[ ingrId=" + ingrId + " ]";
     }
-    
 }

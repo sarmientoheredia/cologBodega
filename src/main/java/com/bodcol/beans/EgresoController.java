@@ -3,17 +3,25 @@ package com.bodcol.beans;
 import com.bodcol.entidades.Egreso;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
+import com.bodcol.entidades.Detalleegreso;
+import com.bodcol.entidades.Producto;
+import com.bodcol.facade.DetalleegresoFacade;
 import com.bodcol.facade.EgresoFacade;
+import com.bodcol.facade.ProductoFacade;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -24,13 +32,165 @@ import javax.faces.convert.FacesConverter;
 public class EgresoController implements Serializable {
 
     @EJB
+    private DetalleegresoFacade detalleegresoFacade;
+
+    
+    
+    @EJB
+    private ProductoFacade productoFacade;
+    @EJB
     private com.bodcol.facade.EgresoFacade ejbFacade;
     private List<Egreso> items = null;
     private Egreso selected;
+    private Producto productoSeleccionado;
+
+    private List<Detalleegreso> detalles;
+    
+    private Producto prod;
+
+    private boolean enabled = false;
+    private int numeroOrdenEgreso;
+    private BigDecimal totalCompra;
+    private BigDecimal cantidadProducto;
+
+    @PostConstruct
+    public void init() {
+        selected = new Egreso();
+    }
 
     public EgresoController() {
     }
 
+    public int getNumeroOrdenEgreso() {
+        return numeroOrdenEgreso;
+    }
+
+    public void setNumeroOrdenEgreso(int numeroOrdenEgreso) {
+        this.numeroOrdenEgreso = numeroOrdenEgreso;
+    }
+
+    //metodo para activar y desactvar
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public void enableButton() {
+        enabled = true;
+
+    }
+
+    public void disableButton() {
+        enabled = false;
+    }
+
+    public BigDecimal getTotalCompra() {
+        return totalCompra;
+    }
+
+    public void setTotalCompra(BigDecimal totalCompra) {
+        this.totalCompra = totalCompra;
+    }
+
+    public List<Detalleegreso> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<Detalleegreso> detalles) {
+        this.detalles = detalles;
+    }
+
+    public BigDecimal getCantidadProducto() {
+        return cantidadProducto;
+    }
+
+    public void setCantidadProducto(BigDecimal cantidadProducto) {
+        this.cantidadProducto = cantidadProducto;
+    }
+
+    //metodo para contar todas las ordenas de ingreso que se encuantran en la base de datos 
+    public void contarIngreso() {
+        Egreso egreso;
+        egreso = ejbFacade.contarEgresos();
+        numeroOrdenEgreso = egreso.getEgreId();
+    }
+
+    //METODO PARA LIMPIAR LA FACTURA DE INGRESO
+    public void limpiarFactura() {
+        System.out.println("metodo para limpiar ");
+        selected = new Egreso();
+        totalCompra = new BigDecimal(0);
+        detalles = new ArrayList<>();
+        numeroOrdenEgreso = 0;
+        disableButton();
+    }
+
+    //metodo para capturar el producto seleccionado
+    public void capturarProducto(Producto producto) {
+        productoSeleccionado = producto;
+
+    }
+
+    //merodo para pasar el producto a la tabla 
+    public void agragarProducto() {
+        System.out.println("inicio del metodo agregar producto..............");
+        try {
+            
+            if (this.cantidadProducto.equals(0) || this.cantidadProducto == null) {
+                
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Aviso", "Producto no agregado"));
+            } else {
+                prod = productoFacade.obtenerProducto(productoSeleccionado);
+                BigDecimal precio= prod.getProdCostActual();
+                this.detalles.add(new Detalleegreso(cantidadProducto,precio, precio.multiply(cantidadProducto), prod));
+                System.out.println("salida de guardado en el detalle");
+                cantidadProducto = null;
+                CalcularTotalFactura();
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    //metodo para calcular el toral de la factura
+    public void CalcularTotalFactura() {
+        BigDecimal totalXProducto = new BigDecimal(0);
+        try {
+            for (Detalleegreso itemProducto : detalles) {
+                totalXProducto = itemProducto.getDetaEgreCantEgresa().multiply(prod.getProdCostActual());
+            }
+            totalCompra = totalCompra.add(totalXProducto);
+        } catch (Exception e) {
+        }
+    }
+
+    
+        //METODO PARA GUARDAR EL INGRESO Y EL DETALLE DEL INGRESO 
+    public void guradarIngreso() {
+        try {
+            Egreso egre;
+            selected.setEgreTotal(totalCompra);
+            persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("IngresoCreated"));
+            egre = ejbFacade.contarEgresos();
+            for (Detalleegreso listado : detalles) {
+                listado.setDetaEgreEgreId(egre);
+                detalleegresoFacade.guardarDetallesIngreso(listado);
+            }
+            
+        } catch (Exception e) {
+        }
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     public Egreso getSelected() {
         return selected;
     }

@@ -6,8 +6,6 @@
 package com.bodcol.facade;
 
 import com.bodcol.entidades.Producto;
-import com.bodcol.entidades.Rack;
-import com.bodcol.entidades.Seccion;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -45,6 +43,16 @@ public class ProductoFacade extends AbstractFacade<Producto> {
         } else {
             return false;
         }
+    }
+    
+    
+    //metodo para buscar el producto por el id
+    public Producto obtenerProducto(Producto producto)throws Exception{
+        System.out.println("esta es la consulta del facde");
+        Query query=em.createNamedQuery("Producto.findByProdId", Producto.class);
+        query.setParameter("prodId", producto.getProdId());
+        System.out.println("este es el retorno"+query.getSingleResult());
+        return (Producto) query.getSingleResult();
     }
     
 

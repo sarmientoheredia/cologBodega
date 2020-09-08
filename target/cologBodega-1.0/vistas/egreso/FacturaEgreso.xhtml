@@ -1,0 +1,270 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../template.xhtml">
+
+            <ui:define name="body">
+
+                <h:form id="cabecera">
+                    <h:panelGrid width="900px" style="margin: 0 auto; background-color: lightgray" columns="2">
+                        <p:commandButton value="Nueva Egreso" icon="pi pi-plus"
+                                         update="cabecera,:formFactura" style="margin-right: 600px"
+                                         action="#{egresoController.enableButton()}" actionListener="#{egresoController.contarIngreso()}"/>
+                        <p:commandButton  value="imprimir" icon="pi pi-print" disabled="#{!egresoController.enabled}">
+                            <p:printer target=":formFactura:impresion" />
+                        </p:commandButton>
+                    </h:panelGrid>
+                </h:form>
+
+                <h:form id="formFactura">
+
+                    <p:panel header="ORDEN DE EGRESO" style="width: 900px; margin: 0 auto; text-align: center;" id="impresion">
+                        <p:layout id="capaDatosClienteFactura" style="width: 100%; height: 140px;">
+                            <p:layoutUnit id="datosCliente" position="center" style="padding: 5px; text-align: justify;
+                                          font-size: 14px;" size="300">
+
+                                <h:panelGrid id="gridBuscarDatosCliente" columns="4">
+
+                                    <p:outputLabel value="#{bundle.CreateEgresoLabel_egreFecha}" for="egreFecha" />
+                                    <p:calendar  id="egreFecha" disabled="#{!egresoController.enabled}"  pattern="MM/dd/yyyy" value="#{egresoController.selected.egreFecha}" title="#{bundle.EditEgresoTitle_egreFecha}" />
+
+                                    <p:outputLabel value="#{bundle.CreateEgresoLabel_egreDepenUsar}" for="egreDepenUsar" />
+                                    <p:inputText disabled="#{!egresoController.enabled}" id="egreDepenUsar"  value="#{egresoController.selected.egreDepenUsar}" title="#{bundle.CreateEgresoTitle_egreDepenUsar}" />
+
+
+                                    <p:outputLabel value="#{bundle.CreateEgresoLabel_egreTotal}" for="egreTotal" />
+                                    <p:inputText disabled="#{!egresoController.enabled}" id="egreTotal"  value="#{egresoController.selected.egreTotal}" title="#{bundle.CreateEgresoTitle_egreTotal}" />
+
+                                    <p:outputLabel value="#{bundle.CreateEgresoLabel_egreUsuaBodeguero}" for="egreUsuaBodeguero" />
+                                    <p:selectOneMenu disabled="#{!egresoController.enabled}" id="egreUsuaBodeguero" value="#{egresoController.selected.egreUsuaBodeguero}"  requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaBodeguero}">
+                                        <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
+                                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                                       var="egreUsuaBodegueroItem"
+                                                       itemLabel="#{egreUsuaBodegueroItem.usuaGrado} #{egreUsuaBodegueroItem.usuaApellido} #{egreUsuaBodegueroItem.usuaNombre}"
+                                                       itemValue="#{egreUsuaBodegueroItem}"/>
+                                    </p:selectOneMenu>
+
+
+                                    <p:outputLabel value="#{bundle.CreateEgresoLabel_egreUsuaLogistico}" for="egreUsuaLogistico" />
+                                    <p:selectOneMenu disabled="#{!egresoController.enabled}" id="egreUsuaLogistico" value="#{egresoController.selected.egreUsuaLogistico}"  requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaLogistico}">
+                                        <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
+                                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                                       var="egreUsuaLogisticoItem"
+                                                       itemLabel="#{egreUsuaLogisticoItem.usuaGrado} #{egreUsuaLogisticoItem.usuaApellido} #{egreUsuaLogisticoItem.usuaNombre}"
+                                                       itemValue="#{egreUsuaLogisticoItem}"/>
+                                    </p:selectOneMenu>
+
+
+                                    <p:outputLabel value="#{bundle.CreateEgresoLabel_egreUsuaSolicita}" for="egreUsuaSolicita" />
+                                    <p:selectOneMenu disabled="#{!egresoController.enabled}" id="egreUsuaSolicita" value="#{egresoController.selected.egreUsuaSolicita}"  requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaSolicita}">
+                                        <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
+                                        <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                                       var="egreUsuaSolicitaItem"
+                                                       itemLabel="#{egreUsuaSolicitaItem.usuaGrado} #{egreUsuaSolicitaItem.usuaApellido} #{egreUsuaSolicitaItem.usuaNombre}"
+                                                       itemValue="#{egreUsuaSolicitaItem}"/>
+                                    </p:selectOneMenu>
+                                </h:panelGrid>  
+                            </p:layoutUnit>
+
+                            <p:layoutUnit id="datosFactura" position="east"  style="padding: 5px; text-align: center;
+                                          font-size: 14px;" size="200">
+                                <h:panelGrid  columns="1" style="font-size: 24px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
+                                    ORDEN
+                                    <p:outputLabel  value="#{egresoController.numeroOrdenEgreso}"/>
+                                </h:panelGrid>
+                            </p:layoutUnit>                            
+                        </p:layout>
+                        <p:separator/>
+
+                        <h:panelGrid id="gridBuscarProducto" columns="6">
+                            <p:commandButton value="Buscar producto" oncomplete="PF('dialogProductos').show()" 
+                                             icon="pi pi-search-plus"
+                                             update=":dlgProductos"  disabled="#{!egresoController.enabled}"/> 
+                        </h:panelGrid>
+
+                        <p:separator/>
+                        <p:dataTable id="tablaProductosFactura" 
+                                     editable="true" rowIndexVar="rowIndex"
+                                     emptyMessage="No se a ingresado productos" value="#{egresoController.detalles}" var="listaDetalle">
+
+
+
+                            <p:column headerText="Codigo">
+                                <h:outputText value="#{listaDetalle.detaEgreProdId.prodId}"/>
+                            </p:column>
+
+                            <p:column headerText="Producto">
+                                <h:outputText value="#{listaDetalle.detaEgreProdId.prodNombre}" />
+                            </p:column>
+
+                            <p:column headerText="Cantidad">
+                                <p:cellEditor>
+                                    <f:facet name="output">
+                                        <h:outputText value="#{listaDetalle.detaEgreCantEgresa}"/>
+                                    </f:facet>
+                                    <f:facet name="input">
+                                        <p:inputText value="#{item.cantidad}" size="5" label="Cantidad Producto"
+                                                     required="true" requiredMessage="Es necesaria una cantidad"
+                                                     converter="#{Integer}" converterMessage="Esta no es una cantidad correcta"
+                                                     validatorMessage="La cantidad debe ser mayor o igual a 1">
+                                            <f:validateLongRange minimum="1"/>
+                                        </p:inputText>                                        
+                                    </f:facet>
+
+                                </p:cellEditor>
+
+                            </p:column>
+
+                            <p:column headerText="Precio">
+                                $ <h:outputText value="#{listaDetalle.detaEgreProdId.prodCostActual}"/>
+                            </p:column>
+
+                            <p:column headerText="Total">
+                                $ <h:outputText value="#{listaDetalle.detaTotal}" /> 
+                            </p:column>
+                            <p:column headerText="Editar Cantidad">
+                                <p:rowEditor />
+                            </p:column>
+
+                        </p:dataTable>
+                        <p:separator/>
+                        <h:panelGrid id="gridTotalFactura" columns="2" style="margin: 0 auto; font-size: 24px;">
+                            TOTAL  $
+                            <p:outputLabel id="lblTotalFactura" value="#{egresoController.totalCompra}"/>                                       
+
+
+                        </h:panelGrid>
+                        <p:separator/>
+
+                    </p:panel>
+                    <div style="text-align: center">
+                        <p:commandButton value="Registrar" 
+                                         style="width: 150px; height: 60px;"
+                                         update=":formFactura,:growl" disabled="#{!egresoController.enabled}"
+                                         actionListener="#{egresoController.guradarIngreso}" action="#{egresoController.limpiarFactura()}"/>      
+
+                        <p:commandButton value="Cancelar" action="#{egresoController.limpiarFactura()}"
+                                         style="width: 150px; height: 60px;"
+                                         update=":formFactura" disabled="#{!egresoController.enabled}"/>
+                    </div>
+                </h:form>    
+
+
+
+
+
+
+                <!--Dialog para mostrar datos de los productos del sistema-->
+                <p:dialog id="dlgProductos" widgetVar="dialogProductos"   resizable="false"
+                          showEffect="explode" hideEffect="explode">
+                    <h:form>
+                        <p:dataTable id="datalist" value="#{productoController.items}" var="item"
+                                     paginator="true"
+                                     widgetVar="tablaProducto"
+                                     globalFilterFunction="#{productoController.globalFilterFunction}"
+                                     rows="10"
+                                     >
+                            <f:facet name="header">
+                                <p:outputPanel>
+                                    <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                    <p:inputText id="globalFilter" onkeyup="PF('tablaProducto').filter()" style="text-align: center" placeholder="Buscar" />
+                                </p:outputPanel>
+                            </f:facet>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_prodId}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prodId}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_prodCodigo}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prodCodigo}"/>
+                            </p:column>
+                            <p:column colspan="2">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_prodNombre}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prodNombre}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_prodUnidMedida}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prodUnidMedida}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_prodStocActual}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prodStocActual}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_prodCostActual}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prodCostActual}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_prodTotalActual}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prodTotalActual}"/>
+                            </p:column>
+
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListProductoTitle_prodStatus}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.prodStatus}"/>
+                            </p:column>
+                            <p:column style="text-align: center">
+                                <f:facet name="header">
+                                    <h:outputText value="Opciones"/>
+                                </f:facet>
+                                <p:commandButton value="Seleccionar" ajax="true"  oncomplete="PF('dialogCantidadProducto').show()" actionListener="#{egresoController.capturarProducto(item)}" update=":dlgCantidadProducto,:formularioCantidadProducto"/>
+                            </p:column>
+                        </p:dataTable>
+                        <p:commandButton value="Cerrar" oncomplete="PF('dialogProductos').hide()" />
+                    </h:form>
+                </p:dialog> 
+
+
+
+
+                <!--Dialog para pedir la cantidad de producto a vender-->
+                <p:dialog id="dlgCantidadProducto" widgetVar="dialogCantidadProducto" header="Cantidad" resizable="false"
+                          showEffect="explode" hideEffect="explode">  
+                    <h:form id="formularioCantidadProducto">
+                        <h:panelGroup>
+                            <h:panelGrid columns="2">
+                                <p:outputLabel value="Cantidad"/>
+                                <p:inputText id="txtCantidadProducto" value="#{egresoController.cantidadProducto}"/>
+
+                            </h:panelGrid>
+                            <p:fieldset  style="text-align: center;padding: 0px;">
+                                <p:commandButton value="Aceptar" actionListener="#{egresoController.agragarProducto()}"
+                                                 update=":formFactura:tablaProductosFactura , :formFactura:gridTotalFactura" 
+                                                 oncomplete="PF('dialogCantidadProducto').hide();PF('dialogProductos').hide()"/> 
+                            </p:fieldset>
+                        </h:panelGroup>
+
+                    </h:form>
+                </p:dialog> 
+
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

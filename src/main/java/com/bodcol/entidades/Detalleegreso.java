@@ -50,7 +50,7 @@ public class Detalleegreso implements Serializable {
     @Column(name = "deta_Total")
     private BigDecimal detaTotal;
     @Column(name = "detaEgre_BorrLogi")
-    private Boolean detaEgreBorrLogi;
+    private Boolean detaEgreBorrLogi=true;
     @JoinColumn(name = "detaEgre_Egre_Id", referencedColumnName = "egre_Id")
     @ManyToOne(optional = false)
     private Egreso detaEgreEgreId;
@@ -58,6 +58,19 @@ public class Detalleegreso implements Serializable {
     @OneToOne
     private Producto detaEgreProdId;
 
+    public Detalleegreso(BigDecimal detaEgreCantEgresa, BigDecimal detaEgrePreciEgresa, BigDecimal detaTotal, Producto detaEgreProdId) {
+        System.out.println("este es el constructor de l detalle egreso");
+        this.detaEgreCantEgresa = detaEgreCantEgresa;
+        this.detaEgrePreciEgresa = detaEgrePreciEgresa;
+        this.detaTotal = detaTotal;
+        this.detaEgreProdId = detaEgreProdId;
+    }
+
+    
+    
+    
+    
+    
     public Detalleegreso() {
     }
 

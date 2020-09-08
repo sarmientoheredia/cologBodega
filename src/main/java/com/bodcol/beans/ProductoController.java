@@ -6,7 +6,6 @@ import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.entidades.Rack;
 import com.bodcol.entidades.Seccion;
 import com.bodcol.facade.ProductoFacade;
-import com.bodcol.facade.RackFacade;
 import com.bodcol.facade.SeccionFacade;
 
 import java.io.Serializable;
@@ -45,6 +44,7 @@ public class ProductoController implements Serializable {
     @PostConstruct
     public void init() {
         rack = new Rack();
+        items=ejbFacade.findAll();
     }
 
 

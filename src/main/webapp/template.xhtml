@@ -13,6 +13,7 @@
         <h:outputStylesheet name="css/primeflex.css"/>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
         <f:event type="preRenderView" listener="#{plantillaController.verificarSesion}"/>
+        
 
     </h:head>
 
@@ -30,7 +31,6 @@
                     <p:menubar>
                         <p:menuitem value="#{bundle.Home}" outcome="/inicio" icon="pi pi-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
-                            <p:menuitem value="Rol" outcome="/vistas/rol/List.xhtml" icon="pi pi-key" />
                             <p:menuitem value="Usuario" outcome="/vistas/usuario/List.xhtml" icon="pi pi-users"/>
                             <p:menuitem value="Proveedor" outcome="/vistas/proveedor/List.xhtml" icon="pi pi-shopping-cart"/>
                             <p:menuitem value="Seccion" outcome="/vistas/seccion/List.xhtml" icon="pi pi-sitemap" />
@@ -41,11 +41,17 @@
                         </p:submenu>
 
                         <p:submenu label="#{bundle.ModuloProcesos}">
-                            <p:menuitem value="Ingreso" outcome="/vistas/ingreso/List.xhtml" />
-                            <p:menuitem value="Detalle Ingreso" outcome="/vistas/detalleingreso/List.xhtml" />
-                            <p:menuitem value="Egreso" outcome="/vistas/egreso/List.xhtml" />
-                            <p:menuitem value="Detalle Egreso" outcome="/vistas/detalleegreso/List.xhtml" />
+                            <p:menuitem value="Ingreso" outcome="/vistas/ingreso/FacturaIngreso.xhtml" />
+                            <p:menuitem value="Egreso" outcome="/vistas/egreso/FacturaEgreso.xhtml" />
                         </p:submenu>
+                        
+                        
+                        <p:submenu label="Consusltas">
+                            <p:menuitem   value="Ingresos" outcome="/vistas/ingreso/List.xhtml" />
+                            <p:menuitem value="Egreso" outcome="/vistas/egreso/List.xhtml" />
+                        </p:submenu>
+                        
+                        
                         <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" />
                         <p:menuitem actionListener="#{plantillaController.cerrarSesion()}" value="#{bundle.Session}" action="/index?faces-redirect=true" icon="pi pi-power-off" style="color: red;"/>
 
