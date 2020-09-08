@@ -43,10 +43,10 @@ public class Detalleegreso implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "detaEgre_CantEgresa")
     private BigDecimal detaEgreCantEgresa;
-    
+
     @Column(name = "detaEgre_PreciEgresa")
     private BigDecimal detaEgrePreciEgresa;
-    
+
     @Column(name = "deta_Total")
     private BigDecimal detaTotal;
     @Column(name = "detaEgre_BorrLogi")
@@ -58,19 +58,47 @@ public class Detalleegreso implements Serializable {
     @OneToOne
     private Producto detaEgreProdId;
 
+//    public Detalleegreso(BigDecimal detaEgreCantEgresa, BigDecimal detaEgrePreciEgresa, BigDecimal detaTotal, Producto detaEgreProdId) {
+//        System.out.println("este es el constructor de l detalle egreso");
+//        System.out.println(detaEgreCantEgresa);
+//        System.out.println(detaEgrePreciEgresa);
+//        System.out.println(detaTotal);
+//        System.out.println(detaEgreProdId);
+//        this.detaEgreCantEgresa = detaEgreCantEgresa;
+//        this.detaEgrePreciEgresa = detaEgrePreciEgresa;
+//        this.detaTotal = detaTotal;
+//        this.detaEgreProdId = detaEgreProdId;
+//    }
+//    public Detalleegreso(BigDecimal detaEgreCantEgresa, BigDecimal detaEgrePreciEgresa, BigDecimal detaTotal, Egreso detaEgreEgreId, Producto detaEgreProdId) {
+//
+//        System.out.println("ingresando al nuevo constructor");
+//
+//        System.out.println(detaEgrePreciEgresa);
+//        System.out.println(detaTotal);
+//        System.out.println(detaEgreProdId);
+//        System.out.println(detaEgreEgreId);
+//        System.out.println(detaEgreId);
+//        System.out.println(detaEgreCantEgresa);
+//        this.detaEgreCantEgresa = detaEgreCantEgresa;
+//        this.detaEgrePreciEgresa = detaEgrePreciEgresa;
+//        this.detaTotal = detaTotal;
+//        this.detaEgreEgreId = detaEgreEgreId;
+//        this.detaEgreProdId = detaEgreProdId;
+//    }
+
     public Detalleegreso(BigDecimal detaEgreCantEgresa, BigDecimal detaEgrePreciEgresa, BigDecimal detaTotal, Producto detaEgreProdId) {
-        System.out.println("este es el constructor de l detalle egreso");
+        System.out.println("ingresando al constructor");
+        System.out.println(detaEgrePreciEgresa);
+        System.out.println(detaTotal);
+        System.out.println(detaEgreCantEgresa);
+        System.out.println(detaEgreProdId);
+        
         this.detaEgreCantEgresa = detaEgreCantEgresa;
         this.detaEgrePreciEgresa = detaEgrePreciEgresa;
         this.detaTotal = detaTotal;
         this.detaEgreProdId = detaEgreProdId;
     }
 
-    
-    
-    
-    
-    
     public Detalleegreso() {
     }
 
@@ -158,5 +186,5 @@ public class Detalleegreso implements Serializable {
     public String toString() {
         return "com.bodcol.mavenproject3.Detalleegreso[ detaEgreId=" + detaEgreId + " ]";
     }
-    
+
 }

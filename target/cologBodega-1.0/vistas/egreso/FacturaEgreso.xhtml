@@ -38,10 +38,6 @@
                                     <p:outputLabel value="#{bundle.CreateEgresoLabel_egreDepenUsar}" for="egreDepenUsar" />
                                     <p:inputText disabled="#{!egresoController.enabled}" id="egreDepenUsar"  value="#{egresoController.selected.egreDepenUsar}" title="#{bundle.CreateEgresoTitle_egreDepenUsar}" />
 
-
-                                    <p:outputLabel value="#{bundle.CreateEgresoLabel_egreTotal}" for="egreTotal" />
-                                    <p:inputText disabled="#{!egresoController.enabled}" id="egreTotal"  value="#{egresoController.selected.egreTotal}" title="#{bundle.CreateEgresoTitle_egreTotal}" />
-
                                     <p:outputLabel value="#{bundle.CreateEgresoLabel_egreUsuaBodeguero}" for="egreUsuaBodeguero" />
                                     <p:selectOneMenu disabled="#{!egresoController.enabled}" id="egreUsuaBodeguero" value="#{egresoController.selected.egreUsuaBodeguero}"  requiredMessage="#{bundle.EditEgresoRequiredMessage_egreUsuaBodeguero}">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
@@ -92,7 +88,7 @@
                         <p:separator/>
                         <p:dataTable id="tablaProductosFactura" 
                                      editable="true" rowIndexVar="rowIndex"
-                                     emptyMessage="No se a ingresado productos" value="#{egresoController.detalles}" var="listaDetalle">
+                                     emptyMessage="No se a ingresado productos" value="#{egresoController.detalleEgreso}" var="listaDetalle">
 
 
 
@@ -105,33 +101,17 @@
                             </p:column>
 
                             <p:column headerText="Cantidad">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <h:outputText value="#{listaDetalle.detaEgreCantEgresa}"/>
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{item.cantidad}" size="5" label="Cantidad Producto"
-                                                     required="true" requiredMessage="Es necesaria una cantidad"
-                                                     converter="#{Integer}" converterMessage="Esta no es una cantidad correcta"
-                                                     validatorMessage="La cantidad debe ser mayor o igual a 1">
-                                            <f:validateLongRange minimum="1"/>
-                                        </p:inputText>                                        
-                                    </f:facet>
-
-                                </p:cellEditor>
-
+                                
+                                <h:outputText value="#{listaDetalle.detaEgreCantEgresa}"/>
+                                
                             </p:column>
 
-                            <p:column headerText="Precio">
-                                $ <h:outputText value="#{listaDetalle.detaEgreProdId.prodCostActual}"/>
-                            </p:column>
+                   
 
                             <p:column headerText="Total">
                                 $ <h:outputText value="#{listaDetalle.detaTotal}" /> 
                             </p:column>
-                            <p:column headerText="Editar Cantidad">
-                                <p:rowEditor />
-                            </p:column>
+                         
 
                         </p:dataTable>
                         <p:separator/>

@@ -44,7 +44,7 @@ public class EgresoController implements Serializable {
     private Egreso selected;
     private Producto productoSeleccionado;
 
-    private List<Detalleegreso> detalles;
+    private List<Detalleegreso> detalleEgreso;
     
     private Producto prod;
 
@@ -95,12 +95,12 @@ public class EgresoController implements Serializable {
         this.totalCompra = totalCompra;
     }
 
-    public List<Detalleegreso> getDetalles() {
-        return detalles;
+    public List<Detalleegreso> getDetalleEgreso() {
+        return detalleEgreso;
     }
 
-    public void setDetalles(List<Detalleegreso> detalles) {
-        this.detalles = detalles;
+    public void setDetalleEgreso(List<Detalleegreso> detalleEgreso) {
+        this.detalleEgreso = detalleEgreso;
     }
 
     public BigDecimal getCantidadProducto() {
@@ -123,7 +123,7 @@ public class EgresoController implements Serializable {
         System.out.println("metodo para limpiar ");
         selected = new Egreso();
         totalCompra = new BigDecimal(0);
-        detalles = new ArrayList<>();
+        detalleEgreso = new ArrayList<>();
         numeroOrdenEgreso = 0;
         disableButton();
     }
@@ -133,6 +133,16 @@ public class EgresoController implements Serializable {
         productoSeleccionado = producto;
 
     }
+
+    public Producto getProd() {
+        return prod;
+    }
+
+    public void setProd(Producto prod) {
+        this.prod = prod;
+    }
+    
+    
 
     //merodo para pasar el producto a la tabla 
     public void agragarProducto() {
@@ -145,7 +155,8 @@ public class EgresoController implements Serializable {
             } else {
                 prod = productoFacade.obtenerProducto(productoSeleccionado);
                 BigDecimal precio= prod.getProdCostActual();
-                this.detalles.add(new Detalleegreso(cantidadProducto,precio, precio.multiply(cantidadProducto), prod));
+                
+                this.detalleEgreso.add(new Detalleegreso(cantidadProducto,precio, precio.multiply(cantidadProducto),prod));
                 System.out.println("salida de guardado en el detalle");
                 cantidadProducto = null;
                 CalcularTotalFactura();
@@ -156,9 +167,10 @@ public class EgresoController implements Serializable {
 
     //metodo para calcular el toral de la factura
     public void CalcularTotalFactura() {
+        System.out.println("ingresando al metodo de calcular el total"+totalCompra);
         BigDecimal totalXProducto = new BigDecimal(0);
         try {
-            for (Detalleegreso itemProducto : detalles) {
+            for (Detalleegreso itemProducto : detalleEgreso) {
                 totalXProducto = itemProducto.getDetaEgreCantEgresa().multiply(prod.getProdCostActual());
             }
             totalCompra = totalCompra.add(totalXProducto);
@@ -174,7 +186,7 @@ public class EgresoController implements Serializable {
             selected.setEgreTotal(totalCompra);
             persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("IngresoCreated"));
             egre = ejbFacade.contarEgresos();
-            for (Detalleegreso listado : detalles) {
+            for (Detalleegreso listado : detalleEgreso) {
                 listado.setDetaEgreEgreId(egre);
                 detalleegresoFacade.guardarDetallesIngreso(listado);
             }
