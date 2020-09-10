@@ -12,6 +12,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.*;
 import javax.annotation.PostConstruct;
@@ -40,11 +41,15 @@ public class IngresoController implements Serializable {
     private List<Ingreso> items = null;
     private List<Detalleingreso> detalles;
 
+    //lista para acceder al la lista que tiene ese id de ingreso
+    private List<Detalleingreso> detallesFactura;
+
     private Ingreso selected;
+    private Ingreso ingresoSeleccionado;
 
     private int numeroOrdenIngreso;
 
-    private boolean enabled = false;
+    private boolean activador = false;
 
     private Producto productoSeleccionado;
 
@@ -61,10 +66,39 @@ public class IngresoController implements Serializable {
         productoSeleccionado = new Producto();
         detalles = new ArrayList<>();
         totalCompra = new BigDecimal(0);
+        detallesFactura = new ArrayList<>();
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public boolean isActivador() {
+        return activador;
+    }
+
+    public void setActivador(boolean activador) {
+        this.activador = activador;
+    }
+
+    //METODO PARA FILTRAR POR CUALQUIER CAMPO
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        Ingreso ingreso = (Ingreso) value;
+        return ingreso.getIngrId() == filterInt
+                || ingreso.getIngrNumeFactura().toLowerCase().contains(filterText);
+    }
+
+//    ingreso.getProdNombre().toLowerCase().contains(filterText)
+    //METODO PARA CONVERTIR EL ID
+    private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
     }
 
     public Ingreso getSelected() {
@@ -120,31 +154,50 @@ public class IngresoController implements Serializable {
     public void setTotalCompra(BigDecimal totalCompra) {
         this.totalCompra = totalCompra;
     }
+
+    public Ingreso getIngresoSeleccionado() {
+        return ingresoSeleccionado;
+    }
+
+    public void setIngresoSeleccionado(Ingreso ingresoSeleccionado) {
+        this.ingresoSeleccionado = ingresoSeleccionado;
+    }
+
+    public List<Detalleingreso> getDetallesFactura() {
+        return detallesFactura;
+    }
+
+    public void setDetallesFactura(List<Detalleingreso> detallesFactura) {
+        this.detallesFactura = detallesFactura;
+    }
+
+
     
-    
-    
-    
-    
+    public void prueba(Ingreso ingreso) throws Exception{
+        detallesFactura=detalleingresoFacade.obtenerDetalleIngreso(ingreso);
+        
+    }
 
     //METODO PARA LIMPIAR LA FACTURA DE INGRESO
     public void limpiarFactura() {
-        System.out.println("metodo para limpiar ");
         selected = new Ingreso();
         totalCompra = new BigDecimal(0);
         detalles = new ArrayList<>();
-        numeroOrdenIngreso=0;
+        numeroOrdenIngreso = 0;
         disableButton();
+    }
+
+    //METODO PARA LIMPIAR LA VISTA DE LA FATURA
+    public void limpiarDetalle() {
+        selected = null;
+        detalles = null;
+        detallesFactura = null;
     }
 
     //metodo para capturar el producto seleccionado
     public void capturarProducto(Producto producto) {
         productoSeleccionado = producto;
 
-    }
-
-    //metodo para registrar la cabecera del ingreso 
-    public void registrarIngreso() {
-        System.out.println(selected.getIngrNumeFactura());
     }
 
     //merodo para pasar el producto a la tabla 
@@ -186,26 +239,26 @@ public class IngresoController implements Serializable {
                 items.setDetaIngrIngrId(ingr);
                 detalleingresoFacade.guardarDetallesIngreso(items);
             }
-            
+
         } catch (Exception e) {
         }
 
     }
 
     public void enableButton() {
-        enabled = true;
+        activador = true;
 
     }
 
     public void disableButton() {
-        enabled = false;
+        activador = false;
     }
 
     //metodo para contar todas las ordenas de ingreso que se encuantran en la base de datos 
     public void contarIngreso() {
         Ingreso ingreso;
         ingreso = ejbFacade.contarIngresos();
-        numeroOrdenIngreso   = ingreso.getIngrId();
+        numeroOrdenIngreso = ingreso.getIngrId() + 1;
 
     }
 

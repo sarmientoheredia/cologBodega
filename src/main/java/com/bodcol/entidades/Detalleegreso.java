@@ -28,6 +28,9 @@ import javax.persistence.OneToOne;
 @NamedQueries({
     @NamedQuery(name = "Detalleegreso.findAll", query = "SELECT d FROM Detalleegreso d"),
     @NamedQuery(name = "Detalleegreso.findByDetaEgreId", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreId = :detaEgreId"),
+   
+    @NamedQuery(name = "Detalleegreso.findByDetadetaEgreEgreId", query = "SELECT d FROM Detalleegreso d left join fetch d.detaEgreEgreId where d.detaEgreEgreId =:detaEgreEgreId"),
+    
     @NamedQuery(name = "Detalleegreso.findByDetaEgreCantEgresa", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgreCantEgresa = :detaEgreCantEgresa"),
     @NamedQuery(name = "Detalleegreso.findByDetaEgrePreciEgresa", query = "SELECT d FROM Detalleegreso d WHERE d.detaEgrePreciEgresa = :detaEgrePreciEgresa"),
     @NamedQuery(name = "Detalleegreso.findByDetaTotal", query = "SELECT d FROM Detalleegreso d WHERE d.detaTotal = :detaTotal"),
@@ -57,34 +60,6 @@ public class Detalleegreso implements Serializable {
     @JoinColumn(name = "detaEgre_Prod_Id", referencedColumnName = "prod_Id")
     @OneToOne
     private Producto detaEgreProdId;
-
-//    public Detalleegreso(BigDecimal detaEgreCantEgresa, BigDecimal detaEgrePreciEgresa, BigDecimal detaTotal, Producto detaEgreProdId) {
-//        System.out.println("este es el constructor de l detalle egreso");
-//        System.out.println(detaEgreCantEgresa);
-//        System.out.println(detaEgrePreciEgresa);
-//        System.out.println(detaTotal);
-//        System.out.println(detaEgreProdId);
-//        this.detaEgreCantEgresa = detaEgreCantEgresa;
-//        this.detaEgrePreciEgresa = detaEgrePreciEgresa;
-//        this.detaTotal = detaTotal;
-//        this.detaEgreProdId = detaEgreProdId;
-//    }
-//    public Detalleegreso(BigDecimal detaEgreCantEgresa, BigDecimal detaEgrePreciEgresa, BigDecimal detaTotal, Egreso detaEgreEgreId, Producto detaEgreProdId) {
-//
-//        System.out.println("ingresando al nuevo constructor");
-//
-//        System.out.println(detaEgrePreciEgresa);
-//        System.out.println(detaTotal);
-//        System.out.println(detaEgreProdId);
-//        System.out.println(detaEgreEgreId);
-//        System.out.println(detaEgreId);
-//        System.out.println(detaEgreCantEgresa);
-//        this.detaEgreCantEgresa = detaEgreCantEgresa;
-//        this.detaEgrePreciEgresa = detaEgrePreciEgresa;
-//        this.detaTotal = detaTotal;
-//        this.detaEgreEgreId = detaEgreEgreId;
-//        this.detaEgreProdId = detaEgreProdId;
-//    }
 
     public Detalleegreso(BigDecimal detaEgreCantEgresa, BigDecimal detaEgrePreciEgresa, BigDecimal detaTotal, Producto detaEgreProdId) {
         System.out.println("ingresando al constructor");

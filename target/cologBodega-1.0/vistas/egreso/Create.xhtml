@@ -13,7 +13,7 @@
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{egresoController.selected != null}">
                         <p:outputLabel value="#{bundle.CreateEgresoLabel_egreFecha}" for="egreFecha" />
-                        <p:calendar id="egreFecha" required="true" pattern="MM/dd/yyyy" value="#{egresoController.selected.egreFecha}" title="#{bundle.EditEgresoTitle_egreFecha}"  showOn="button"/>
+                        <p:calendar id="egreFecha" required="true" pattern="yyyy-MM-dd" value="#{egresoController.selected.egreFecha}" title="#{bundle.EditEgresoTitle_egreFecha}"  showOn="button"/>
                         
                         
                         

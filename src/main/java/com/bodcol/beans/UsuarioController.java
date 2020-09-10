@@ -4,6 +4,7 @@ import com.bodcol.entidades.Usuario;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.facade.UsuarioFacade;
+import java.io.File;
 
 import java.io.Serializable;
 import java.util.List;
@@ -20,6 +21,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 
 @Named("usuarioController")
 @ViewScoped
@@ -63,6 +66,17 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public Usuario getSelected() {
         return selected;
     }

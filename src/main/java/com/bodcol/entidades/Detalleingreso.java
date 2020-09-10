@@ -23,6 +23,9 @@ import javax.persistence.OneToOne;
 @NamedQueries({
     @NamedQuery(name = "Detalleingreso.findAll", query = "SELECT d FROM Detalleingreso d"),
     @NamedQuery(name = "Detalleingreso.findByDetaIngrId", query = "SELECT d FROM Detalleingreso d WHERE d.detaIngrId = :detaIngrId"),
+    
+    @NamedQuery(name = "Detalleingreso.findByDetadetaIngrIngrId", query = "SELECT d FROM Detalleingreso d left join fetch d.detaIngrIngrId where d.detaIngrIngrId =:detaIngrIngrId"),
+    
     @NamedQuery(name = "Detalleingreso.findByDetaIngrCantIngresa", query = "SELECT d FROM Detalleingreso d WHERE d.detaIngrCantIngresa = :detaIngrCantIngresa"),
     @NamedQuery(name = "Detalleingreso.findByDeraIngrPreciIngresa", query = "SELECT d FROM Detalleingreso d WHERE d.deraIngrPreciIngresa = :deraIngrPreciIngresa"),
     @NamedQuery(name = "Detalleingreso.findByDetaIngrTotal", query = "SELECT d FROM Detalleingreso d WHERE d.detaIngrTotal = :detaIngrTotal"),
@@ -47,7 +50,7 @@ public class Detalleingreso implements Serializable {
     @Column(name = "detaIngr_BorrLogi")
     private Boolean detaIngrBorrLogi=true;
     @JoinColumn(name = "detaIngr_Ingr_Id", referencedColumnName = "ingr_Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Ingreso detaIngrIngrId;
     @JoinColumn(name = "detaIngr_Prod_Id", referencedColumnName = "prod_Id")
     @OneToOne

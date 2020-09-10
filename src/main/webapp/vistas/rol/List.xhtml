@@ -31,13 +31,13 @@
                                 <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
                                 <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
 
-                                 <f:facet name="header">
+                                <f:facet name="header">
                                     <p:outputPanel>
                                         <h:outputText class="pi pi-search" style="margin-right: 20px;" />
                                         <p:inputText id="globalFilter" onkeyup="PF('tablaRol').filter()" style="text-align: center" placeholder="Buscar" />
                                     </p:outputPanel>
                                 </f:facet>
-                                
+
                                 <p:column >
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.ListRolTitle_rolId}"/>
@@ -62,16 +62,16 @@
                     </h:form>
                     <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
                               appendTo="@(body)" header="Esta seguro de eliminar" showEffect="explode" hideEffect="bounce">
-                              
+
                         <h:form id="formRol">
                             <h:panelGroup id="confirmacion">
-                               
+
                                 <p:commandButton style="width: 160px" value="cancelar" actionListener="#{rolController.limpiar()}" process="@this" partialSubmit="true" update=":RolListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
-                                    <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{rolController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":RolListForm:datalist,:growl"/>
-                                    
+                                <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{rolController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":RolListForm:datalist,:growl"/>
+
                             </h:panelGroup>
                         </h:form>
-                        
+
                     </p:dialog>
 
                     <ui:include src="Create.xhtml"/>

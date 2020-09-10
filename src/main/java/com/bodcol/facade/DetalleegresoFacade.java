@@ -6,9 +6,12 @@
 package com.bodcol.facade;
 
 import com.bodcol.entidades.Detalleegreso;
+import com.bodcol.entidades.Egreso;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -37,5 +40,13 @@ public class DetalleegresoFacade extends AbstractFacade<Detalleegreso> {
         em.persist(detalleEgreso);
         System.out.println("despues del ingreso del detalle............");
         return true;
+    }
+    
+    
+    // METODO PARA RECUPERAR LOS DETALLES DE LOS EGRESOS 
+        public List<Detalleegreso> obtenerDetalleEgreso(Egreso egreId)throws Exception{
+        Query query=em.createNamedQuery("Detalleegreso.findByDetadetaEgreEgreId", Detalleegreso.class);
+        query.setParameter("detaEgreEgreId", egreId);
+        return query.getResultList();
     }
 }

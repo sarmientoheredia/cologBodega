@@ -33,7 +33,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Proveedor.findByProvCedula", query = "SELECT p FROM Proveedor p WHERE p.provCedula = :provCedula"),
     @NamedQuery(name = "Proveedor.findByProvRucCedulaNatural", query = "SELECT p FROM Proveedor p WHERE p.provCedula = :provCedula OR p.provRuc=:provRuc OR P.provRucNatural=:provRucNatural"),
     @NamedQuery(name = "Proveedor.findByProvNombre", query = "SELECT p FROM Proveedor p WHERE p.provNombre = :provNombre"),
-    @NamedQuery(name = "Proveedor.findByProvTipo", query = "SELECT p FROM Proveedor p WHERE p.provTipo = :provTipo"),
     @NamedQuery(name = "Proveedor.findByProvDireccion", query = "SELECT p FROM Proveedor p WHERE p.provDireccion = :provDireccion"),
     @NamedQuery(name = "Proveedor.findByProvTelefono", query = "SELECT p FROM Proveedor p WHERE p.provTelefono = :provTelefono"),
     @NamedQuery(name = "Proveedor.findByProvCelular", query = "SELECT p FROM Proveedor p WHERE p.provCelular = :provCelular"),
@@ -67,10 +66,6 @@ public class Proveedor implements Serializable {
     @Column(name = "prov_Nombre")
     private String provNombre;
     
-    
-    @Size(max = 30)
-    @Column(name = "prov_Tipo")
-    private String provTipo;
     
     
     @Basic(optional = false)
@@ -187,14 +182,7 @@ public class Proveedor implements Serializable {
         return provBorrLogi;
     }
 
-    public String getProvTipo() {
-        return provTipo;
-    }
-
-    public void setProvTipo(String provTipo) {
-        this.provTipo = provTipo;
-    }
-
+ 
     public void setProvBorrLogi(Boolean provBorrLogi) {
         this.provBorrLogi = provBorrLogi;
     }

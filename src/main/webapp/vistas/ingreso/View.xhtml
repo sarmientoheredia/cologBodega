@@ -8,36 +8,96 @@
 
     <ui:composition>
 
-        <p:dialog id="IngresoViewDlg" widgetVar="IngresoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewIngresoTitle}">
+        <p:dialog id="IngresoViewDlg" widgetVar="IngresoViewDialog" modal="true" resizable="false" appendTo="@(body)" >
             <h:form id="IngresoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{ingresoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrId}"/>
-                        <h:outputText value="#{ingresoController.selected.ingrId}" title="#{bundle.ViewIngresoTitle_ingrId}"/>
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrFecha}"/>
-                        <h:outputText value="#{ingresoController.selected.ingrFecha}" title="#{bundle.ViewIngresoTitle_ingrFecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrNumeFactura}"/>
-                        <h:outputText value="#{ingresoController.selected.ingrNumeFactura}" title="#{bundle.ViewIngresoTitle_ingrNumeFactura}"/>
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrUnidMilitar}"/>
-                        <h:outputText value="#{ingresoController.selected.ingrUnidMilitar}" title="#{bundle.ViewIngresoTitle_ingrUnidMilitar}"/>
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrTotal}"/>
-                        <h:outputText value="#{ingresoController.selected.ingrTotal}" title="#{bundle.ViewIngresoTitle_ingrTotal}"/>
-                        
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrUsuaBodeguero}"/>
-                        <h:outputText value="#{ingresoController.selected.ingrUsuaBodeguero.usuaGrado} #{ingresoController.selected.ingrUsuaBodeguero.usuaApellido} #{ingresoController.selected.ingrUsuaBodeguero.usuaNombre}" title="#{bundle.ViewIngresoTitle_ingrUsuaBodeguero}"/>
-                        
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrUsuaCompPublicas}"/>
-                        <h:outputText value="#{ingresoController.selected.ingrUsuaCompPublicas.usuaGrado} #{ingresoController.selected.ingrUsuaCompPublicas.usuaApellido} #{ingresoController.selected.ingrUsuaCompPublicas.usuaNombre}" title="#{bundle.ViewIngresoTitle_ingrUsuaCompPublicas}"/>
-                        
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrUsuaLogistica}"/>
-                        <h:outputText value=" #{ingresoController.selected.ingrUsuaLogistica.usuaGrado} #{ingresoController.selected.ingrUsuaLogistica.usuaApellido} #{ingresoController.selected.ingrUsuaLogistica.usuaNombre}" title="#{bundle.ViewIngresoTitle_ingrUsuaLogistica}"/>
-                        
-                        <h:outputText value="#{bundle.ViewIngresoLabel_ingrProveId}"/>
-                        <h:outputText value="#{ingresoController.selected.ingrProveId.provNombre}" title="#{bundle.ViewIngresoTitle_ingrProveId}"/>
-                    </p:panelGrid>
-                </h:panelGroup>
+
+                <h:panelGrid width="900px" style="margin: 0 auto; background-color: lightgray" columns="2">
+                    <p:commandButton  value="imprimir" icon="pi pi-print" >
+                        <p:printer target="impresion" />
+                    </p:commandButton>
+                </h:panelGrid>
+
+                <p:panel header="ORDEN DE INGRESO" style="width: 900px; margin: 0 auto; text-align: center;" id="impresion">
+                    <p:layout id="capaDatosClienteFactura" style="width: 100%; height: 140px;">
+                        <p:layoutUnit id="datosCliente" position="center" style="padding: 5px; text-align: justify;
+                                      font-size: 14px;" size="300">
+
+                            <h:panelGrid id="gridBuscarDatosCliente" columns="4">
+                                <p:outputLabel value="Fecha: "  for="ingrFecha"/>
+                                <p:calendar id="ingrFecha" style="width: 250px" disabled="true" pattern="yyyy-MM-dd" value="#{ingresoController.selected.ingrFecha}" placeholder="Precione aqui"/>
+
+                                <p:outputLabel value="Numero Factura: "  for="ingrNumeFactura"/>
+                                <p:inputText id="ingrNumeFactura" style="width: 250px" readonly="true" value="#{ingresoController.selected.ingrNumeFactura}" />
+
+                                <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaBodeguero}" for="ingrUsuaBodeguero" />
+                                <p:inputText id="ingrUsuaBodeguero" style="width: 250px" value="#{ingresoController.selected.ingrUsuaBodeguero.usuaGrado} #{ingresoController.selected.ingrUsuaBodeguero.usuaApellido} #{ingresoController.selected.ingrUsuaBodeguero.usuaNombre} " readonly="true"/>
+                                
+
+                                <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaCompPublicas}" for="ingrUsuaCompPublicas" />
+                                <p:inputText id="ingrUsuaCompPublicas" style="width: 250px" value="#{ingresoController.selected.ingrUsuaCompPublicas.usuaGrado} #{ingresoController.selected.ingrUsuaCompPublicas.usuaApellido} #{ingresoController.selected.ingrUsuaCompPublicas.usuaNombre} " readonly="true"/>
+                                
+                                
+                                <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaLogistica}" for="ingrUsuaLogistica" />
+                                <p:inputText id="ingrUsuaLogistica" style="width: 250px" value="#{ingresoController.selected.ingrUsuaLogistica.usuaGrado} #{ingresoController.selected.ingrUsuaLogistica.usuaApellido} #{ingresoController.selected.ingrUsuaLogistica.usuaNombre} " readonly="true"/>
+
+
+
+                                <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrProveId}" for="ingrProveId" />
+                                <p:inputText id="ingrProveId" style="width: 250px" value="#{ingresoController.selected.ingrProveId.provNombre}" readonly="true"/>
+
+
+
+                                <p:outputLabel value="Unidad: "  for="ingrUnidad"/>
+                                <p:inputText id="ingrUnidad" style="width: 250px" value="#{ingresoController.selected.ingrUnidMilitar}" readonly="true"/>
+
+                            </h:panelGrid>  
+                        </p:layoutUnit>
+
+                        <p:layoutUnit id="datosFactura" position="east"  style="padding: 5px; text-align: center;
+                                      font-size: 14px;" size="100">
+                            <h:panelGrid  columns="1" style="font-size: 18px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
+                                ORDEN
+                                <p:outputLabel  value="#{ingresoController.selected.ingrId}"/>
+                            </h:panelGrid>
+                        </p:layoutUnit>                            
+                    </p:layout>
+
+                    <p:dataTable id="tablaProductosFactura" 
+                                 editable="true" rowIndexVar="rowIndex"
+                                 emptyMessage="No se a ingresado productos" value="#{ingresoController.detallesFactura}" var="listaDetalle">
+
+
+
+                        <p:column headerText="Codigo">
+                            <h:outputText value="#{listaDetalle.detaIngrProdId.prodId}"/>
+                        </p:column>
+
+                        <p:column headerText="Producto">
+                            <h:outputText value="#{listaDetalle.detaIngrProdId.prodNombre}" />
+                        </p:column>
+
+                        <p:column headerText="Cantidad">
+                            <h:outputText value="#{listaDetalle.detaIngrCantIngresa}" />
+                        </p:column>
+
+                        <p:column headerText="Precio">
+                            $ <h:outputText value="#{listaDetalle.deraIngrPreciIngresa}"/>
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            $ <h:outputText value="#{listaDetalle.detaIngrTotal}" /> 
+                        </p:column>
+                     
+
+                    </p:dataTable>
+                    <p:separator/>
+                    <h:panelGrid id="gridTotalFactura" columns="2" style="margin: 0 auto; font-size: 24px;">
+                        TOTAL  $
+                        <p:outputLabel style="font-size: 24px;" id="lblTotalFactura" value="#{ingresoController.selected.ingrTotal}"/>                                       
+                    </h:panelGrid>
+
+                    <p:commandButton value="Cerrar" action="#{ingresoController.limpiarFactura()}" oncomplete="PF('IngresoViewDialog').hide()"/>
+                </p:panel>
             </h:form>
         </p:dialog>
 

@@ -8,31 +8,83 @@
 
     <ui:composition>
 
-        <p:dialog id="EgresoViewDlg" widgetVar="EgresoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewEgresoTitle}">
+        <p:dialog id="EgresoViewDlg" widgetVar="EgresoViewDialog" modal="true" resizable="false" appendTo="@(body)" >
             <h:form id="EgresoViewForm">
-                <h:panelGroup id="display">
-                    <p:panelGrid columns="2" rendered="#{egresoController.selected != null}">
-                        <h:outputText value="#{bundle.ViewEgresoLabel_egreId}"/>
-                        <h:outputText value="#{egresoController.selected.egreId}" title="#{bundle.ViewEgresoTitle_egreId}"/>
-                        <h:outputText value="#{bundle.ViewEgresoLabel_egreFecha}"/>
-                        <h:outputText value="#{egresoController.selected.egreFecha}" title="#{bundle.ViewEgresoTitle_egreFecha}">
-                            <f:convertDateTime pattern="MM/dd/yyyy" />
-                        </h:outputText>
-                        <h:outputText value="#{bundle.ViewEgresoLabel_egreDepenUsar}"/>
-                        <h:outputText value="#{egresoController.selected.egreDepenUsar}" title="#{bundle.ViewEgresoTitle_egreDepenUsar}"/>
-                        <h:outputText value="#{bundle.ViewEgresoLabel_egreTotal}"/>
-                        <h:outputText value="#{egresoController.selected.egreTotal}" title="#{bundle.ViewEgresoTitle_egreTotal}"/>
-                        
-                        <h:outputText value="#{bundle.ViewEgresoLabel_egreUsuaBodeguero}"/>
-                        <h:outputText value="#{egresoController.selected.egreUsuaBodeguero.usuaGrado} #{egresoController.selected.egreUsuaBodeguero.usuaApellido} #{egresoController.selected.egreUsuaBodeguero.usuaNombre}" title="#{bundle.ViewEgresoTitle_egreUsuaBodeguero}"/>
-                        
-                        <h:outputText value="#{bundle.ViewEgresoLabel_egreUsuaLogistico}"/>
-                        <h:outputText value="#{egresoController.selected.egreUsuaLogistico.usuaGrado} #{egresoController.selected.egreUsuaLogistico.usuaApellido} #{egresoController.selected.egreUsuaLogistico.usuaNombre}" title="#{bundle.ViewEgresoTitle_egreUsuaLogistico}"/>
-                        
-                        <h:outputText value="#{bundle.ViewEgresoLabel_egreUsuaSolicita}"/>
-                        <h:outputText value="#{egresoController.selected.egreUsuaSolicita.usuaGrado} #{egresoController.selected.egreUsuaSolicita.usuaApellido} #{egresoController.selected.egreUsuaSolicita.usuaNombre}" title="#{bundle.ViewEgresoTitle_egreUsuaSolicita}"/>
-                    </p:panelGrid>
-                </h:panelGroup>
+
+                <h:panelGrid width="900px" style="margin: 0 auto; background-color: lightgray" columns="2">
+                    <p:commandButton  value="imprimir" icon="pi pi-print" >
+                        <p:printer target="impresion" />
+                    </p:commandButton>
+                </h:panelGrid>
+
+                <p:panel header="ORDEN DE EGRESO" style="width: 900px; margin: 0 auto; text-align: center;" id="impresion">
+                    <p:layout id="capaDatosClienteFactura" style="width: 100%; height: 140px;">
+                        <p:layoutUnit id="datosCliente" position="center" style="padding: 5px; text-align: justify;
+                                      font-size: 14px;" size="300">
+
+                            <h:panelGrid id="gridBuscarDatosCliente" columns="4">
+                                <p:outputLabel value="#{bundle.EditEgresoLabel_egreFecha}" for="egreFecha" />
+                                <p:calendar id="egreFecha" style="width: 250px" disabled="true" pattern="yyyy-MM-dd" value="#{egresoController.selected.egreFecha}" />
+
+                                <p:outputLabel value="#{bundle.EditEgresoLabel_egreDepenUsar}" for="egreDepenUsar" />
+                                <p:inputText id="egreDepenUsar" style="width: 250px" readonly="true" value="#{egresoController.selected.egreDepenUsar}" />
+
+                                <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaBodeguero}" for="egreUsuaBodeguero" />
+                                <p:inputText id="egreUsuaBodeguero" style="width: 250px" value="#{egresoController.selected.egreUsuaBodeguero.usuaGrado} #{egresoController.selected.egreUsuaBodeguero.usuaApellido} #{egresoController.selected.egreUsuaBodeguero.usuaNombre} " readonly="true"/>
+
+                                <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaLogistica}" for="egreUsuaLogistico" />
+                                <p:inputText id="egreUsuaLogistico" style="width: 250px" value="#{egresoController.selected.egreUsuaLogistico.usuaGrado} #{egresoController.selected.egreUsuaLogistico.usuaApellido} #{egresoController.selected.egreUsuaLogistico.usuaNombre} " readonly="true"/>
+
+                                <p:outputLabel value="Usuario Solicita: " for="egreUsuaSolicita" />
+                                <p:inputText id="egreUsuaSolicita" style="width: 250px" value="#{egresoController.selected.egreUsuaSolicita.usuaGrado} #{egresoController.selected.egreUsuaSolicita.usuaApellido} #{egresoController.selected.egreUsuaSolicita.usuaNombre} " readonly="true"/>
+                            </h:panelGrid>  
+                        </p:layoutUnit>
+
+                        <p:layoutUnit id="datosFactura" position="east"  style="padding: 5px; text-align: center;
+                                      font-size: 14px;" size="100">
+                            <h:panelGrid  columns="1" style="font-size: 18px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
+                                ORDEN
+                                <p:outputLabel  value="#{egresoController.selected.egreId}"/>
+                            </h:panelGrid>
+                        </p:layoutUnit>                            
+                    </p:layout>
+
+                    <p:dataTable id="tablaProductosFactura" 
+                                 editable="true" rowIndexVar="rowIndex"
+                                 emptyMessage="No se a ingresado productos" value="#{egresoController.detallesFacturaEgreso}" var="listaDetalle">
+
+
+
+                        <p:column headerText="Codigo">
+                            <h:outputText value="#{listaDetalle.detaEgreProdId.prodId}"/>
+                        </p:column>
+
+                        <p:column headerText="Producto">
+                            <h:outputText value="#{listaDetalle.detaEgreProdId.prodNombre}" />
+                        </p:column>
+
+                        <p:column headerText="Cantidad">
+                            <h:outputText value="#{listaDetalle.detaEgreCantEgresa}" />
+                        </p:column>
+
+                        <p:column headerText="Precio">
+                            $ <h:outputText value="#{listaDetalle.detaEgrePreciEgresa}"/>
+                        </p:column>
+
+                        <p:column headerText="Total">
+                            $ <h:outputText value="#{listaDetalle.detaTotal}" /> 
+                        </p:column>
+
+
+                    </p:dataTable>
+                    <p:separator/>
+                    <h:panelGrid id="gridTotalFactura" columns="2" style="margin: 0 auto; font-size: 24px;">
+                        TOTAL  $
+                        <p:outputLabel style="font-size: 24px;" id="lblTotalFactura" value="#{egresoController.selected.egreTotal}"/>                                       
+                    </h:panelGrid>
+
+                    <p:commandButton value="Cerrar" action="#{ingresoController.limpiarFactura()}" oncomplete="PF('EgresoViewDialog').hide()"/>
+                </p:panel>
             </h:form>
         </p:dialog>
 

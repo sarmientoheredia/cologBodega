@@ -15,7 +15,10 @@
 
         <ui:define name="body">
             <h:form id="UsuarioListForm">
+
                 <p:panel header="#{bundle.ListUsuarioTitle}">
+
+
                     <p:dataTable id="datalist" value="#{usuarioController.items}" var="item"
                                  selectionMode="single" selection="#{usuarioController.selected}"
                                  paginator="true"
@@ -30,11 +33,12 @@
                         <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
                         <f:facet name="header">
                             <p:outputPanel>
+
                                 <h:outputText class="pi pi-search" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tablaUsuario').filter()" style="text-align: center" placeholder="Buscar" />
                             </p:outputPanel>
                         </f:facet>
-                        <p:column>
+                        <p:column exportable="false">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListUsuarioTitle_usuaId}"/>
                             </f:facet>
@@ -86,16 +90,16 @@
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
-                
-                
-                
+
+
+
             </h:form>
             <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
                       appendTo="@(body)" header="Esta seguro de eliminar" showEffect="explode" hideEffect="bounce">
                 <h:form id="formUsuario">
                     <h:panelGroup id="confirmacion">
-                            <p:commandButton style="width: 160px" value="cancelar" process="@this" partialSubmit="true" update=":UsuarioListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
-                            <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{usuarioController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":UsuarioListForm:datalist,:growl"/>
+                        <p:commandButton style="width: 160px" value="cancelar" process="@this" partialSubmit="true" update=":UsuarioListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
+                        <p:commandButton style="width: 160px" value="Eliminar" actionListener="#{usuarioController.destroy()}" process="@this" oncomplete="PF('eliminacion').hide()" update=":UsuarioListForm:datalist,:growl"/>
                     </h:panelGroup>
                 </h:form>
             </p:dialog>

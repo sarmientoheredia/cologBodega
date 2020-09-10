@@ -6,9 +6,12 @@
 package com.bodcol.facade;
 
 import com.bodcol.entidades.Detalleingreso;
+import com.bodcol.entidades.Ingreso;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -35,6 +38,13 @@ public class DetalleingresoFacade extends AbstractFacade<Detalleingreso> {
         em.persist(detalleIngreso);
         System.out.println("despues del ingreso del detalle............");
         return true;
+    }
+    
+    
+    public List<Detalleingreso> obtenerDetalleIngreso(Ingreso ingrId)throws Exception{
+        Query query=em.createNamedQuery("Detalleingreso.findByDetadetaIngrIngrId", Detalleingreso.class);
+        query.setParameter("detaIngrIngrId", ingrId);
+        return query.getResultList();
     }
     
 }

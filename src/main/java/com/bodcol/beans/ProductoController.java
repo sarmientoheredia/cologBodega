@@ -43,10 +43,11 @@ public class ProductoController implements Serializable {
 
     @PostConstruct
     public void init() {
+        selected=new Producto();
         rack = new Rack();
-        items=ejbFacade.findAll();
+        items=new ArrayList<>();
+        items = ejbFacade.findAll();
     }
-
 
     public List<Rack> getListadoRack() {
         return listadoRack;
@@ -55,18 +56,17 @@ public class ProductoController implements Serializable {
     public void setListadoRack(List<Rack> listadoRack) {
         this.listadoRack = listadoRack;
     }
-    
+
     public void llenarComboAjax() {
-        
+
         System.out.println(seccion);
-        if(seccion!=null){
-            
+        if (seccion != null) {
+
             listadoRack = rackFacade.recuperarRaks(seccion);
-        }else if(seccion==null){
+        } else if (seccion == null) {
             System.out.println("limpiando");
         }
-        
-        
+
     }
 
     public Seccion getSeccion() {

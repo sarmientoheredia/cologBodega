@@ -36,4 +36,6 @@ public class IngresoFacade extends AbstractFacade<Ingreso> {
         return  (Ingreso) query.getSingleResult(); 
     }
     
+    
+
 }

@@ -18,14 +18,22 @@
                 <p:panel header="#{bundle.ListEgresoTitle}">
                     <p:dataTable id="datalist" value="#{egresoController.items}" var="item"
                                  selectionMode="single" selection="#{egresoController.selected}"
+                                 widgetVar="tablaEgreso"
+                                 globalFilterFunction="#{egresoController.globalFilterFunction}"
                                  paginator="true"
                                  rowKey="#{item.egreId}"
                                  rows="10"
                                  rowsPerPageTemplate="10,20,30,40,50"
                                  >
 
-                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowSelect"   update=" viewButton  deleteButton"/>
+                        <p:ajax event="rowUnselect" update=" viewButton  deleteButton"/>
+                        <f:facet name="header">
+                            <p:outputPanel >
+                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                                <p:inputText id="globalFilter" onkeyup="PF('tablaEgreso').filter()" style="text-align: center" placeholder="Buscar por dependencia" />
+                            </p:outputPanel>
+                        </f:facet>
 
                         <p:column>
                             <f:facet name="header">
@@ -38,10 +46,10 @@
                                 <h:outputText value="#{bundle.ListEgresoTitle_egreFecha}"/>
                             </f:facet>
                             <h:outputText value="#{item.egreFecha}">
-                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                                <f:convertDateTime pattern="yyyy-MM-dd" />
                             </h:outputText>
                         </p:column>
-                        <p:column>
+                        <p:column colspan="2">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEgresoTitle_egreDepenUsar}"/>
                             </f:facet>
@@ -53,37 +61,30 @@
                             </f:facet>
                             <h:outputText value="#{item.egreTotal}"/>
                         </p:column>
-                  
-                        <p:column colspan="2">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEgresoTitle_egreUsuaBodeguero}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.egreUsuaBodeguero.usuaGrado} #{item.egreUsuaBodeguero.usuaApellido}"/>
-                        </p:column>
-                        <p:column colspan="2">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListEgresoTitle_egreUsuaLogistico}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.egreUsuaLogistico.usuaGrado} #{item.egreUsuaLogistico.usuaApellido}"/>
-                        </p:column>
+
                         <p:column colspan="2">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListEgresoTitle_egreUsuaSolicita}"/>
                             </f:facet>
                             <h:outputText value="#{item.egreUsuaSolicita.usuaGrado} #{item.egreUsuaSolicita.usuaApellido}"/>
                         </p:column>
+
+                        <p:column style="text-align: center;">
+                            <f:facet name="header">
+                                <h:outputText value="Detalles"/>
+                            </f:facet>
+                            <p:commandLink style="color: greenyellow;" id="viewButton" update=":EgresoViewForm" oncomplete="PF('EgresoViewDialog').show()"  actionListener="#{egresoController.verDetalle(item)}">
+                                <i class="pi pi-search" style="font-size: 16px"></i>
+                            </p:commandLink>
+                        </p:column>
+
                         <f:facet name="footer">
-                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{egresoController.prepareCreate}" update=":EgresoCreateForm" oncomplete="PF('EgresoCreateDialog').show()"/>
-                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":EgresoViewForm" oncomplete="PF('EgresoViewDialog').show()" disabled="#{empty egresoController.selected}"/>
-                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":EgresoEditForm" oncomplete="PF('EgresoEditDialog').show()" disabled="#{empty egresoController.selected}"/>
                             <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{egresoController.destroy}" update=":growl,datalist" disabled="#{empty egresoController.selected}"/>
                         </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>
 
-            <ui:include src="Create.xhtml"/>
-            <ui:include src="Edit.xhtml"/>
             <ui:include src="View.xhtml"/>
         </ui:define>
     </ui:composition>

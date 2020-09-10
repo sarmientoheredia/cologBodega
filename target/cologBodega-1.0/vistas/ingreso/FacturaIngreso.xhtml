@@ -13,10 +13,10 @@
             <ui:define name="body">
                 <h:form id="cabecera">
                     <h:panelGrid width="900px" style="margin: 0 auto; background-color: lightgray" columns="2">
-                        <p:commandButton value="Nueva Ingreso" icon="pi pi-plus"
+                        <p:commandButton value="Nuevo Ingreso" icon="pi pi-plus"
                                          update="cabecera,:formFactura" style="margin-right: 600px"
                                          action="#{ingresoController.enableButton()}" actionListener="#{ingresoController.contarIngreso()}"/>
-                        <p:commandButton  value="imprimir" icon="pi pi-print" disabled="#{!ingresoController.enabled}">
+                        <p:commandButton  value="imprimir" icon="pi pi-print" disabled="#{!ingresoController.activador}">
                             <p:printer target=":formFactura:impresion" />
                         </p:commandButton>
                     </h:panelGrid>
@@ -31,13 +31,13 @@
 
                                 <h:panelGrid id="gridBuscarDatosCliente" columns="4">
                                     <p:outputLabel value="Fecha: "  for="ingrFecha"/>
-                                    <p:calendar id="ingrFecha" disabled="#{!ingresoController.enabled}" pattern="MM/dd/yyyy" value="#{ingresoController.selected.ingrFecha}" placeholder="Precione aqui"/>
+                                    <p:calendar id="ingrFecha" disabled="#{!ingresoController.activador}"  pattern="yyyy/MM/dd" value="#{ingresoController.selected.ingrFecha}" placeholder="Precione aqui"/>
 
                                     <p:outputLabel value="Numero Factura: "  for="ingrNumeFactura"/>
-                                    <p:inputText id="ingrNumeFactura" disabled="#{!ingresoController.enabled}" value="#{ingresoController.selected.ingrNumeFactura}" />
+                                    <p:inputText id="ingrNumeFactura" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrNumeFactura}" />
 
                                     <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaBodeguero}" for="ingrUsuaBodeguero" />
-                                    <p:selectOneMenu id="ingrUsuaBodeguero" disabled="#{!ingresoController.enabled}" value="#{ingresoController.selected.ingrUsuaBodeguero}" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaBodeguero}">
+                                    <p:selectOneMenu id="ingrUsuaBodeguero" disabled="#{!ingresoController.activador}"  value="#{ingresoController.selected.ingrUsuaBodeguero}" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaBodeguero}">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                                         <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                                        var="ingrUsuaBodegueroItem"
@@ -47,7 +47,7 @@
 
 
                                     <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaCompPublicas}" for="ingrUsuaCompPublicas" />
-                                    <p:selectOneMenu id="ingrUsuaCompPublicas" disabled="#{!ingresoController.enabled}" value="#{ingresoController.selected.ingrUsuaCompPublicas}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaCompPublicas}">
+                                    <p:selectOneMenu id="ingrUsuaCompPublicas" disabled="#{!ingresoController.activador}"  value="#{ingresoController.selected.ingrUsuaCompPublicas}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaCompPublicas}">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                                         <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                                        var="ingrUsuaCompPublicasItem"
@@ -57,7 +57,7 @@
 
 
                                     <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaLogistica}" for="ingrUsuaLogistica" />
-                                    <p:selectOneMenu id="ingrUsuaLogistica" disabled="#{!ingresoController.enabled}" value="#{ingresoController.selected.ingrUsuaLogistica}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaLogistica}">
+                                    <p:selectOneMenu id="ingrUsuaLogistica" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrUsuaLogistica}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaLogistica}">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                                         <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                                        var="ingrUsuaLogisticaItem"
@@ -66,7 +66,7 @@
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrProveId}" for="ingrProveId" />
-                                    <p:selectOneMenu id="ingrProveId" disabled="#{!ingresoController.enabled}" value="#{ingresoController.selected.ingrProveId}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrProveId}">
+                                    <p:selectOneMenu id="ingrProveId" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrProveId}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrProveId}">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                                         <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
                                                        var="ingrProveIdItem"
@@ -78,8 +78,8 @@
                             </p:layoutUnit>
 
                             <p:layoutUnit id="datosFactura" position="east"  style="padding: 5px; text-align: center;
-                                          font-size: 14px;" size="200">
-                                <h:panelGrid  columns="1" style="font-size: 24px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
+                                          font-size: 14px;" size="100">
+                                <h:panelGrid  columns="1" style="font-size: 18px; font-weight: bold; margin-top: 30px; margin: 0 auto;">
                                     ORDEN
                                     <p:outputLabel  value="#{ingresoController.numeroOrdenIngreso}"/>
                                 </h:panelGrid>
@@ -89,8 +89,8 @@
 
                         <h:panelGrid id="gridBuscarProducto" columns="6">
                             <p:commandButton value="Buscar producto" oncomplete="PF('dialogProductos').show()" 
-                                             icon="pi pi-search-plus"
-                                             update=":dlgProductos"  disabled="#{!ingresoController.enabled}"/> 
+                                             icon="pi pi-search-plus" disabled="#{!ingresoController.activador}"
+                                             update=":dlgProductos"/> 
                         </h:panelGrid>
 
                         <p:separator/>
@@ -149,14 +149,15 @@
 
                     </p:panel>
                     <div style="text-align: center">
-                        <p:commandButton value="Registrar" 
+                        <p:commandButton value="Registrar" disabled="#{!ingresoController.activador}"
                                          style="width: 150px; height: 60px;"
-                                         update=":formFactura,:growl" disabled="#{!ingresoController.enabled}"
+                                         update=":formFactura,:growl"
                                          actionListener="#{ingresoController.guradarIngreso}" action="#{ingresoController.limpiarFactura()}"/>      
 
                         <p:commandButton value="Cancelar" action="#{ingresoController.limpiarFactura()}"
+                                         disabled="#{!ingresoController.activador}"
                                          style="width: 150px; height: 60px;"
-                                         update=":formFactura" disabled="#{!ingresoController.enabled}"/>
+                                         update=":formFactura" />
                     </div>
                 </h:form>    
 

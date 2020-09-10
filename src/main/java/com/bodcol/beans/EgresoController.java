@@ -4,6 +4,7 @@ import com.bodcol.entidades.Egreso;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.entidades.Detalleegreso;
+import com.bodcol.entidades.Detalleegreso_;
 import com.bodcol.entidades.Producto;
 import com.bodcol.facade.DetalleegresoFacade;
 import com.bodcol.facade.EgresoFacade;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,22 +22,21 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("egresoController")
-@SessionScoped
+@ViewScoped
 public class EgresoController implements Serializable {
 
     @EJB
     private DetalleegresoFacade detalleegresoFacade;
 
-    
-    
+        
     @EJB
     private ProductoFacade productoFacade;
     @EJB
@@ -45,6 +46,10 @@ public class EgresoController implements Serializable {
     private Producto productoSeleccionado;
 
     private List<Detalleegreso> detalleEgreso;
+    
+    //lista para acceder al la lista que tiene ese id de ingreso
+    private List<Detalleegreso> detallesFacturaEgreso;
+    
     
     private Producto prod;
 
@@ -56,6 +61,10 @@ public class EgresoController implements Serializable {
     @PostConstruct
     public void init() {
         selected = new Egreso();
+        detalleEgreso=new ArrayList<>();
+        totalCompra = new BigDecimal(0);
+        productoSeleccionado = new Producto();
+        detallesFacturaEgreso = new ArrayList<>();
     }
 
     public EgresoController() {
@@ -111,11 +120,54 @@ public class EgresoController implements Serializable {
         this.cantidadProducto = cantidadProducto;
     }
 
+    public List<Detalleegreso> getDetallesFacturaEgreso() {
+        return detallesFacturaEgreso;
+    }
+
+    public void setDetallesFacturaEgreso(List<Detalleegreso> detallesFacturaEgreso) {
+        this.detallesFacturaEgreso = detallesFacturaEgreso;
+    }
+    
+        //METODO PARA FILTRAR POR CUALQUIER CAMPO
+    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        Egreso egreso = (Egreso) value;
+        return egreso.getEgreId() == filterInt
+                || egreso.getEgreDepenUsar().toLowerCase().contains(filterText)
+                || egreso.getEgreUsuaSolicita().getUsuaApellido().toLowerCase().contains(filterText);
+    }
+
+//    ingreso.getProdNombre().toLowerCase().contains(filterText)
+    //METODO PARA CONVERTIR EL ID
+    private int getInteger(String string) {
+        try {
+            return Integer.valueOf(string);
+        } catch (NumberFormatException ex) {
+            return 0;
+        }
+    }
+    
+    
+
+    //METODO QUE ENVIA EL OBJETO DE LA VISTA AL FACADE PARA RECUPERAR LOS DATOS
+        
+    public void verDetalle(Egreso egreso) throws Exception{
+        detallesFacturaEgreso=detalleegresoFacade.obtenerDetalleEgreso(egreso);
+    }
+    
+    
+    
     //metodo para contar todas las ordenas de ingreso que se encuantran en la base de datos 
     public void contarIngreso() {
         Egreso egreso;
         egreso = ejbFacade.contarEgresos();
-        numeroOrdenEgreso = egreso.getEgreId();
+        numeroOrdenEgreso = egreso.getEgreId()+1;
     }
 
     //METODO PARA LIMPIAR LA FACTURA DE INGRESO
@@ -131,7 +183,12 @@ public class EgresoController implements Serializable {
     //metodo para capturar el producto seleccionado
     public void capturarProducto(Producto producto) {
         productoSeleccionado = producto;
-
+    }
+    
+    //MERODO PARA OBTENR EL OBJETO DE LA TABLA INGRESO
+    public void capturarEgreso(Egreso egreso){
+        System.out.println(egreso);
+        selected=egreso;
     }
 
     public Producto getProd() {
@@ -228,6 +285,8 @@ public class EgresoController implements Serializable {
     }
 
     public void create() {
+        System.out.println("para ver de que forma envia a la base ");
+        System.out.println(selected.getEgreFecha());
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("EgresoCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.

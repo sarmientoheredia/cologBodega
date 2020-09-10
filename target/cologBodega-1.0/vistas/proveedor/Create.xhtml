@@ -15,7 +15,7 @@
 
 
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_provTipo}" for="provTipo" />
-                        <p:selectOneMenu id="provTipo" value="#{proveedorController.selected.provTipo}" title="#{bundle.CreateProveedorTitle_provTipo}"  requiredMessage="#{bundle.CreateProveedorRequiredMessage_provTipo}">
+                        <p:selectOneMenu id="provTipo" value="#{proveedorController.tipoProv}" title="#{bundle.CreateProveedorTitle_provTipo}"  requiredMessage="#{bundle.CreateProveedorRequiredMessage_provTipo}">
                             <f:selectItem itemLabel=" --- Seleccione ---" itemValue="0"/>
                             <f:selectItem itemLabel="Persona Juridica"  itemValue="2"/>
                             <f:selectItem itemLabel="Persona Natural"  itemValue="1"/>
@@ -23,7 +23,7 @@
                             <p:ajax event="change" listener="#{proveedorController.activarCajas}" update="provRuc,provRucPersonaNatural" />
                         </p:selectOneMenu>
 
-                       
+
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_provRuc}" for="provRuc" />
                         <p:inputText style="width: 400px" placeholder="1700000000001" id="provRuc" disabled="#{!proveedorController.activoRuc}" required="true"  value="#{proveedorController.selected.provRuc}" title="#{bundle.CreateProveedorTitle_provRuc}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provRuc}" >
                             <p:ajax event="keyup"  listener="#{proveedorController.validarRucAjax}"/>
@@ -53,8 +53,9 @@
 
                         <p:outputLabel value="#{bundle.ProveedorNombreLavel}" for="provNombre" />
                         <p:inputText style="width: 400px" id="provNombre" required="true" placeholder="Nombre o razon social" value="#{proveedorController.selected.provNombre}" title="#{bundle.CreateProveedorTitle_provNombre}" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provNombre}" />
-
-
+                       
+                       
+                       
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_provDireccion}" for="provDireccion" />
                         <p:inputText style="width: 400px" id="provDireccion" placeholder="Provincia - ciudad - calle principal" value="#{proveedorController.selected.provDireccion}" title="#{bundle.CreateProveedorTitle_provDireccion}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provDireccion}"/>
 

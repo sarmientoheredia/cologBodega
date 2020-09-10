@@ -33,6 +33,8 @@ public class ProveedorController implements Serializable {
     private int banderaCedula;
     private static boolean isValid = false;
 
+    private int tipoProv;
+    
     private boolean enabled;
     private boolean activoRuc = false;
     private boolean activoRucPersonaNatural = false;
@@ -52,8 +54,7 @@ public class ProveedorController implements Serializable {
 
         Proveedor proveedor = (Proveedor) value;
         return proveedor.getProvCedula().toLowerCase().contains(filterText)
-                || proveedor.getProvNombre().toLowerCase().contains(filterText)
-                || proveedor.getProvTipo().toLowerCase().contains(filterText);
+                || proveedor.getProvNombre().toLowerCase().contains(filterText);
     }
 
     //METODO PARA CONVERTIR EL ID
@@ -65,20 +66,33 @@ public class ProveedorController implements Serializable {
         }
     }
 
+    public int getTipoProv() {
+        return tipoProv;
+    }
+
+    public void setTipoProv(int tipoProv) {
+        this.tipoProv = tipoProv;
+    }
+
+    
+    
+    
+    
+    
     public void activarCajas() {
-        switch (selected.getProvTipo()) {
-            case "0":
+        switch (tipoProv) {
+            case 0:
                 desactivarCajas();
                 break;
-            case "1":
+            case 1:
                 activarRucNatural();
 
                 break;
-            case "2":
+            case 2:
                 activarRuc();
                 break;
 
-            case "3":
+            case 3:
                 desactivarCajas();
                 break;
         }

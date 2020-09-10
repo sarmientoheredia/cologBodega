@@ -13,8 +13,6 @@
         <h:outputStylesheet name="css/primeflex.css"/>
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
         <f:event type="preRenderView" listener="#{plantillaController.verificarSesion}"/>
-        
-
     </h:head>
 
     <h:body >
@@ -41,8 +39,8 @@
                         </p:submenu>
 
                         <p:submenu label="#{bundle.ModuloProcesos}">
-                            <p:menuitem value="Ingreso" outcome="/vistas/ingreso/FacturaIngreso.xhtml" />
-                            <p:menuitem value="Egreso" outcome="/vistas/egreso/FacturaEgreso.xhtml" />
+                            <p:menuitem value="Ingreso" icon="pi pi-sign-in" outcome="/vistas/ingreso/FacturaIngreso.xhtml" />
+                            <p:menuitem value="Egreso" icon="pi pi-sign-out" outcome="/vistas/egreso/FacturaEgreso.xhtml" />
                         </p:submenu>
                         
                         

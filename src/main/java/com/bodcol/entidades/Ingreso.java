@@ -203,6 +203,8 @@ public class Ingreso implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bodcol.entidades.Ingreso[ ingrId=" + ingrId + " ]";
+        return "Ingreso{" + "ingrId=" + ingrId + ", ingrFecha=" + ingrFecha + ", ingrNumeFactura=" + ingrNumeFactura + ", ingrUnidMilitar=" + ingrUnidMilitar + ", ingrTotal=" + ingrTotal + ", ingrBorrLogi=" + ingrBorrLogi + ", ingrUsuaBodeguero=" + ingrUsuaBodeguero + ", ingrUsuaCompPublicas=" + ingrUsuaCompPublicas + ", ingrUsuaLogistica=" + ingrUsuaLogistica + ", ingrProveId=" + ingrProveId + ", detalleingresoList=" + detalleingresoList + '}';
     }
+
+
 }

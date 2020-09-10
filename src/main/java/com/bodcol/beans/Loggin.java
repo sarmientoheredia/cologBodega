@@ -5,9 +5,9 @@ import com.bodcol.facade.UsuarioFacade;
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 /**
@@ -15,7 +15,7 @@ import javax.inject.Named;
  * @author Cbos- Com. Sarmiento H. Luis A.
  */
 @Named(value = "logginBean")
-@ViewScoped
+@SessionScoped
 public class Loggin implements Serializable {
 
 //    private String txtUsuario = null;
@@ -68,6 +68,7 @@ public class Loggin implements Serializable {
                 //Almacenar en la sesion de JSF
                
                 FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("administrador", us);
+                
                 if(us.getUsuaRolId().getRolNombre().equalsIgnoreCase("administrador")){
                     redireccion="inicio?faces-redirect=true";
                 }else if(us.getUsuaRolId().getRolNombre().equalsIgnoreCase("invitado")){

@@ -25,13 +25,6 @@
                         <p:outputLabel value="#{bundle.EditProveedorLabel_provNombre}" for="provNombre" />
                         <p:inputText id="provNombre" readonly="true" style="width: 400px" value="#{proveedorController.selected.provNombre}" title="#{bundle.EditProveedorTitle_provNombre}" />
 
-                        <p:outputLabel value="#{bundle.CreateProveedorLabel_provTipo}" for="provTipo" />
-                        <p:selectOneMenu  id="provTipo" value="#{proveedorController.selected.provTipo}" disabled="#{!proveedorController.activoRuc}" title="#{bundle.CreateProveedorTitle_provTipo}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provTipo}">
-                            <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
-                            <f:selectItem itemLabel="Persona Natural"  itemValue="Persona Natural"/>
-                            <f:selectItem itemLabel="Persona Juridica"  itemValue="Persona Juridica"/>
-                            <f:selectItem itemLabel="Persona del Portal"  itemValue="Persona del Portal"/>
-                        </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.CreateProveedorLabel_provDireccion}" for="provDireccion" />
                         <p:inputText style="width: 400px" id="provDireccion"  placeholder="Provincia - ciudad - calle principal" value="#{proveedorController.selected.provDireccion}" title="#{bundle.CreateProveedorTitle_provDireccion}" required="true" requiredMessage="#{bundle.CreateProveedorRequiredMessage_provDireccion}"/>

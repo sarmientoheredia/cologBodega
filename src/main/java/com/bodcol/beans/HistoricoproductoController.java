@@ -6,7 +6,6 @@ import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.facade.HistoricoproductoFacade;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -15,14 +14,14 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.faces.view.ViewScoped;
 
 @Named("historicoproductoController")
-@SessionScoped
+@ViewScoped
 public class HistoricoproductoController implements Serializable {
 
     @EJB
