@@ -42,19 +42,46 @@
                             <p:menuitem value="Ingreso" icon="pi pi-sign-in" outcome="/vistas/ingreso/FacturaIngreso.xhtml" />
                             <p:menuitem value="Egreso" icon="pi pi-sign-out" outcome="/vistas/egreso/FacturaEgreso.xhtml" />
                         </p:submenu>
-                        
-                        
+
+
                         <p:submenu label="Consusltas">
                             <p:menuitem   value="Ingresos" outcome="/vistas/ingreso/List.xhtml" />
                             <p:menuitem value="Egreso" outcome="/vistas/egreso/List.xhtml" />
                         </p:submenu>
-                        
-                        
-                        <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" />
-                        <p:menuitem actionListener="#{plantillaController.cerrarSesion()}" value="#{bundle.Session}" action="/index?faces-redirect=true" icon="pi pi-power-off" style="color: red;"/>
+
+
+                        <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" oncomplete="PF('credenciales').show()" />
+                        <p:menuitem actionListener="#{plantillaController.cerrarSesion()}" value="#{bundle.Session}" action="/index?faces-redirect=true"  icon="pi pi-power-off" style="color: red;"/>
 
                     </p:menubar>
                 </h:form>
+                <p:dialog widgetVar="credenciales" showEffect="explode">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Usuario: "/>
+                            <p:inputText value="#{plantillaController.usuario.usuaUsuario}"/>
+                            <p:outputLabel value="Password: "/>
+                            <p:inputText value="#{plantillaController.usuario.usuaPassword}"/>
+                            <p:commandButton value="Aceptar" actionListener="#{usuarioController.updateCredenciales(plantillaController.usuario)}" update="growl" oncomplete="PF('eliminacion').show()"/>
+                            <p:commandButton value="cancelar" oncomplete="PF('credenciales').hide()" />
+                        </p:panelGrid>
+
+                    </h:form>
+                </p:dialog>
+
+
+                
+                <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
+                          appendTo="@(body)" header="Debe reiniciar" >
+
+                    <h:form id="formRol">
+                        <h:panelGroup id="confirmacion">
+                            <p:commandButton style="width: 160px" value="Cerrar sesion" actionListener="#{plantillaController.cerrarSesion()}" process="@this" />
+                        </h:panelGroup>
+                    </h:form>
+
+                </p:dialog>
+
             </p:layoutUnit>
 
 
@@ -80,6 +107,8 @@
             </p:layoutUnit>
 
         </p:layout>
+
+
 
     </h:body>
 

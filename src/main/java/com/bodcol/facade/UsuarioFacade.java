@@ -70,46 +70,13 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
         return usuario;
     }
 
-    
-    
-    
-    
-    
-    
-    
+    //METODO PARA EDITAR EL USUARIO
+    public Usuario editarCredenciales(Usuario usuario) {
+        em.merge(usuario);
+        return usuario;
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 //METODO PARA PODER CONTROLAR EL ACCESO AL SISTEMA DE LOS USUARIOS EN BASE AL USER Y PASSWORD 
 //    public Usuario encontrarUsuarioLoggin(String usuaUsuario, String usuaPassword) {

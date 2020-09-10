@@ -12,6 +12,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -21,8 +22,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
 
 @Named("usuarioController")
 @ViewScoped
@@ -34,9 +33,19 @@ public class UsuarioController implements Serializable {
     private com.bodcol.facade.UsuarioFacade ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
+
+    private PlantillaController usuarioPlantilla;
+
+    private Usuario usuarioSeleccionado;
     private int bandera;
 
     public UsuarioController() {
+    }
+
+    @PostConstruct
+    public void init() {
+        usuarioSeleccionado = new Usuario();
+        selected = new Usuario();
     }
 
     //METODO PARA FILTRAR POR CUALQUIER CAMPO
@@ -66,17 +75,25 @@ public class UsuarioController implements Serializable {
         }
     }
 
-    
+    public PlantillaController getUsuarioPlantilla() {
+        return usuarioPlantilla;
+    }
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    public void setUsuarioPlantilla(PlantillaController usuarioPlantilla) {
+        this.usuarioPlantilla = usuarioPlantilla;
+    }
+
+    //METODO PARA ACTUALIZAR EL USUARIO Y LA CLAVE
+    public void updateCredenciales(Usuario usuario) {
+        if (usuario != null) {
+            selected = ejbFacade.editarCredenciales(usuario);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Credenciales Modificadas con exito", "Credenciales Modificadas"));
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error", "No hay credenciales"));
+        }
+
+    }
+
     public Usuario getSelected() {
         return selected;
     }
@@ -100,6 +117,14 @@ public class UsuarioController implements Serializable {
 
         initializeEmbeddableKey();
         return selected;
+    }
+
+    public Usuario getUsuarioSeleccionado() {
+        return usuarioSeleccionado;
+    }
+
+    public void setUsuarioSeleccionado(Usuario usuarioSeleccionado) {
+        this.usuarioSeleccionado = usuarioSeleccionado;
     }
 
     public void create() {
@@ -128,12 +153,12 @@ public class UsuarioController implements Serializable {
     public void update() {
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
     }
-public void limpiar(){
-    selected=null;
-    items=null;
-}
-    
-    
+
+    public void limpiar() {
+        selected = null;
+        items = null;
+    }
+
     public void destroy() {
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UsuarioDeleted"));
         if (!JsfUtil.isValidationFailed()) {
@@ -191,9 +216,8 @@ public void limpiar(){
 
     //metod ajax para ver que tenga los 10 digitos de la cedula
     public void validarCedula() {
-        
+
         if (selected.getUsuaCedula().length() == 10) {
-            System.out.println("sdfdsf");
             operacionCedula();
 
         }
@@ -219,7 +243,7 @@ public void limpiar(){
         int ultimo = Integer.parseInt(selected.getUsuaCedula().charAt(9) + "");
         if (ultimo == resta) {
             bandera = 1;
-            
+
         } else {
             bandera = 0;
         }
