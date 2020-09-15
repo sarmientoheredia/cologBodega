@@ -55,14 +55,14 @@
 
                     </p:menubar>
                 </h:form>
-                <p:dialog widgetVar="credenciales" showEffect="explode">
+                <p:dialog widgetVar="credenciales" showEffect="explode" resizable="false" >
                     <h:form>
                         <p:panelGrid columns="2">
                             <p:outputLabel value="Usuario: "/>
                             <p:inputText value="#{plantillaController.usuario.usuaUsuario}"/>
                             <p:outputLabel value="Password: "/>
                             <p:inputText value="#{plantillaController.usuario.usuaPassword}"/>
-                            <p:commandButton value="Aceptar" actionListener="#{usuarioController.updateCredenciales(plantillaController.usuario)}" update="growl" oncomplete="PF('eliminacion').show()"/>
+                            <p:commandButton value="Aceptar" actionListener="#{usuarioController.updateCredenciales(plantillaController.usuario)}" update="growl" oncomplete="PF('confirmarEliminacion').show()"/>
                             <p:commandButton value="cancelar" oncomplete="PF('credenciales').hide()" />
                         </p:panelGrid>
 
@@ -71,13 +71,10 @@
 
 
                 
-                <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
-                          appendTo="@(body)" header="Debe reiniciar" >
-
-                    <h:form id="formRol">
-                        <h:panelGroup id="confirmacion">
-                            <p:commandButton style="width: 160px" value="Cerrar sesion" actionListener="#{plantillaController.cerrarSesion()}" process="@this" />
-                        </h:panelGroup>
+                <p:dialog  widgetVar="confirmarEliminacion" modal="true" resizable="false" closable="false" showEffect="explode"
+                          appendTo="@(body)" header="Reiniciar el Sistema" >
+                    <h:form>
+                        <p:commandButton style="width: 250px" value="Aceptar" actionListener="#{plantillaController.cerrarSesion()}" />
                     </h:form>
 
                 </p:dialog>

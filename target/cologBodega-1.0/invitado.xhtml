@@ -11,103 +11,120 @@
         <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
     </h:head>
     <h:body>
-   
-
-        <div class="ui-g" id="formulario" >
-         
 
 
-            <h:form id="ProductoListForm" style="padding: 20px;" class="ui-g-12 ui-md-12 ui-lg-12">
-
-                    <p:menubar>
-                        <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" />
-                        <p:menuitem actionListener="#{plantillaController.cerrarSesion()}" value="#{bundle.Session}" action="/index?faces-redirect=true" icon="pi pi-power-off" style="color: red;"/>
-
-                    </p:menubar> 
-
-                <p:panel header="#{bundle.ListProductoTitle}">
-                    <p:dataTable id="datalist" value="#{productoController.items}" var="item"
-                                 selectionMode="single" selection="#{productoController.selected}"
-                                 paginator="true"
-                                 widgetVar="tablaProducto1"
-                                 globalFilterFunction="#{productoController.globalFilterFunction}"
-                                 rowKey="#{item.prodId}"
-                                 rows="10"
-                                 rowsPerPageTemplate="10,20,30,40,50" style="height: 600px;"
-                                 >
 
 
-                        <f:facet name="header">
-                            <p:outputPanel>
-                                <h:outputText class="pi pi-search" style="margin-right: 20px;" />
-                                <p:inputText id="globalFilter" onkeyup="PF('tablaProducto1').filter()" style="text-align: center" placeholder="Buscar" />
-                            </p:outputPanel>
-                        </f:facet>
+        <h:form id="ProductoListForm" style="padding: 20px;" >
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodId}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodCodigo}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodCodigo}"/>
-                        </p:column>
-                        <p:column colspan="2">
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodNombre}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodNombre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodRackId}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodRackId.rackNombre}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodRackFila}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodRackFila}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodRackColumna}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodRackColumna}"/>
-                        </p:column>
+            <p:menubar>
+                <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" oncomplete="PF('credenciales').show()"  />
+                <p:menuitem actionListener="#{plantillaController.cerrarSesion()}" value="#{bundle.Session}" action="/index?faces-redirect=true" icon="pi pi-power-off" style="color: red;"/>
+            </p:menubar> 
+
+            <p:dataTable id="datalist" value="#{productoController.items}" var="item"
+                         selectionMode="single" selection="#{productoController.selected}"
+                         paginator="true"
+                         widgetVar="tablaProducto1"
+                         globalFilterFunction="#{productoController.globalFilterFunction}"
+                         rowKey="#{item.prodId}"
+                         rows="10"
+                         rowsPerPageTemplate="10,20,30,40,50" style="height: 600px;"
+                         >
 
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodUnidMedida}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodUnidMedida}"/>
-                        </p:column>
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodStocActual}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodStocActual}"/>
-                        </p:column>
-                  
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText class="pi pi-search" style="margin-right: 20px;" />
+                        <p:inputText id="globalFilter" onkeyup="PF('tablaProducto1').filter()" style="text-align: center" placeholder="Buscar" />
+                    </p:outputPanel>
+                </f:facet>
 
-                        <p:column>
-                            <f:facet name="header">
-                                <h:outputText value="#{bundle.ListProductoTitle_prodStatus}"/>
-                            </f:facet>
-                            <h:outputText value="#{item.prodStatus}"/>
-                        </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodId}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodCodigo}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodCodigo}"/>
+                </p:column>
+                <p:column colspan="2">
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodNombre}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodNombre}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodRackId}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodRackId.rackNombre}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodRackFila}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodRackFila}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodRackColumna}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodRackColumna}"/>
+                </p:column>
 
-                      
-                    </p:dataTable>
-                </p:panel>
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodUnidMedida}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodUnidMedida}"/>
+                </p:column>
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodStocActual}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodStocActual}"/>
+                </p:column>
+
+
+                <p:column>
+                    <f:facet name="header">
+                        <h:outputText value="#{bundle.ListProductoTitle_prodStatus}"/>
+                    </f:facet>
+                    <h:outputText value="#{item.prodStatus}"/>
+                </p:column>
+
+
+            </p:dataTable>
+        </h:form>
+        <p:dialog widgetVar="credenciales" showEffect="explode" resizable="false" modal="true">
+            <h:form>
+                <p:panelGrid columns="2">
+                    <p:outputLabel value="Usuario: "/>
+                    <p:inputText value="#{plantillaController.usuario.usuaUsuario}"/>
+                    <p:outputLabel value="Password: "/>
+                    <p:inputText value="#{plantillaController.usuario.usuaPassword}"/>
+                    <p:commandButton value="Aceptar" actionListener="#{usuarioController.updateCredenciales(plantillaController.usuario)}"  oncomplete="PF('confirmarEliminacion').show()"/>
+                    <p:commandButton value="cancelar" oncomplete="PF('credenciales').hide()" />
+                </p:panelGrid>
+
             </h:form>
-        </div>
+        </p:dialog>
+
+
+
+        <p:dialog  widgetVar="confirmarEliminacion" modal="true" resizable="false" closable="false" showEffect="explode"
+                   appendTo="@(body)" header="Reiniciar el Sistema" >
+            <h:form>
+                <p:commandButton style="width: 250px" value="Aceptar" actionListener="#{plantillaController.cerrarSesion()}" />
+            </h:form>
+
+        </p:dialog>
     </h:body>
 
 </html>

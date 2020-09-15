@@ -62,7 +62,7 @@
                 <p:dialog id="confirmarEliminacion" widgetVar="eliminacion" modal="true" resizable="false"
                           appendTo="@(body)" header="Esta seguro de eliminar" showEffect="explode" hideEffect="bounce">
 
-                    <h:form id="formRol">
+                    <h:form id="confirmaEliminacionSeccion">
                         <h:panelGroup id="confirmacion">
 
                             <p:commandButton style="width: 160px" value="cancelar" actionListener="#{seccionController.limpiar()}" process="@this" partialSubmit="true" update=":SeccionListForm:datalist,:growl" oncomplete="PF('eliminacion').hide()"/>
