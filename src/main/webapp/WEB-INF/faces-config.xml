@@ -30,15 +30,14 @@
         </resource-bundle>
     </application>
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>vistas/plantillas/index.xhtml</from-view-id>
         <navigation-case>
             <from-outcome>inicio</from-outcome>
-            <to-view-id>/inicio.xhtml</to-view-id>
-            <redirect/>
+            <to-view-id>vistas/plantillas/inicio.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
             <from-outcome>invitado</from-outcome>
-            <to-view-id>/invitado.xhtml</to-view-id>
+            <to-view-id>vistas/plantillas/invitado.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

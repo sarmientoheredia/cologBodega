@@ -38,7 +38,7 @@ public class PlantillaController implements Serializable {
             FacesContext context = FacesContext.getCurrentInstance();
             usuario = (Usuario) context.getExternalContext().getSessionMap().get("administrador");
             if (usuario == null) {
-                context.getExternalContext().redirect("./../../index.xhtml");
+                context.getExternalContext().redirect("/cologBodega/vistas/plantillas/index.xhtml");
                 
             }
 

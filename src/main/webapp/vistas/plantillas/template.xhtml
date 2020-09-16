@@ -27,7 +27,7 @@
 
                 <h:form id="menuForm" >
                     <p:menubar>
-                        <p:menuitem value="#{bundle.Home}" outcome="/inicio" icon="pi pi-home"/>
+                        <p:menuitem value="#{bundle.Home}" outcome="/vistas/plantillas/inicio" icon="pi pi-home"/>
                         <p:submenu label="#{bundle.Maintenance}">
                             <p:menuitem value="Usuario" outcome="/vistas/usuario/List.xhtml" icon="pi pi-users"/>
                             <p:menuitem value="Proveedor" outcome="/vistas/proveedor/List.xhtml" icon="pi pi-shopping-cart"/>
@@ -55,7 +55,7 @@
 
                     </p:menubar>
                 </h:form>
-                <p:dialog widgetVar="credenciales" showEffect="explode" resizable="false" >
+                <p:dialog widgetVar="credenciales" showEffect="explode" resizable="false" modal="true"   appendTo="@(body)">
                     <h:form>
                         <p:panelGrid columns="2">
                             <p:outputLabel value="Usuario: "/>

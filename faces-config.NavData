@@ -4,19 +4,20 @@
     <Scope Scope="Project">
         <Node id="vistas/seccion/Edit.xhtml" x="1150" y="450" zoom="true"/>
         <Node id="vistas/historicoproducto/List.xhtml" x="150" y="1350" zoom="true"/>
-        <Node id="welcomePrimefaces.xhtml" x="400" y="1200" zoom="true"/>
         <Node id="vistas/rol/List.xhtml" x="1650" y="150" zoom="true"/>
+        <Node id="vistas/plantillas/invitado.xhtml" x="1900" y="450" zoom="true"/>
         <Node id="vistas/seccion/Create.xhtml" x="1900" y="300" zoom="true"/>
         <Node id="vistas/egreso/View.xhtml" x="1150" y="750" zoom="true"/>
+        <Node id="vistas/egreso/List.xhtml" x="650" y="600" zoom="true"/>
         <Node id="vistas/usuario/Create.xhtml" x="400" y="1050" zoom="true"/>
         <Node id="vistas/usuario/Edit.xhtml" x="400" y="600" zoom="true"/>
-        <Node id="vistas/egreso/List.xhtml" x="650" y="600" zoom="true"/>
         <Node id="vistas/usuario/View.xhtml" x="900" y="750" zoom="true"/>
         <Node id="vistas/producto/List.xhtml" x="900" y="600" zoom="true"/>
+        <Node id="vistas/plantillas/template.xhtml" x="1650" y="600" zoom="true"/>
         <Node id="vistas/egreso/Edit.xhtml" x="650" y="450" zoom="true"/>
+        <Node id="vistas/plantillas/index.xhtml" x="2150" y="150" zoom="true"/>
         <Node id="vistas/detalleingreso/List.xhtml" x="150" y="1200" zoom="true"/>
         <Node id="vistas/detalleegreso/Create.xhtml" x="1400" y="150" zoom="true"/>
-        <Node id="index.xhtml" x="146" y="46" zoom="true"/>
         <Node id="vistas/detalleegreso/Edit.xhtml" x="650" y="150" zoom="true"/>
         <Node id="vistas/proveedor/Edit.xhtml" x="150" y="300" zoom="true"/>
         <Node id="vistas/egreso/Create.xhtml" x="1150" y="150" zoom="true"/>
@@ -27,9 +28,9 @@
         <Node id="vistas/usuario/List.xhtml" x="650" y="300" zoom="true"/>
         <Node id="vistas/ingreso/View.xhtml" x="2150" y="300" zoom="true"/>
         <Node id="vistas/producto/Edit.xhtml" x="650" y="750" zoom="true"/>
-        <Node id="invitado.xhtml" x="428" y="36" zoom="true"/>
         <Node id="vistas/rol/View.xhtml" x="2175" y="116" zoom="true"/>
         <Node id="vistas/proveedor/Create.xhtml" x="1650" y="300" zoom="true"/>
+        <Node id="vistas/plantillas/inicio.xhtml" x="400" y="1200" zoom="true"/>
         <Node id="vistas/rack/Edit.xhtml" x="400" y="900" zoom="true"/>
         <Node id="vistas/rack/Create.xhtml" x="1150" y="600" zoom="true"/>
         <Node id="vistas/ingreso/List.xhtml" x="650" y="1050" zoom="true"/>
@@ -37,21 +38,19 @@
         <Node id="vistas/rack/List.xhtml" x="150" y="750" zoom="true"/>
         <Node id="vistas/proveedor/View.xhtml" x="150" y="900" zoom="true"/>
         <Node id="vistas/rack/View.xhtml" x="150" y="1050" zoom="true"/>
-        <Node id="template.xhtml" x="1900" y="450" zoom="true"/>
         <Node id="vistas/rol/Create.xhtml" x="400" y="750" zoom="true"/>
         <Node id="vistas/ingreso/Create.xhtml" x="1400" y="300" zoom="true"/>
         <Node id="vistas/ingreso/FacturaIngreso.xhtml" x="900" y="150" zoom="true"/>
         <Node id="vistas/historicoproducto/Create.xhtml" x="400" y="150" zoom="true"/>
         <Node id="vistas/detalleingreso/View.xhtml" x="1900" y="150" zoom="true"/>
         <Node id="vistas/detalleegreso/View.xhtml" x="150" y="450" zoom="true"/>
-        <Node id="inicio.xhtml" x="37" y="112" zoom="true"/>
         <Node id="vistas/detalleingreso/Create.xhtml" x="1150" y="300" zoom="true"/>
         <Node id="vistas/detalleegreso/List.xhtml" x="1400" y="450" zoom="true"/>
         <Node id="vistas/seccion/List.xhtml" x="2400" y="183" zoom="true"/>
         <Node id="vistas/ingreso/Edit.xhtml" x="1400" y="600" zoom="true"/>
         <Node id="vistas/producto/View.xhtml" x="900" y="450" zoom="true"/>
-        <Node id="vistas/historicoproducto/View.xhtml" x="900" y="300" zoom="true"/>
         <Node id="vistas/seccion/View.xhtml" x="400" y="450" zoom="true"/>
+        <Node id="vistas/historicoproducto/View.xhtml" x="900" y="300" zoom="true"/>
         <Node id="vistas/rol/Edit.xhtml" x="150" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>
