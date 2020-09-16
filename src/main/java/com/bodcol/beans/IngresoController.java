@@ -91,7 +91,6 @@ public class IngresoController implements Serializable {
                 || ingreso.getIngrNumeFactura().toLowerCase().contains(filterText);
     }
 
-//    ingreso.getProdNombre().toLowerCase().contains(filterText)
     //METODO PARA CONVERTIR EL ID
     private int getInteger(String string) {
         try {

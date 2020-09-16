@@ -4,11 +4,15 @@ import com.bodcol.entidades.Usuario;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.facade.UsuarioFacade;
+import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.IOException;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +26,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Named("usuarioController")
 @ViewScoped
@@ -38,7 +50,7 @@ public class UsuarioController implements Serializable {
 
     private Usuario usuarioSeleccionado;
     private int bandera;
-
+    
     public UsuarioController() {
     }
 
@@ -48,6 +60,61 @@ public class UsuarioController implements Serializable {
         selected = new Usuario();
     }
 
+    
+    //METODO PARA GENERAR LOS REPORTES
+    	public void exportarPDF(ActionEvent actionEvent) throws JRException, IOException{
+            try {
+                
+                
+               	Map<String,Object> parametros= new HashMap<String,Object>();
+		parametros.put("txtUsuario", "Sarmiento");
+		
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/Usuario.jasper"));
+		JasperPrint jasperPrint = JasperFillManager.fillReport(jasper.getPath(),parametros, new JRBeanCollectionDataSource(this.getItems()));
+		
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.addHeader("Content-disposition","attachment; filename=jsfReporte.pdf");
+		ServletOutputStream stream = response.getOutputStream();
+		
+		JasperExportManager.exportReportToPdfStream(jasperPrint, stream);
+		stream.flush();
+		stream.close();
+		FacesContext.getCurrentInstance().responseComplete(); 
+            } catch (IOException | JRException e) {
+                System.out.println("el error es "+e);
+            }
+	}
+    
+        
+        //METODO PARA VER
+        	public void verPDF(ActionEvent actionEvent) throws Exception{
+		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/Usuario.jasper"));		
+		
+		byte[] bytes = JasperRunManager.runReportToPdf(jasper.getPath(), null, new JRBeanCollectionDataSource(this.getItems()));
+		HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+		response.setContentType("application/pdf");
+		response.setContentLength(bytes.length);
+		ServletOutputStream outStream = response.getOutputStream();
+		outStream.write(bytes, 0 , bytes.length);
+		outStream.flush();
+		outStream.close();
+			
+		FacesContext.getCurrentInstance().responseComplete();
+	
+                }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //METODO PARA FILTRAR POR CUALQUIER CAMPO
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
