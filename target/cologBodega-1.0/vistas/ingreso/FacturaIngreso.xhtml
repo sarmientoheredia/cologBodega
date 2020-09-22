@@ -31,13 +31,13 @@
 
                                 <h:panelGrid id="gridBuscarDatosCliente" columns="4">
                                     <p:outputLabel value="Fecha: "  for="ingrFecha"/>
-                                    <p:calendar id="ingrFecha" disabled="#{!ingresoController.activador}"  pattern="yyyy/MM/dd" value="#{ingresoController.selected.ingrFecha}" placeholder="Precione aqui"/>
+                                    <p:calendar required="true" id="ingrFecha" disabled="#{!ingresoController.activador}"  pattern="yyyy/MM/dd" value="#{ingresoController.selected.ingrFecha}" placeholder="Precione aqui" requiredMessage="La fecha es requerida"/>
 
                                     <p:outputLabel value="Numero Factura: "  for="ingrNumeFactura"/>
-                                    <p:inputText id="ingrNumeFactura" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrNumeFactura}" />
+                                    <p:inputText required="true" id="ingrNumeFactura" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrNumeFactura}" requiredMessage="El numero de factura es requerido" />
 
-                                    <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaBodeguero}" for="ingrUsuaBodeguero" />
-                                    <p:selectOneMenu id="ingrUsuaBodeguero" disabled="#{!ingresoController.activador}"  value="#{ingresoController.selected.ingrUsuaBodeguero}" requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaBodeguero}">
+                                    <p:outputLabel  value="#{bundle.CreateIngresoLabel_ingrUsuaBodeguero}" for="ingrUsuaBodeguero" />
+                                    <p:selectOneMenu required="true" id="ingrUsuaBodeguero" disabled="#{!ingresoController.activador}"  value="#{ingresoController.selected.ingrUsuaBodeguero}" requiredMessage="El usuario bodeguero es requerido">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                                         <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                                        var="ingrUsuaBodegueroItem"
@@ -47,7 +47,7 @@
 
 
                                     <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaCompPublicas}" for="ingrUsuaCompPublicas" />
-                                    <p:selectOneMenu id="ingrUsuaCompPublicas" disabled="#{!ingresoController.activador}"  value="#{ingresoController.selected.ingrUsuaCompPublicas}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaCompPublicas}">
+                                    <p:selectOneMenu required="true" id="ingrUsuaCompPublicas" disabled="#{!ingresoController.activador}"  value="#{ingresoController.selected.ingrUsuaCompPublicas}"  requiredMessage="El encargado de compras publicas es requerido">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                                         <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                                        var="ingrUsuaCompPublicasItem"
@@ -57,7 +57,7 @@
 
 
                                     <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaLogistica}" for="ingrUsuaLogistica" />
-                                    <p:selectOneMenu id="ingrUsuaLogistica" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrUsuaLogistica}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrUsuaLogistica}">
+                                    <p:selectOneMenu required="true" id="ingrUsuaLogistica" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrUsuaLogistica}"  requiredMessage="El encargado de logistica es requerido">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                                         <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
                                                        var="ingrUsuaLogisticaItem"
@@ -66,7 +66,7 @@
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrProveId}" for="ingrProveId" />
-                                    <p:selectOneMenu id="ingrProveId" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrProveId}"  requiredMessage="#{bundle.EditIngresoRequiredMessage_ingrProveId}">
+                                    <p:selectOneMenu required="true" id="ingrProveId" disabled="#{!ingresoController.activador}" value="#{ingresoController.selected.ingrProveId}"  requiredMessage="El proveedor es requerido">
                                         <f:selectItem itemLabel=" --- Seleccione ---" itemValue=""/>
                                         <f:selectItems value="#{proveedorController.itemsAvailableSelectOne}"
                                                        var="ingrProveIdItem"
@@ -109,21 +109,7 @@
                             </p:column>
 
                             <p:column headerText="Cantidad">
-                                <p:cellEditor>
-                                    <f:facet name="output">
-                                        <h:outputText value="#{listaDetalle.detaIngrCantIngresa}"/>
-                                    </f:facet>
-                                    <f:facet name="input">
-                                        <p:inputText value="#{item.cantidad}" size="5" label="Cantidad Producto"
-                                                     required="true" requiredMessage="Es necesaria una cantidad"
-                                                     converter="#{Integer}" converterMessage="Esta no es una cantidad correcta"
-                                                     validatorMessage="La cantidad debe ser mayor o igual a 1">
-                                            <f:validateLongRange minimum="1"/>
-                                        </p:inputText>                                        
-                                    </f:facet>
-
-                                </p:cellEditor>
-
+                                <h:outputText value="#{listaDetalle.detaIngrCantIngresa}"/>
                             </p:column>
 
                             <p:column headerText="Precio">
@@ -133,10 +119,6 @@
                             <p:column headerText="Total">
                                 $ <h:outputText value="#{listaDetalle.detaIngrTotal}" /> 
                             </p:column>
-                            <p:column headerText="Editar Cantidad">
-                                <p:rowEditor />
-                            </p:column>
-
                         </p:dataTable>
                         <p:separator/>
                         <h:panelGrid id="gridTotalFactura" columns="2" style="margin: 0 auto; font-size: 24px;">
@@ -150,13 +132,11 @@
                     </p:panel>
                     <div style="text-align: center">
                         <p:commandButton value="Registrar" disabled="#{!ingresoController.activador}"
-                                         style="width: 150px; height: 60px;"
                                          update=":formFactura,:growl"
-                                         actionListener="#{ingresoController.guradarIngreso}" action="#{ingresoController.limpiarFactura()}"/>      
+                                         actionListener="#{ingresoController.guradarIngreso}" />      
 
-                        <p:commandButton value="Cancelar" action="#{ingresoController.limpiarFactura()}"
+                        <p:commandButton value="Cancelar/ Limpiar" action="#{ingresoController.limpiarFactura()}"
                                          disabled="#{!ingresoController.activador}"
-                                         style="width: 150px; height: 60px;"
                                          update=":formFactura" />
                     </div>
                 </h:form>    
@@ -168,13 +148,15 @@
 
                 <!--Dialog para mostrar datos de los productos del sistema-->
                 <p:dialog id="dlgProductos" widgetVar="dialogProductos"   resizable="false"
-                          showEffect="explode" hideEffect="explode">
+                          showEffect="explode" hideEffect="explode" appendTo="@(body)" modal="true">
                     <h:form>
                         <p:dataTable id="datalist" value="#{productoController.items}" var="item"
                                      paginator="true"
                                      widgetVar="tablaProducto"
                                      globalFilterFunction="#{productoController.globalFilterFunction}"
                                      rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     emptyMessage="No se encontraron los registros"
                                      >
                             <f:facet name="header">
                                 <p:outputPanel>
@@ -237,10 +219,16 @@
                                 <f:facet name="header">
                                     <h:outputText value="Opciones"/>
                                 </f:facet>
-                                <p:commandButton value="Seleccionar" ajax="true"  oncomplete="PF('dialogCantidadProducto').show()" actionListener="#{ingresoController.capturarProducto(item)}" update=":dlgCantidadProducto,:formularioCantidadProducto"/>
+                                <p:commandLink  ajax="true"  oncomplete="PF('dialogCantidadProducto').show()" actionListener="#{ingresoController.capturarProducto(item)}" update=":dlgCantidadProducto,:formularioCantidadProducto">
+                                    <i class="pi pi-check-circle" style="color: greenyellow; font-size: 30px"></i>
+                                </p:commandLink>
                             </p:column>
+                            <f:facet name="footer" >
+                                <p:commandButton value="Cerrar" oncomplete="PF('dialogProductos').hide()" />
+
+                            </f:facet>
                         </p:dataTable>
-                        <p:commandButton value="Cerrar" oncomplete="PF('dialogProductos').hide()" />
+
                     </h:form>
                 </p:dialog> 
 
@@ -249,7 +237,7 @@
 
                 <!--Dialog para pedir la cantidad de producto a vender-->
                 <p:dialog id="dlgCantidadProducto" widgetVar="dialogCantidadProducto" header="Cantidad" resizable="false"
-                          showEffect="explode" hideEffect="explode">  
+                          appendTo="@(body)" modal="true">  
                     <h:form id="formularioCantidadProducto">
                         <h:panelGroup>
                             <h:panelGrid columns="2">

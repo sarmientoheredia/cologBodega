@@ -4,7 +4,6 @@ import com.bodcol.entidades.Egreso;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.entidades.Detalleegreso;
-import com.bodcol.entidades.Detalleegreso_;
 import com.bodcol.entidades.Producto;
 import com.bodcol.facade.DetalleegresoFacade;
 import com.bodcol.facade.EgresoFacade;
@@ -74,9 +73,7 @@ public class EgresoController implements Serializable {
         return numeroOrdenEgreso;
     }
 
-    public void setNumeroOrdenEgreso(int numeroOrdenEgreso) {
-        this.numeroOrdenEgreso = numeroOrdenEgreso;
-    }
+
 
     //metodo para activar y desactvar
     public boolean isEnabled() {
