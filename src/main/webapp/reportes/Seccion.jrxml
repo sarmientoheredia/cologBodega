@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Seccion" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c3eefe68-8a52-4ea2-9e8d-e8b9a6ac5681">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="c97b6c04-0877-4780-a908-63d4e20f2516"/>
+	<subDataset name="Table Dataset 2" uuid="95441120-2598-480e-b58c-e9a68ba15307"/>
+	<field name="seccId" class="java.lang.String"/>
+	<field name="seccNombre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="53" splitType="Stretch">
+			<staticText>
+				<reportElement x="133" y="0" width="322" height="22" uuid="c6d0bb82-1fe2-4205-a148-265387f585fe"/>
+				<textElement>
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECCIONES DE LA BODEGA DE SUMINISTROS ]]></text>
+			</staticText>
+			<image>
+				<reportElement x="513" y="0" width="59" height="47" uuid="5d958417-5ca2-4930-b975-a0669f01d29d"/>
+				<imageExpression><![CDATA["C:\\Users\\SARMIENTO-PC\\Downloads\\cologBodega\\src\\main\\webapp\\resources\\imagenes\\colog.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="0" y="0" width="65" height="47" uuid="d5d01a2a-573b-46a7-b611-03d98f1622f4"/>
+				<imageExpression><![CDATA["C:\\Users\\SARMIENTO-PC\\Downloads\\cologBodega\\src\\main\\webapp\\resources\\imagenes\\escudo.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="29" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="448" y="0" width="124" height="20" uuid="450f5114-3c1c-43a9-a675-314afcdc5265"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="367" y="0" width="81" height="20" uuid="78d44a05-9bee-4279-9b85-25a36ab5e02a"/>
+				<text><![CDATA[Impreso:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement x="309" y="0" width="139" height="20" uuid="25c89a8b-3352-45d4-92c2-148a6af4c611"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="144" y="0" width="100" height="20" uuid="c94d219b-7130-4370-b8d9-48e93ff0ff4a"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CODIGO]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="19" width="572" height="1" uuid="15a3bba4-6e74-4eeb-930d-44ce2c4e0496"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="144" y="0" width="100" height="20" uuid="a945f1c7-1823-4d8e-b242-56404aa4d8e7"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{seccId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="309" y="0" width="139" height="20" uuid="ba094ee1-0f37-42e1-b017-7bde5d42d5c1"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{seccNombre}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="133" y="19" width="334" height="1" uuid="31dc990b-9e89-44d6-82f4-5372aa00d380"/>
+			</line>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="34" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="183" y="0" width="100" height="20" uuid="a82ae345-18ea-49b2-aff5-1171d4a51fe7"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{seccId}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="144" y="0" width="39" height="20" uuid="eeffb6f5-1503-45df-8fe1-937c75c950f2"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

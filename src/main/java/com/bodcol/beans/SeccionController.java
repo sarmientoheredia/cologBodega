@@ -5,6 +5,8 @@ import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.entidades.Rack;
 import com.bodcol.facade.SeccionFacade;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
 import java.io.Serializable;
 import java.util.List;
@@ -22,6 +24,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Named("seccionController")
 @ViewScoped
@@ -33,19 +39,15 @@ public class SeccionController implements Serializable {
     private Seccion selected;
     private List<Rack> listaracks;
     private Rack racks;
-  
+
     @PostConstruct
-    public void init(){
-         racks=new Rack();
+    public void init() {
+        racks = new Rack();
     }
-    
+
     public SeccionController() {
     }
 
-    
- 
-    
-    
     //METODO PARA FILTRAR POR CUALQUIER CAMPO
     public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
@@ -90,15 +92,12 @@ public class SeccionController implements Serializable {
         this.listaracks = racks;
     }
 
-    
     protected void setEmbeddableKeys() {
     }
 
     protected void initializeEmbeddableKey() {
     }
 
-
-    
     private SeccionFacade getFacade() {
         return ejbFacade;
     }
@@ -120,6 +119,23 @@ public class SeccionController implements Serializable {
                 items = null;    // Invalidate list of items to trigger re-query.
             }
         }
+
+    }
+
+    //METODO PARA VER EL PDF EN EL NAVEGADOR
+    public void verPDF(ActionEvent actionEvent) throws Exception {
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/Seccion.jasper"));
+
+        byte[] bytes = JasperRunManager.runReportToPdf(jasper.getPath(), null, new JRBeanCollectionDataSource(this.getItems()));
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.setContentType("application/pdf");
+        response.setContentLength(bytes.length);
+        ServletOutputStream outStream = response.getOutputStream();
+        outStream.write(bytes, 0, bytes.length);
+        outStream.flush();
+        outStream.close();
+
+        FacesContext.getCurrentInstance().responseComplete();
 
     }
 
@@ -185,7 +201,7 @@ public class SeccionController implements Serializable {
     }
 
     public List<Seccion> getItemsAvailableSelectOne() {
-               
+
         return getFacade().findAll();
     }
 

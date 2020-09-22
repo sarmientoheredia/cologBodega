@@ -120,7 +120,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bodcol.entidades.Rol[ rolId=" + rolId + " ]";
+        return rolNombre;
     }
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.bodcol.entidades;
 
 import java.io.Serializable;
@@ -41,9 +36,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByUsuaUsuario", query = "SELECT u FROM Usuario u WHERE u.usuaUsuario = :usuaUsuario"),
     
     @NamedQuery(name = "Usuario.findByLoggin", query = "SELECT u FROM Usuario u WHERE u.usuaUsuario = :usuaUsuario ANd u.usuaPassword=:usuaPassword"),
-    
     @NamedQuery(name = "Usuario.findByUsuaPassword", query = "SELECT u FROM Usuario u WHERE u.usuaPassword = :usuaPassword"),
     @NamedQuery(name = "Usuario.findByUsuaBorrLogi", query = "SELECT u FROM Usuario u WHERE u.usuaBorrLogi = :usuaBorrLogi")})
+    
+
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -4,13 +4,17 @@ import com.bodcol.entidades.Proveedor;
 import com.bodcol.beans.util.JsfUtil;
 import com.bodcol.beans.util.JsfUtil.PersistAction;
 import com.bodcol.facade.ProveedorFacade;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -20,6 +24,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Named("proveedorController")
 @ViewScoped
@@ -34,7 +42,7 @@ public class ProveedorController implements Serializable {
     private static boolean isValid = false;
 
     private int tipoProv;
-    
+
     private boolean enabled;
     private boolean activoRuc = false;
     private boolean activoRucPersonaNatural = false;
@@ -42,6 +50,13 @@ public class ProveedorController implements Serializable {
     private boolean activoCedula = true;
 
     public ProveedorController() {
+    }
+
+    @PostConstruct
+    public void init() {
+        selected = new Proveedor();
+        items = new ArrayList<>();
+        items = ejbFacade.findAll();
     }
 
     //METODO PARA FILTRAR POR CUALQUIER CAMPO
@@ -53,8 +68,9 @@ public class ProveedorController implements Serializable {
         int filterInt = getInteger(filterText);
 
         Proveedor proveedor = (Proveedor) value;
-        return proveedor.getProvCedula().toLowerCase().contains(filterText)
-                || proveedor.getProvNombre().toLowerCase().contains(filterText);
+        return proveedor.getProvNombre().toLowerCase().contains(filterText)
+                || proveedor.getProvDireccion().toLowerCase().contains(filterText)
+                || proveedor.getProvId() == filterInt;
     }
 
     //METODO PARA CONVERTIR EL ID
@@ -74,11 +90,6 @@ public class ProveedorController implements Serializable {
         this.tipoProv = tipoProv;
     }
 
-    
-    
-    
-    
-    
     public void activarCajas() {
         switch (tipoProv) {
             case 0:
@@ -471,6 +482,23 @@ public class ProveedorController implements Serializable {
                 JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             }
         }
+    }
+
+    //METODO PARA VER EL PDF EN EL NAVEGADOR
+    public void verPDF(ActionEvent actionEvent) throws Exception {
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/Proveedor.jasper"));
+
+        byte[] bytes = JasperRunManager.runReportToPdf(jasper.getPath(), null, new JRBeanCollectionDataSource(this.getItems()));
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.setContentType("application/pdf");
+        response.setContentLength(bytes.length);
+        ServletOutputStream outStream = response.getOutputStream();
+        outStream.write(bytes, 0, bytes.length);
+        outStream.flush();
+        outStream.close();
+
+        FacesContext.getCurrentInstance().responseComplete();
+
     }
 
     public Proveedor getProveedor(java.lang.Integer id) {

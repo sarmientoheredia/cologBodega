@@ -43,9 +43,9 @@ public class ProductoController implements Serializable {
 
     @PostConstruct
     public void init() {
-        selected=new Producto();
+        selected = new Producto();
         rack = new Rack();
-        items=new ArrayList<>();
+        items = new ArrayList<>();
         items = ejbFacade.findAll();
     }
 

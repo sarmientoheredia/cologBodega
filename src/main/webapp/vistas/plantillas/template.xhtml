@@ -48,6 +48,26 @@
                             <p:menuitem   value="Ingresos" outcome="/vistas/ingreso/List.xhtml" />
                             <p:menuitem value="Egreso" outcome="/vistas/egreso/List.xhtml" />
                         </p:submenu>
+                        
+                        <p:submenu label="Reportes">
+                            <p:menuitem  >
+                                <h:commandLink target="_blank" action="#{usuarioController.verPDF(actionEvent)}" >
+                                    <i class="pi pi-print">Usuarios</i>
+                                </h:commandLink>
+                            </p:menuitem>
+
+                            <p:menuitem  >
+                                <h:commandLink target="_blank" action="#{proveedorController.verPDF(actionEvent)}" >
+                                    <i class="pi pi-print">Proveedor</i>
+                                </h:commandLink>
+                            </p:menuitem>
+
+                            <p:menuitem  >
+                                <h:commandLink target="_blank" action="#{seccionController.verPDF(actionEvent)}" >
+                                    <i class="pi pi-print">Seccion</i>
+                                </h:commandLink>
+                            </p:menuitem>
+                        </p:submenu>
 
 
                         <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" oncomplete="PF('credenciales').show()" />
@@ -70,9 +90,9 @@
                 </p:dialog>
 
 
-                
+
                 <p:dialog  widgetVar="confirmarEliminacion" modal="true" resizable="false" closable="false" showEffect="explode"
-                          appendTo="@(body)" header="Reiniciar el Sistema" >
+                           appendTo="@(body)" header="Reiniciar el Sistema" >
                     <h:form>
                         <p:commandButton style="width: 250px" value="Aceptar" actionListener="#{plantillaController.cerrarSesion()}" />
                     </h:form>

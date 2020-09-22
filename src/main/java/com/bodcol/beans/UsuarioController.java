@@ -86,7 +86,7 @@ public class UsuarioController implements Serializable {
 	}
     
         
-        //METODO PARA VER
+        //METODO PARA VER EL PDF EN EL NAVEGADOR
         	public void verPDF(ActionEvent actionEvent) throws Exception{
 		File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/Usuario.jasper"));		
 		

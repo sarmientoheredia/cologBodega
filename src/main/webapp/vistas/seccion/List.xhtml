@@ -27,8 +27,8 @@
                                      rowsPerPageTemplate="10,20,30,40,50"
                                      >
 
-                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
-                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton "/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton "/>
 
 
                             <f:facet name="header">
@@ -53,7 +53,6 @@
                                 <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{seccionController.prepareCreate}" update=":SeccionCreateForm" oncomplete="PF('SeccionCreateDialog').show()"/>
                                 <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":SeccionViewForm" oncomplete="PF('SeccionViewDialog').show()" disabled="#{empty seccionController.selected}"/>
                                 <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":SeccionEditForm" oncomplete="PF('SeccionEditDialog').show()" disabled="#{empty seccionController.selected}"/>
-                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" oncomplete="PF('eliminacion').show()" update=":growl,datalist" disabled="#{empty seccionController.selected}"/>
                             </f:facet>
                         </p:dataTable>
                     </p:panel>

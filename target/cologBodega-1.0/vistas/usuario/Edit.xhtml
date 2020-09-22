@@ -15,7 +15,6 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaGrado}" for="usuaGrado" />
 
                         <p:selectOneMenu id="usuaGrado" value="#{usuarioController.selected.usuaGrado}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaGrado}" >
-                            <f:selectItem itemLabel="seleccione el grado" itemValue="" />
                             <f:selectItem itemLabel="S.P" itemValue="S.p" />
                             <f:selectItem itemLabel="Cpto" itemValue="Cpto" />
                             <f:selectItem itemLabel="Sldo" itemValue="Sldo" />
@@ -40,7 +39,6 @@
                         <p:outputLabel value="#{bundle.EditUsuarioLabel_usuaiArma}" for="usuaiArma" />
 
                         <p:selectOneMenu id="usuaiArma" value="#{usuarioController.selected.usuaiArma}" required="true"  requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaArma}" >
-                            <f:selectItem itemLabel="Seleccione el arma" itemValue="" />
                             <f:selectItem itemLabel="I" itemValue="I" />
                             <f:selectItem itemLabel="C.B" itemValue="C.B" />
                             <f:selectItem itemLabel="A" itemValue="A" />
