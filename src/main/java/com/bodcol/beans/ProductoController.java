@@ -7,6 +7,8 @@ import com.bodcol.entidades.Rack;
 import com.bodcol.entidades.Seccion;
 import com.bodcol.facade.ProductoFacade;
 import com.bodcol.facade.SeccionFacade;
+import java.awt.event.ActionEvent;
+import java.io.File;
 
 import java.io.Serializable;
 import java.util.*;
@@ -19,6 +21,10 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.*;
 import javax.faces.view.ViewScoped;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Named("productoController")
 @ViewScoped
@@ -142,6 +148,22 @@ public class ProductoController implements Serializable {
         selected = new Producto();
         initializeEmbeddableKey();
         return selected;
+    }
+
+    //METODO PARA VER EL PDF EN EL NAVEGADOR
+    public void verPDF(ActionEvent actionEvent) throws Exception {
+        File jasper = new File(FacesContext.getCurrentInstance().getExternalContext().getRealPath("reportes/Producto.jasper"));
+
+        byte[] bytes = JasperRunManager.runReportToPdf(jasper.getPath(), null, new JRBeanCollectionDataSource(this.getItems()));
+        HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse();
+        response.setContentType("application/pdf");
+        response.setContentLength(bytes.length);
+        ServletOutputStream outStream = response.getOutputStream();
+        outStream.write(bytes, 0, bytes.length);
+        outStream.flush();
+        outStream.close();
+
+        FacesContext.getCurrentInstance().responseComplete();
     }
 
     public void create() {

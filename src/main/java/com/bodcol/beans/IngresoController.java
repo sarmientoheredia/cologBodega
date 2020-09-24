@@ -10,7 +10,9 @@ import com.bodcol.facade.IngresoFacade;
 import com.bodcol.facade.ProductoFacade;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -40,6 +42,9 @@ public class IngresoController implements Serializable {
 
     private List<Ingreso> items = null;
     private List<Detalleingreso> detalles;
+    
+    //declaracion de las fechas 
+    private Date date;
 
     //lista para acceder al la lista que tiene ese id de ingreso
     private List<Detalleingreso> detallesFactura;
@@ -69,6 +74,14 @@ public class IngresoController implements Serializable {
         detallesFactura = new ArrayList<>();
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     public boolean isActivador() {
         return activador;
     }
@@ -91,6 +104,14 @@ public class IngresoController implements Serializable {
                 || ingreso.getIngrNumeFactura().toLowerCase().contains(filterText);
     }
 
+    //METODO PARA OBTENER LA FECHA 
+    public void onClik(Date date){
+        SimpleDateFormat simpledateFormat=new SimpleDateFormat("yyyy/MM/dd");
+        System.out.println("la fecha es:" +simpledateFormat.format(date));
+    }
+    
+    
+    
     //METODO PARA CONVERTIR EL ID
     private int getInteger(String string) {
         try {

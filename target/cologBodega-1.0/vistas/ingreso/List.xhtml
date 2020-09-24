@@ -29,24 +29,21 @@
                                  emptyMessage="No se encontraron los registros"
                                  >
 
-                        <p:ajax event="rowSelect"   update=" viewButton deleteButton "/>
-                        <p:ajax event="rowUnselect" update=" viewButton  deleteButton"/>
+                        <p:ajax event="rowSelect"   update=" viewButton  "/>
+                        <p:ajax event="rowUnselect" update=" viewButton  "/>
                         <f:facet name="header">
                             <p:outputPanel >
                                 <h:outputText class="pi pi-search" style="margin-right: 20px;" />
                                 <p:inputText id="globalFilter" onkeyup="PF('tablaIngreso').filter()" style="text-align: center" placeholder="Buscar por N° Factura" />
                             </p:outputPanel>
                         </f:facet>
-
-
-
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIngresoTitle_ingrId}"/>
                             </f:facet>
                             <h:outputText value="#{item.ingrId}"/>
                         </p:column>
-                        <p:column>
+                        <p:column sortBy="#{item.ingrFecha}" filterBy="#{item.ingrFecha}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIngresoTitle_ingrFecha}"/>
                             </f:facet>
@@ -66,7 +63,7 @@
                             </f:facet>
                             <h:outputText value="#{item.ingrUnidMilitar}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.ingrTotal}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListIngresoTitle_ingrTotal}"/>
                             </f:facet>
@@ -80,10 +77,6 @@
                                 <i class="pi pi-search" style="font-size: 16px"></i>
                             </p:commandLink>
                         </p:column>
-
-                        <f:facet name="footer">
-                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{ingresoController.destroy}" update=":growl,datalist" disabled="#{empty ingresoController.selected}"/>
-                        </f:facet>
                     </p:dataTable>
                 </p:panel>
             </h:form>

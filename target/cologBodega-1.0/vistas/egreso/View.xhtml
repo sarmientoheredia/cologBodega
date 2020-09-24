@@ -82,9 +82,10 @@
                         TOTAL  $
                         <p:outputLabel style="font-size: 24px;" id="lblTotalFactura" value="#{egresoController.selected.egreTotal}"/>                                       
                     </h:panelGrid>
-
-                    <p:commandButton value="Cerrar" action="#{ingresoController.limpiarFactura()}" oncomplete="PF('EgresoViewDialog').hide()"/>
                 </p:panel>
+                <div style="text-align: center">
+                    <p:commandButton value="Cerrar" action="#{ingresoController.limpiarFactura()}" oncomplete="PF('EgresoViewDialog').hide()"/>
+                </div>
             </h:form>
         </p:dialog>
 

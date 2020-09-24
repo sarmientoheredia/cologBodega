@@ -48,7 +48,7 @@
                             <p:menuitem   value="Ingresos" outcome="/vistas/ingreso/List.xhtml" />
                             <p:menuitem value="Egreso" outcome="/vistas/egreso/List.xhtml" />
                         </p:submenu>
-                        
+
                         <p:submenu label="Reportes">
                             <p:menuitem  >
                                 <h:commandLink target="_blank" action="#{usuarioController.verPDF(actionEvent)}" >
@@ -67,8 +67,16 @@
                                     <i class="pi pi-print">Seccion</i>
                                 </h:commandLink>
                             </p:menuitem>
-                        </p:submenu>
 
+
+                            <p:menuitem  >
+                                <h:commandLink target="_blank" action="#{productoController.verPDF(actionEvent)}" >
+                                    <i class="pi pi-print">Producto</i>
+                                </h:commandLink>
+                            </p:menuitem>
+
+                        </p:submenu>
+                        <p:menuitem value="Reportes" action="/vistas/reportes/Reportes.xhtml"  />
 
                         <p:menuitem value="#{plantillaController.usuario.usuaGrado} #{plantillaController.usuario.usuaApellido}" icon="pi pi-user" oncomplete="PF('credenciales').show()" />
                         <p:menuitem actionListener="#{plantillaController.cerrarSesion()}" value="#{bundle.Session}" action="/index?faces-redirect=true"  icon="pi pi-power-off" style="color: red;"/>
@@ -99,17 +107,14 @@
 
                 </p:dialog>
 
+
+
+
+
+
+
+
             </p:layoutUnit>
-
-
-
-
-
-
-
-
-
-
             <p:layoutUnit position="south" size="60"  >
                 <ui:insert name="footer" >
                     <h:form style="text-align: center; font-weight: bold">

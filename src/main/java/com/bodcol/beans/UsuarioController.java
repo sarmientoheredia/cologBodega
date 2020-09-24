@@ -310,9 +310,11 @@ public class UsuarioController implements Serializable {
         int ultimo = Integer.parseInt(selected.getUsuaCedula().charAt(9) + "");
         if (ultimo == resta) {
             bandera = 1;
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_INFO, "Exito", "Numero de cedula valido") );
 
         } else {
             bandera = 0;
+            FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(FacesMessage.SEVERITY_WARN, "Error", "El numero de cedula es invalido"));
         }
     }
 

@@ -129,7 +129,7 @@ public class Rack implements Serializable {
 
     @Override
     public String toString() {
-        return "com.bodcol.entidades.Rack[ rackId=" + rackId + " ]";
+        return rackNombre;
     }
 
 }

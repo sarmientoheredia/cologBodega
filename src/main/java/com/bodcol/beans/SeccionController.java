@@ -136,7 +136,6 @@ public class SeccionController implements Serializable {
         outStream.close();
 
         FacesContext.getCurrentInstance().responseComplete();
-
     }
 
     public void update() {

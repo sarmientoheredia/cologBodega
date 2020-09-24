@@ -72,8 +72,6 @@
                             </f:facet>
                             <h:outputText value="#{item.prodRackColumna}"/>
                         </p:column>
-
-
                         <p:column>
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_prodUnidMedida}"/>
@@ -86,14 +84,14 @@
                             </f:facet>
                             <h:outputText value="#{item.prodStocActual}"/>
                         </p:column>
-                        <p:column>
+                        <p:column filterBy="#{item.prodCostActual}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_prodCostActual}"/>
                             </f:facet>
                             <h:outputText value="#{item.prodCostActual}"/>
                         </p:column>
 
-                        <p:column>
+                        <p:column filterBy="#{item.prodTotalActual}">
                             <f:facet name="header">
                                 <h:outputText value="#{bundle.ListProductoTitle_prodTotalActual}"/>
                             </f:facet>

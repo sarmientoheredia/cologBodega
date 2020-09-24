@@ -54,9 +54,8 @@
                         </p:selectOneMenu>
 
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaCedula}" for="usuaCedula" />
-                        <p:inputText type="number" converter="#{Integer}" autocomplete="off" id="usuaCedula" placeholder="#{bundle.UsuarioCedula}" value="#{usuarioController.selected.usuaCedula}" title="#{bundle.CreateUsuarioTitle_usuaCedula}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaCedula}" style="width: 300px">
-                            <p:ajax event="keyup" rendered="usuaCedula" listener="#{usuarioController.validarCedula}"/>
-                            <f:validateLength minimum="10" maximum="10"/>
+                        <p:inputText type="number" converter="#{Integer}" autocomplete="off" id="usuaCedula"  placeholder="#{bundle.UsuarioCedula}" value="#{usuarioController.selected.usuaCedula}" title="#{bundle.CreateUsuarioTitle_usuaCedula}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaCedula}" style="width: 300px" >
+                            <p:ajax event="keyup"  rendered="usuaCedula" listener="#{usuarioController.validarCedula}"/>
                         </p:inputText>
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_usuaApellido}" for="usuaApellido" />
                         <p:inputText id="usuaApellido" placeholder="#{bundle.UsuarioApellido}" value="#{usuarioController.selected.usuaApellido}" title="#{bundle.CreateUsuarioTitle_usuaApellido}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_usuaApellido}" style="width: 300px"/>

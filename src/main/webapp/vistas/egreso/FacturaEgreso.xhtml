@@ -127,7 +127,7 @@
                     <div style="text-align: center">
                         <p:commandButton value="Registrar" 
                                          update=":formFactura,:growl" disabled="#{!egresoController.enabled}"
-                                         actionListener="#{egresoController.guradarIngreso}" action="#{egresoController.limpiarFactura()}"/>      
+                                         actionListener="#{egresoController.guradarIngreso}" />      
 
                         <p:commandButton value="Cancelar / Limpiar" action="#{egresoController.limpiarFactura()}"
                                          update=":formFactura" disabled="#{!egresoController.enabled}"/>

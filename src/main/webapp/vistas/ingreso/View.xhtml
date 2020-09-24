@@ -12,7 +12,7 @@
             <h:form id="IngresoViewForm">
 
                 <h:panelGrid width="900px" style="margin: 0 auto; background-color: lightgray" columns="2">
-                    <p:commandButton  value="imprimir" icon="pi pi-print" >
+                    <p:commandButton  value="Imprimir" icon="pi pi-print" >
                         <p:printer target="impresion" />
                     </p:commandButton>
                 </h:panelGrid>
@@ -31,12 +31,12 @@
 
                                 <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaBodeguero}" for="ingrUsuaBodeguero" />
                                 <p:inputText id="ingrUsuaBodeguero" style="width: 250px" value="#{ingresoController.selected.ingrUsuaBodeguero.usuaGrado} #{ingresoController.selected.ingrUsuaBodeguero.usuaApellido} #{ingresoController.selected.ingrUsuaBodeguero.usuaNombre} " readonly="true"/>
-                                
+
 
                                 <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaCompPublicas}" for="ingrUsuaCompPublicas" />
                                 <p:inputText id="ingrUsuaCompPublicas" style="width: 250px" value="#{ingresoController.selected.ingrUsuaCompPublicas.usuaGrado} #{ingresoController.selected.ingrUsuaCompPublicas.usuaApellido} #{ingresoController.selected.ingrUsuaCompPublicas.usuaNombre} " readonly="true"/>
-                                
-                                
+
+
                                 <p:outputLabel value="#{bundle.CreateIngresoLabel_ingrUsuaLogistica}" for="ingrUsuaLogistica" />
                                 <p:inputText id="ingrUsuaLogistica" style="width: 250px" value="#{ingresoController.selected.ingrUsuaLogistica.usuaGrado} #{ingresoController.selected.ingrUsuaLogistica.usuaApellido} #{ingresoController.selected.ingrUsuaLogistica.usuaNombre} " readonly="true"/>
 
@@ -87,7 +87,7 @@
                         <p:column headerText="Total">
                             $ <h:outputText value="#{listaDetalle.detaIngrTotal}" /> 
                         </p:column>
-                     
+
 
                     </p:dataTable>
                     <p:separator/>
@@ -95,10 +95,12 @@
                         TOTAL  $
                         <p:outputLabel style="font-size: 24px;" id="lblTotalFactura" value="#{ingresoController.selected.ingrTotal}"/>                                       
                     </h:panelGrid>
-
-                    <p:commandButton value="Cerrar" action="#{ingresoController.limpiarFactura()}" oncomplete="PF('IngresoViewDialog').hide()"/>
                 </p:panel>
+                <div style="justify-content: center; text-align: center">
+                    <p:commandButton value="Cerrar" action="#{ingresoController.limpiarFactura()}" oncomplete="PF('IngresoViewDialog').hide()"/>
+                </div>
             </h:form>
+
         </p:dialog>
 
     </ui:composition>
